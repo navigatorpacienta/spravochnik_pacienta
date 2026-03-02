@@ -6,7 +6,6 @@
     <link rel="icon" href="favicon.ico?v=2" type="image/x-icon"> 
     <title>Как добраться | Балашихинский стационар</title>
     
-    <!-- ЛОКАЛЬНЫЕ ШРИФТЫ (как в исходном файле) -->
     <style>
         @font-face {
             font-family: 'Inter';
@@ -86,6 +85,7 @@
             display: flex;
             align-items: center;
             gap: 30px; 
+            margin-bottom: 0; /* УБРАЛ ОТСТУП СНИЗУ */
         }
 
         .content-header::before {
@@ -125,12 +125,8 @@
         .page-title {
             font-size: 3rem; 
             font-weight: 800;
-            background: none; 
-            -webkit-background-clip: unset;
-            -webkit-text-fill-color: unset;
-            background-clip: unset;
             color: var(--text-primary); 
-            margin-bottom: 6px;
+            margin-bottom: 5px;
             line-height: 1.1;
         }
 
@@ -142,18 +138,17 @@
             color: var(--dark-turquoise); 
         }
 
-        .page-description {
-            color: var(--text-secondary);
-            font-size: 1.1rem;
-            font-weight: 400;
-            max-width: none;
-            margin: 0;
-            line-height: 1.5;
-            text-align: left;
+        /* АДРЕС - КАК НА СКРИНШОТЕ */
+        .address-large {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-top: 0;
+            line-height: 1.2;
         }
         
         .content-area {
-            padding: 35px;
+            padding: 0 35px 35px 35px; /* УБРАЛ ВЕРХНИЙ ОТСТУП ПОЛНОСТЬЮ */
             max-width: 1200px;
             margin: 0 auto;
         }
@@ -167,6 +162,10 @@
             border: 1px solid var(--border);
             position: relative;
             overflow: hidden;
+        }
+
+        .route-card:first-child {
+            margin-top: 0; /* ПЕРВЫЙ БЛОК БЕЗ ВЕРХНЕГО ОТСТУПА */
         }
 
         .route-card::before {
@@ -234,25 +233,6 @@
             margin: 25px 0;
         }
 
-        .highlight-box p {
-            margin-bottom: 10px;
-        }
-
-        .highlight-box p:last-child {
-            margin-bottom: 0;
-        }
-
-        .badge {
-            display: inline-block;
-            background: var(--accent);
-            color: white;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            margin-right: 10px;
-        }
-
         .stop-name {
             font-weight: 700;
             color: var(--primary);
@@ -260,6 +240,39 @@
             padding: 2px 8px;
             border-radius: 6px;
             display: inline-block;
+        }
+
+        .print-button-container {
+            display: flex;
+            justify-content: center;
+            margin: 40px 0 20px 0;
+        }
+
+        .print-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            background: var(--primary);
+            color: white;
+            font-size: 1.3rem;
+            font-weight: 600;
+            padding: 18px 40px;
+            border-radius: 60px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .print-button:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .print-icon {
+            font-size: 1.6rem;
         }
 
         .footer {
@@ -273,15 +286,14 @@
             margin-top: 35px;
         }
         
-        .footer p {
-            margin-bottom: 10px;
-            font-weight: 500;
-        }
-        
         .year {
             color: var(--primary);
             font-weight: 700;
             font-size: 1.05rem;
+        }
+
+        @media print {
+            .print-button-container { display: none; }
         }
 
         @media (max-width: 768px) {
@@ -289,7 +301,6 @@
                 padding: 25px 20px;
                 flex-direction: column;
                 align-items: flex-start;
-                text-align: left;
                 gap: 15px;
             }
             .header-logo {
@@ -299,8 +310,11 @@
             .page-title {
                 font-size: 2rem;
             }
+            .address-large {
+                font-size: 1.6rem;
+            }
             .content-area {
-                padding: 20px;
+                padding: 0 20px 20px 20px;
             }
             .route-card {
                 padding: 20px;
@@ -321,12 +335,12 @@
                 <h1 class="page-title">
                     <span class="title-navigator">Как добраться</span> <span class="title-specialist">до стационара</span>
                 </h1>
-                <p class="page-description">д. Павлино, вл. 65</p>
+                <div class="address-large">д. Павлино, вл. 65</div>
             </div>
         </header>
         
+        <!-- ПЕРВЫЙ БЛОК ИДЕТ СРАЗУ ПОСЛЕ ШАПКИ, БЕЗ РАЗРЫВА -->
         <div class="content-area">
-            <!-- Вариант 1: Метро + автобус -->
             <div class="route-card">
                 <h2><span>🚇🚌</span> Вариант 1: Метро + автобус (самый удобный)</h2>
                 <p><strong>Подходит для:</strong> тех, кто едет из Москвы и не хочет разбираться с электричками.</p>
@@ -343,7 +357,7 @@
                     </li>
                     <li style="counter-increment: step-counter; padding-left: 40px; margin-bottom: 20px; position: relative;">
                         <strong style="position: absolute; left: 0; color: var(--accent); font-size: 1.3rem;">3.</strong>
-                        Едете до остановки <span class="stop-name">«Поворот на Павлино»</span>. Это не конечная, ориентируйтесь по карте в телефоне.
+                        Едете до остановки <span class="stop-name">«Поворот на Павлино»</span>.
                     </li>
                     <li style="counter-increment: step-counter; padding-left: 40px; margin-bottom: 20px; position: relative;">
                         <strong style="position: absolute; left: 0; color: var(--accent); font-size: 1.3rem;">4.</strong>
@@ -363,7 +377,7 @@
                     </li>
                     <li style="counter-increment: step-counter; padding-left: 40px; margin-bottom: 20px; position: relative;">
                         <strong style="position: absolute; left: 0; color: var(--accent); font-size: 1.3rem;">3.</strong>
-                        Дальше — пешком 10–15 минут (см. выше).
+                        Дальше — пешком 10–15 минут.
                     </li>
                 </ol>
 
@@ -384,7 +398,7 @@
                 </ol>
             </div>
 
-            <!-- Вариант 2: Электричка + автобус -->
+            <!-- Остальные блоки (электричка, ориентиры, контакты, кнопка, подвал) -->
             <div class="route-card">
                 <h2><span>🚂🚌</span> Вариант 2: Электричка до станции «Железнодорожная» + автобус</h2>
                 <p><strong>Подходит для:</strong> тех, кто живет ближе к Горьковскому направлению или едет из области.</p>
@@ -404,56 +418,47 @@
                     </li>
                     <li style="counter-increment: step-counter; padding-left: 40px; margin-bottom: 20px; position: relative;">
                         <strong style="position: absolute; left: 0; color: var(--accent); font-size: 1.3rem;">4.</strong>
-                        Едете до остановки <span class="stop-name">«Павлино»</span>. Это конечная или предпоследняя.
+                        Едете до остановки <span class="stop-name">«Павлино»</span>.
                     </li>
                     <li style="counter-increment: step-counter; padding-left: 40px; margin-bottom: 20px; position: relative;">
                         <strong style="position: absolute; left: 0; color: var(--accent); font-size: 1.3rem;">5.</strong>
-                        Выходите — больница рядом. Ориентир — забор и корпуса стационара.
+                        Выходите — больница рядом.
                     </li>
                 </ol>
             </div>
 
-            <!-- Остановки и ориентиры -->
             <div class="highlight-box">
                 <h3 style="color: var(--dark-turquoise); margin-bottom: 15px; font-size: 1.4rem;">Остановки и ориентиры</h3>
                 <ul class="route-list" style="margin-bottom: 0;">
-                    <li><strong>Остановка <span class="stop-name">«Поворот на Павлино»</span></strong> — отсюда идти пешком 10–15 минут. Ориентир — указатель на жилой комплекс «Новоград Павлино».</li>
-                    <li><strong>Остановка <span class="stop-name">«Павлино»</span></strong> — конечная автобусов № 23 и 26. Почти рядом с больницей, 2–3 минуты пешком.</li>
-                    <li><strong>Ориентир для такси:</strong> говорите «Противотуберкулезный диспансер в Павлино, стационар». Таксисты знают.</li>
+                    <li><strong>Остановка <span class="stop-name">«Поворот на Павлино»</span></strong> — отсюда идти пешком 10–15 минут.</li>
+                    <li><strong>Остановка <span class="stop-name">«Павлино»</span></strong> — конечная автобусов № 23 и 26. Рядом с больницей.</li>
+                    <li><strong>Ориентир для такси:</strong> «Противотуберкулезный диспансер в Павлино».</li>
                 </ul>
             </div>
 
-            <!-- Контакты -->
             <div class="highlight-box" style="background: var(--primary-very-light); border-left-color: var(--primary);">
-                <h3 style="color: var(--primary); margin-bottom: 15px; font-size: 1.4rem;">Контакты стационара (если заблудились)</h3>
+                <h3 style="color: var(--primary); margin-bottom: 15px; font-size: 1.4rem;">Контакты</h3>
                 <ul class="route-list" style="margin-bottom: 0;">
-                    <li><strong>Дежурный врач стационара:</strong> +7 (985) 860-92-96</li>
-                    <li><strong>Регистратура филиала:</strong> +7 (495) 527-62-68</li>
-                    <li><strong>Секретарь филиала:</strong> +7 (498) 662-60-79</li>
+                    <li><strong>Дежурный врач:</strong> +7 (985) 860-92-96</li>
+                    <li><strong>Регистратура:</strong> +7 (495) 527-62-68</li>
                 </ul>
             </div>
-            <!-- Важная информация -->
-            <div class="route-card" style="background: var(--primary-very-light); border-left: 4px solid var(--primary);">
+
+            <div class="route-card" style="background: var(--primary-very-light);">
                 <h3 style="color: var(--primary); margin-bottom: 15px;">Важно</h3>
-                <p style="font-size: 1.2rem; font-weight: 600; color: var(--primary); margin-bottom: 0;">Просьба явиться для госпитализации до 14:00</p>
+                <p style="font-size: 1.2rem; font-weight: 600; color: var(--primary);">Явиться для госпитализации до 14:00</p>
             </div>
 
-            <!-- Подвал (как в исходном файле) -->
+            <div class="print-button-container">
+                <button class="print-button" onclick="window.print()">
+                    <span class="print-icon">🖨️</span> Распечатать
+                </button>
+            </div>
+
             <div class="footer">
-                <p style="font-size: 1rem; max-width: 700px; margin: 0 auto 25px auto; line-height: 1.5; color: var(--text-primary);">
-                    Если что-то непонятно или нашли ошибку — напишите. Этот текст будет дополняться.
-                </p>
-                
-                <div style="margin-bottom: 20px;">
-                    <p style="font-size: 1rem; margin-bottom: 8px;">
-                        📧 <a href="mailto:mz_mokptd_klin@mosreg.ru" style="color: var(--primary); text-decoration: none; font-weight: 500;">mz_mokptd_klin@mosreg.ru</a>
-                    </p>
-                    <p style="font-size: 0.95rem; color: var(--text-primary);">
-                   ГБУЗ МО «МОКПТД»
-                    </p>
-                </div>
-                
-                <div style="border-top: 1px solid var(--border); padding-top: 20px;">
+                <p>Если что-то непонятно — напишите</p>
+                <p>📧 <a href="mailto:mz_mokptd_klin@mosreg.ru" style="color: var(--primary);">mz_mokptd_klin@mosreg.ru</a></p>
+                <div style="border-top: 1px solid var(--border); padding-top: 20px; margin-top: 20px;">
                     <span class="year">2025</span>
                 </div>
             </div>
