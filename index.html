@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <title>Навигатор пациента | ГБУЗ МО МОКПТД филиал Клинский</title>
+  
+    <style>
+    /* ===== ШРИФТЫ ===== */
+    @font-face {
+        font-family: 'Montserrat';
+        src: url('./fonts/montserrat-cyrillic-400.woff2') format('woff2');
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+    }
+    @font-face {
+        font-family: 'Montserrat';
+        src: url('./fonts/montserrat-cyrillic-500.woff2') format('woff2');
+        font-weight: 500;
+        font-style: normal;
+        font-display: swap;
+    }
+    @font-face {
+        font-family: 'Montserrat';
+        src: url('./fonts/montserrat-cyrillic-600.woff2') format('woff2');
+        font-weight: 600;
+        font-style: normal;
+        font-display: swap;
+    }
+    @font-face {
+        font-family: 'Montserrat';
+        src: url('./fonts/montserrat-cyrillic-700.woff2') format('woff2');
+        font-weight: 700;
+        font-style: normal;
+        font-display: swap;
+    }
+    @font-face {
+        font-family: 'Montserrat';
+        src: url('./fonts/montserrat-cyrillic-800.woff2') format('woff2');
+        font-weight: 800;
+        font-style: normal;
+        font-display: swap;
+    }
+
+    @font-face {
+        font-family: 'Roboto';
+        src: url('./fonts/Roboto-Regular.woff2') format('woff2');
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+    }
+    @font-face {
+        font-family: 'Roboto';
+        src: url('./fonts/Roboto-Medium.woff2') format('woff2');
+        font-weight: 500;
+        font-style: normal;
+        font-display: swap;
+    }
+    @font-face {
+        font-family: 'Roboto';
+        src: url('./fonts/Roboto-Bold.woff2') format('woff2');
+        font-weight: 700;
+        font-style: normal;
+        font-display: swap;
+    }
+    
+    /* ===== ЦВЕТА ===== */
+    :root {
+        --primary-red: #F4364C;
+        --dark-gray: #505759;
+        --medium-gray: #919D9D;
+        --dark-blue: #365ABD;
+        --medium-blue: #5F8DDA;
+        --light-blue: #B8C9E1;
+        
+        --text: var(--dark-gray);
+        --text-light: var(--medium-gray);
+        --background: #FFFFFF;
+        --surface: #F5F7FA;
+        --border: #E0E0E0;
+        --shadow-sm: 0 2px 8px rgba(0,0,0,0.05);
+        --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+        --shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
+    }
+    
+    body {
+        font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        background: var(--surface);
+        color: var(--text);
+        line-height: 1.6;
+        padding: 25px 20px;
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+
+    .footer, 
+    .link-item, 
+    .dropdown-item,
+    .contact-position,
+    .section-item {
+        font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+
+    /* ===== ШАПКА ===== */
+    .header {
+        position: relative;
+        text-align: center;
+        padding: 45px 25px;
+        background: linear-gradient(135deg, var(--dark-blue) 0%, var(--medium-blue) 100%);
+        color: white;
+        border-radius: 16px;
+        margin-bottom: 35px;
+        box-shadow: var(--shadow-lg);
+        overflow: hidden;
+    }
+    
+    .header img.romashka {
+        position: absolute;
+        z-index: 0;
+        opacity: 0.5;
+        user-select: none;
+        pointer-events: none;
+        width: auto;
+        height: auto;
+    }
+    
+    .institution-name {
+        font-size: 1.2rem;
+        margin-bottom: 12px;
+        font-weight: 500;
+        opacity: 0.95;
+        position: relative;
+        z-index: 2;
+    }
+    
+    /* ЗАГОЛОВОК — полный размер, центрирован */
+    .header h1 {
+        font-size: 3rem;
+        margin-bottom: 18px;
+        font-weight: 800;
+        line-height: 1.1;
+        position: relative;
+        z-index: 2;
+        text-align: center;
+    }
+    
+    /* ПОДЗАГОЛОВОК — выразительный */
+    .header p {
+        font-size: 1.4rem;
+        font-weight: 600;
+        opacity: 0.95;
+        max-width: 700px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 2;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    /* ===== КОНТАКТНЫЙ БЛОК ===== */
+    .contact-block {
+        background: white;
+        padding: 30px;
+        border-radius: 14px;
+        margin: 35px 0;
+        text-align: center;
+        border: 1px solid var(--border);
+        box-shadow: var(--shadow-md);
+    }
+    .contact-text {
+        font-size: 1.4rem;
+        color: var(--dark-blue);
+        margin-bottom: 20px;
+        line-height: 1.5;
+        font-weight: 700;
+    }
+    .contact-text-red {
+        color: var(--primary-red);
+        font-weight: 700;
+    }
+    .contact-name {
+        font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        font-size: 1.4rem;
+        color: var(--text-light);
+        font-weight: 500;
+        margin: 18px 0 4px 0;
+        line-height: 1.6;
+    }
+    .contact-position {
+        font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        font-size: 1.1rem;
+        color: var(--text-light);
+        font-weight: 500;
+        margin: 0 0 25px 0;
+        line-height: 1.6;
+    }
+    .contact-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap;
+        margin-top: 25px;
+    }
+    .contact-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        color: white;
+        font-size: 1.2rem;
+        font-weight: 600;
+        padding: 16px 28px;
+        border-radius: 50px;
+        text-decoration: none;
+        transition: all 0.2s ease;
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        min-width: 200px;
+    }
+    .contact-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+    }
+    .contact-btn.phone { 
+        background: var(--primary-red); 
+    }
+    .contact-btn.telegram { 
+        background: var(--medium-blue); 
+    }
+    
+    /* ===== СЕТКА КАРТОЧЕК ===== */
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 25px;
+        margin: 40px 0;
+    }
+    
+    .card.centered {
+        grid-column: 1 / -1;
+        justify-self: center;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .card {
+        background: var(--background);
+        border-radius: 14px;
+        padding: 25px;
+        box-shadow: var(--shadow-sm);
+        border: 1px solid var(--border);
+        transition: all 0.25s ease;
+        cursor: pointer;
+        text-decoration: none !important;
+        min-height: 120px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .card:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-md);
+        border-color: var(--light-blue);
+    }
+    .card-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+    .card-icon {
+        font-size: 2.4rem;
+        margin-right: 15px;
+        color: var(--primary-red);
+    }
+    .card-title {
+        font-size: 1.5rem;
+        color: var(--dark-blue);
+        font-weight: 700;
+        flex-grow: 1;
+        line-height: 1.3;
+    }
+    .card.expandable .card-header::after {
+        content: '▼';
+        color: var(--medium-gray);
+        font-size: 0.9rem;
+        transition: transform 0.25s ease;
+        margin-left: 10px;
+    }
+    .card.expandable.expanded .card-header::after { transform: rotate(180deg); }
+    
+    .link-list {
+        list-style: none;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+        margin-top: 10px;
+    }
+    .card.expanded .link-list { max-height: 1000px; }
+    
+    .link-item {
+        display: block;
+        padding: 14px 16px;
+        margin-bottom: 10px;
+        background: var(--surface);
+        border-radius: 10px;
+        text-decoration: none;
+        color: var(--text);
+        border-left: 4px solid var(--primary-red);
+        transition: all 0.15s ease;
+        font-size: 1.1rem;
+        font-weight: 500;
+    }
+    .link-item:hover {
+        background: rgba(244, 54, 76, 0.05);
+        padding-left: 20px;
+        color: var(--primary-red);
+    }
+    
+    .dropdown-toggle {
+        cursor: pointer;
+        position: relative;
+        padding-right: 40px;
+    }
+    .dropdown-toggle::after {
+        content: '▼';
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 0.8rem;
+        color: var(--medium-gray);
+        transition: transform 0.25s ease;
+    }
+    .dropdown-toggle.expanded::after { transform: translateY(-50%) rotate(180deg); }
+    .dropdown-content {
+        display: none;
+        background: white;
+        border-radius: 10px;
+        margin: 8px 0 12px 15px;
+        box-shadow: var(--shadow-sm);
+        border: 1px solid var(--border);
+        overflow: hidden;
+    }
+    .dropdown-content.show { display: block; animation: fadeIn 0.2s ease; }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-6px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .dropdown-item {
+        display: block;
+        padding: 12px 16px;
+        text-decoration: none;
+        color: var(--text);
+        border-bottom: 1px solid var(--border);
+        transition: all 0.15s ease;
+        font-size: 1rem;
+    }
+    .dropdown-item:last-child { border-bottom: none; }
+    .dropdown-item:hover {
+        background: rgba(244, 54, 76, 0.05);
+        color: var(--primary-red);
+        padding-left: 20px;
+    }
+    .dropdown-item-icon { margin-right: 10px; font-size: 0.9rem; }
+    
+    /* ===== МОДАЛЬНЫЕ ОКНА ===== */
+    .modal-preview {
+        display: none;
+        position: fixed;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background-color: rgba(0,0,0,0.5);
+        z-index: 2000;
+        align-items: center;
+        justify-content: center;
+        backdrop-filter: blur(3px);
+    }
+    .modal-preview.active { display: flex; }
+    .modal-preview__content {
+        background: white;
+        width: 92%;
+        max-width: 520px;
+        max-height: 80vh;
+        border-radius: 28px;
+        box-shadow: var(--shadow-lg);
+        padding: 28px 24px;
+        position: relative;
+        animation: modalFadeIn 0.2s;
+        overflow-y: auto;
+    }
+    @keyframes modalFadeIn {
+        from { opacity: 0.8; transform: scale(0.97); }
+        to { opacity: 1; transform: scale(1); }
+    }
+    .modal-preview__close {
+        position: absolute;
+        top: 16px; right: 18px;
+        font-size: 32px;
+        line-height: 1;
+        cursor: pointer;
+        color: #aaa;
+        background: none;
+        border: none;
+        width: 44px; height: 44px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10;
+    }
+    .modal-preview__close:hover { color: #333; background: #f0f0f0; }
+    
+    .section-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+    .section-item {
+        background: #f8fafc;
+        border-radius: 18px;
+        padding: 18px 20px;
+        border: 1px solid #e9edf2;
+        cursor: pointer;
+        transition: all 0.15s;
+        font-size: 1.2rem;
+        font-weight: 500;
+        color: var(--dark-blue);
+    }
+    .section-item:hover {
+        background: rgba(53, 90, 189, 0.08);
+        color: var(--dark-blue);
+        border-color: var(--light-blue);
+    }
+    
+    .preview-card {
+        background: #ffffff;
+        border-radius: 24px;
+        padding: 24px 22px;
+        border: 1px solid #e2e8f0;
+        margin-top: 16px;
+    }
+    .preview-card__text {
+        font-size: 1.1rem;
+        color: var(--dark-gray);
+        line-height: 1.7;
+        background: #f8fafc;
+        padding: 20px 22px;
+        border-radius: 20px;
+        border-left: 4px solid var(--dark-blue);
+        margin-bottom: 28px;
+    }
+    .preview-card__button {
+        display: block;
+        width: fit-content;
+        margin: 0 auto;
+        background: transparent;
+        color: var(--dark-blue);
+        font-weight: 600;
+        padding: 12px 32px;
+        border-radius: 40px;
+        text-decoration: none;
+        font-size: 1.1rem;
+        border: 2px solid var(--dark-blue);
+        transition: background 0.15s;
+        text-align: center;
+    }
+    .preview-card__button:hover { 
+        background: rgba(53, 90, 189, 0.05); 
+    }
+    
+    .back-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: none;
+        border: none;
+        color: var(--dark-blue);
+        font-size: 1rem;
+        font-weight: 500;
+        padding: 0 0 16px 0;
+        cursor: pointer;
+    }
+    .back-button:hover { 
+        color: var(--primary-red); 
+    }
+    
+    .footer {
+        text-align: center;
+        padding: 30px;
+        margin-top: 50px;
+        color: var(--text-light);
+        border-top: 1px solid var(--border);
+        font-size: 1rem;
+    }
+    
+    /* ===== МОБИЛЬНАЯ ВЕРСИЯ ===== */
+    @media (max-width: 768px) {
+        .header {
+            padding: 35px 20px;
+        }
+        
+        /* Заголовок — без уменьшения, просто перенос */
+        .header h1 {
+            font-size: 3rem;
+            word-break: break-word;
+        }
+        
+        /* Подзаголовок — чуть меньше, но жирный */
+        .header p {
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+        
+        /* Ромашки — размеры как на десктопе, только позиции скорректированы */
+        .header img.romashka:nth-of-type(1) { /* левая верхняя */
+            top: 5%;
+            left: 2%;
+            width: 60px;
+        }
+        
+        .header img.romashka:nth-of-type(2) { /* правая верхняя */
+            top: 8%;
+            right: 1%;
+            width: 45px;
+        }
+        
+        .header img.romashka:nth-of-type(3) { /* нижняя левая большая */
+            bottom: 10%;
+            left: 1%;
+            width: 90px;
+            opacity: 0.25;
+        }
+        
+        .header img.romashka:nth-of-type(4) { /* маленькая центральная */
+            top: 15%;
+            left: 35%;
+            width: 35px;
+        }
+        
+        .header img.romashka:nth-of-type(5) { /* большая со сдвигом */
+            bottom: 15%;
+            right: 5%;
+            width: 75px;
+            transform: rotate(5deg);
+            opacity: 0.3;
+        }
+    }
+    
+    @media (max-width: 480px) {
+        .header h1 {
+            font-size: 2.6rem; /* чуть меньше только на очень узких */
+        }
+        
+        .header p {
+            font-size: 1.2rem;
+        }
+        
+        .modal-preview__content { padding: 24px 18px; }
+        .section-item { padding: 16px 18px; font-size: 1.1rem; }
+        .preview-card { padding: 20px 18px; }
+    }
+
+    </style>
+    <style>
+        @media (min-width: 1024px) {
+            .contact-buttons a img {
+                width: 80px !important;
+                height: 80px !important;
+            }
+            .contact-buttons {
+                gap: 35px !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <img src="romashka.png" alt="Ромашка" class="romashka" style="top:10%; left:5%; width:60px; transform:rotate(-5deg);">
+        <img src="romashka.png" alt="Ромашка" class="romashka" style="top:15%; right:2%; width:45px; transform:rotate(10deg);">
+        <img src="romashka.png" alt="Ромашка" class="romashka" style="bottom:20%; left:2%; width:90px; transform:rotate(-15deg); opacity:0.3;">
+        <img src="romashka.png" alt="Ромашка" class="romashka" style="top:5%; left:30%; width:35px; transform:rotate(-25deg);">
+        <img src="romashka.png" alt="Ромашка" class="romashka" style="bottom:25%; right:10%; width:75px; transform:rotate(5deg) translate(-75px, -150px); opacity:0.4;">
+        
+        <div class="institution-name">ГБУЗ МО МОКПТД<br>Филиал Клинский</div>
+        <h1>Справочник пациента</h1>
+        <p>Помогает понять диагностику и лечение, следить за их этапами и выполнять всё правильно.</p>
+    </header>
+
+   <!-- КОНТАКТНЫЙ БЛОК - ТОЛЬКО ЗНАЧКИ (БЕЗ ТЕНИ) -->
+<div class="contact-block">
+    <div class="contact-text">По вопросам доступности или качества оказания медицинской помощи обращайтесь напрямую к заведующему филиалом. Не стесняйтесь!<br><span class="contact-text-red">Это решит вопрос здесь и сейчас и поможет нам стать лучше.</span></div>
+    <div class="contact-name">Лукаш Игорь Александрович</div>
+    <div class="contact-position">Заведующий филиалом</div>
+    <div class="contact-buttons" style="display: flex; justify-content: center; gap: 25px; margin-top: 30px; flex-wrap: wrap;">
+        <!-- Телефон -->
+        <a href="tel:+79153861585" style="display: inline-block;">
+            <img src="z.png" alt="Позвонить" style="width: 64px; height: 64px; border-radius: 50%; transition: transform 0.2s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+        </a>
+        
+        <!-- Telegram -->
+        <a href="tg://resolve?domain=Megaluk" style="display: inline-block;">
+            <img src="t.png" alt="Telegram" style="width: 64px; height: 64px; border-radius: 50%; transition: transform 0.2s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+        </a>
+        
+        <!-- MAX -->
+        <a href="https://max.ru/u/f9LHodD0cOKwsK0ZdY8UeKromigzANI19JojbpM-LWvclw4LHqz9IKoAKcI" style="display: inline-block;" target="_blank">
+            <img src="m.png" alt="MAX" style="width: 64px; height: 64px; border-radius: 50%; transition: transform 0.2s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+        </a>
+    </div>
+</div>
+
+    <div class="grid" id="cardGrid">
+        <!-- ========== КАРТОЧКА 1: О нашем учреждении ========== -->
+        <div class="card expandable" data-preview="about">
+            <div class="card-header"><div class="card-icon">🏥</div><div class="card-title">О нашем учреждении</div></div>
+        </div>
+        
+        <!-- ========== КАРТОЧКА 2: Как мы улучшаем качество ========== -->
+        <div class="card card-link" data-direct="quality" style="cursor:pointer;">
+            <div class="card-header"><div class="card-icon">🤝</div><div class="card-title">Как мы улучшаем качество нашей работы вместе с вами</div></div>
+        </div>
+        
+        <!-- ========== КАРТОЧКА 3: Общая информация о туберкулезе ========== -->
+        <div class="card card-link" data-direct="general_info">
+            <div class="card-header">
+                <div class="card-icon">📘</div>
+                <div class="card-title">Общая информация для пациентов о туберкулезе</div>
+            </div>
+        </div>
+        
+        <!-- ========== КАРТОЧКА 4: Диагностика ========== -->
+        <div class="card expandable" data-preview="diagnostics">
+            <div class="card-header"><div class="card-icon">🔬</div><div class="card-title">Диагностика</div></div>
+        </div>
+        
+        <!-- ========== КАРТОЧКА 5: Консервативное лечение ========== -->
+        <div class="card expandable" data-preview="treatment">
+            <div class="card-header"><div class="card-icon">💊</div><div class="card-title">Консервативное лечение</div></div>
+        </div>
+        
+        <!-- ========== КАРТОЧКА 6: Хирургическое лечение ========== -->
+        <div class="card card-link" data-direct="surgery" style="cursor:pointer;">
+            <div class="card-header"><div class="card-icon">⚕️</div><div class="card-title">Хирургическое лечение</div></div>
+        </div>
+        
+        <!-- ========== КАРТОЧКА 7: Профилактика ========== -->
+        <div class="card expandable" data-preview="prevention">
+            <div class="card-header"><div class="card-icon">🛡️</div><div class="card-title">Профилактика и раннее выявление туберкулёза</div></div>
+        </div>
+
+        <!-- ========== КАРТОЧКА 8: Клинические рекомендации ========== -->
+        <div class="card card-link" data-direct="clinical_guidelines" style="cursor:pointer;">
+            <div class="card-header">
+                <div class="card-icon">📋</div>
+                <div class="card-title">Клинические рекомендации</div>
+            </div>
+        </div>
+        
+        <!-- ========== КАРТОЧКА 9: Ответы на частые вопросы ========== -->
+        <a href="faq.html" class="card card-link"><div class="card-header"><div class="card-icon">❓</div><div class="card-title">Ответы на частые вопросы</div></div></a>
+        
+                        <!-- ========== КАРТОЧКА 10: Нормативная база ========== -->
+        <div class="card expandable" onclick="toggleCard(this)">
+            <div class="card-header"><div class="card-icon">⚖️</div><div class="card-title">Нормативная база</div></div>
+            <div class="link-list">
+                <!-- Документ 1: Московская областная программа госгарантий -->
+                <div class="link-item dropdown-toggle" onclick="toggleDropdown('doc1', event)">Московская областная программа госгарантий</div>
+                <div class="dropdown-content" id="dropdown-doc1">
+                    <a href="https://mosreg.ru/download/document/1315416" class="dropdown-item" target="_blank"><span class="dropdown-item-icon">📄</span> Ссылка на официальный документ</a>
+                    <a href="fz323.html" class="dropdown-item"><span class="dropdown-item-icon">💡</span> Разъяснения простыми словами</a>
+                </div>
+                
+                <!-- Документ 2: Программа госгарантий РФ -->
+                <div class="link-item dropdown-toggle" onclick="toggleDropdown('doc2', event)">Программа госгарантий РФ</div>
+                <div class="dropdown-content" id="dropdown-doc2">
+                    <a href="http://actual.pravo.gov.ru/content/content.html#pnum=0001202512300036" class="dropdown-item" target="_blank"><span class="dropdown-item-icon">📄</span> Ссылка на официальный документ</a>
+                    <a href="fz323.html" class="dropdown-item"><span class="dropdown-item-icon">💡</span> Разъяснения простыми словами</a>
+                </div>
+                
+                <!-- Документ 3: ФЗ-323 "Об основах охраны здоровья" -->
+                <div class="link-item dropdown-toggle" onclick="toggleDropdown('doc3', event)">ФЗ-323 "Об основах охраны здоровья"</div>
+                <div class="dropdown-content" id="dropdown-doc3">
+                    <a href="fz323zakon.html" class="dropdown-item"><span class="dropdown-item-icon">📄</span> Основной документ</a>
+                    <a href="fz323.html" class="dropdown-item"><span class="dropdown-item-icon">💡</span> Разъяснения простыми словами</a>
+                </div>
+                
+                <!-- Документ 4: ФЗ-59 "О порядке рассмотрения обращений граждан" -->
+                <div class="link-item dropdown-toggle" onclick="toggleDropdown('doc4', event)">ФЗ-59 "О порядке рассмотрения обращений граждан"</div>
+                <div class="dropdown-content" id="dropdown-doc4">
+                    <a href="documents/fz№59.pdf" class="dropdown-item" target="_blank"><span class="dropdown-item-icon">📄</span> Ссылка на документ</a>
+                    <a href="fz59.html" class="dropdown-item"><span class="dropdown-item-icon">💡</span> Разъяснения простыми словами</a>
+                </div>
+                
+                <!-- Документ 5: Трудовой кодекс РФ (ст. 213) -->
+                <div class="link-item dropdown-toggle" onclick="toggleDropdown('doc5', event)">Трудовой кодекс РФ (ст. 213) — оплата медосмотров</div>
+                <div class="dropdown-content" id="dropdown-doc5">
+                    <a href="documents/trudcodeks.pdf" class="dropdown-item" target="_blank"><span class="dropdown-item-icon">📄</span> Ссылка на документ</a>
+                    <a href="trudkodeks213.html" class="dropdown-item"><span class="dropdown-item-icon">💡</span> Разъяснения простыми словами</a>
+                </div>
+                                <!-- Документ 7: ФЗ-326 "Об обязательном медицинском страховании" -->
+                <div class="link-item dropdown-toggle" onclick="toggleDropdown('doc7', event)">ФЗ-326 "Об обязательном медицинском страховании"</div>
+                <div class="dropdown-content" id="dropdown-doc7">
+                    <a href="documents/fz326.pdf" class="dropdown-item" target="_blank"><span class="dropdown-item-icon">📄</span> Ссылка на документ (PDF)</a>
+                    <a href="fz326.html" class="dropdown-item"><span class="dropdown-item-icon">💡</span> Разъяснения простыми словами</a>
+                </div>
+                
+                <!-- Документ 6: Закон о защите прав потребителей (№ 2300-1) -->
+                <div class="link-item dropdown-toggle" onclick="toggleDropdown('doc6', event)">Закон о защите прав потребителей (№ 2300-1)</div>
+                <div class="dropdown-content" id="dropdown-doc6">
+                    <a href="documents/zpp.pdf" class="dropdown-item" target="_blank"><span class="dropdown-item-icon">📄</span> Ссылка на документ</a>
+                    <a href="zpp.html" class="dropdown-item"><span class="dropdown-item-icon">💡</span> Разъяснения простыми словами</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- ========== КАРТОЧКА 11: Обратная связь ========== -->
+        <div class="card expandable" data-preview="feedback">
+            <div class="card-header"><div class="card-icon">💬</div><div class="card-title">Обратная связь</div></div>
+        </div>
+        
+        <!-- ========== КАРТОЧКА 12: Официальный сайт ========== -->
+        <div class="card card-link" data-official="true" style="cursor:pointer;">
+            <div class="card-header"><div class="card-icon">🌐</div><div class="card-title">Официальный сайт</div></div>
+        </div>
+    </div>
+
+    <footer class="footer"><p>2026</p><p>г.о. Клин</p></footer>
+
+    <!-- Первое модальное окно для списка разделов (только для expandable карточек) -->
+    <div class="modal-preview" id="previewModal">
+        <div class="modal-preview__content">
+            <button class="modal-preview__close" id="closePreviewModal">&times;</button>
+            <div id="modalPreviewBody"></div>
+        </div>
+    </div>
+
+    <!-- Второе модальное окно для превью -->
+    <div class="modal-preview" id="itemPreviewModal">
+        <div class="modal-preview__content">
+            <button class="modal-preview__close" id="closeItemPreviewModal">&times;</button>
+            <div id="itemPreviewBody"></div>
+        </div>
+    </div>
+
+    <!-- Модальное окно для выбора отделений (официальный сайт) -->
+    <div class="modal-preview" id="officialChoiceModal">
+        <div class="modal-preview__content">
+            <button class="modal-preview__close" id="closeOfficialChoiceModal">&times;</button>
+            <div class="section-list">
+                <div class="section-item" data-official-choice="klin">Клинское отделение</div>
+                <div class="section-item" data-official-choice="khimki">Химкинское отделение</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+// ============================================
+// НАВИГАТОР ПАЦИЕНТА - ПОЛНОСТЬЮ ПЕРЕПИСАННЫЙ СКРИПТ
+// ============================================
+
+(function() {
+    'use strict';
+
+    // ========== ДАННЫЕ ==========
+    const DATA = {
+        sections: {
+            about: {
+                items: [
+                    { 
+                        name: 'Наши ценности и миссия', 
+                        link: 'missia.html', 
+                        preview: 'Здесь вы узнаете, к чему мы стремимся, наши главные цели и принципы работы.' 
+                    },
+                    { 
+                        name: 'История Клинского противотуберкулезного диспансера', 
+                        link: 'https://navigatorpacienta.github.io/istoricheskaya/', 
+                        preview: 'История о том, как жители Клинского района за свой счет строили первый диспансер, о врачах-энтузиастах, посвятивших свою жизнь борьбе с туберкулезом.' 
+                    },
+                    { 
+                        name: 'История Химкинского противотуберкулезного диспансера', 
+                        link: 'https://navigatorpacienta.github.io/istoricheskayakhimki/', 
+                        preview: 'История становления и развития противотуберкулезной службы в Химкинском районе Московской области, о врачах-энтузиастах, посвятивших свою жизнь борьбе с туберкулезом.' 
+                    }
+                ]
+            },
+            diagnostics: {
+                items: [
+                    { 
+                        name: 'Почему важно правильно собрать мокроту', 
+                        link: 'sbor_mokroti.html', 
+                        preview: 'Чтобы определить, какие лекарства смогут уничтожить бактерию туберкулеза именно в вашем случае, необходимо найти в мокроте микобактерию и изучить её. А это возможно только в том случае, если мокрота собрана правильно.' 
+                    }
+                ]
+            },
+            treatment: {
+                items: [
+                   { 
+            name: 'Основные принципы противотуберкулезной терапии', 
+            link: 'principi_lechenia.html', 
+            preview: 'Семь принципов, на которых строится лечение туберкулёза. Индивидуальный подход, своевременность, правильная комбинация препаратов, непрерывность, комплексная терапия, контролируемый приём и мониторинг побочного действия лекарств. Коротко и понятно — чтобы вы понимали логику лечения.' 
+        },
+                    { 
+                        name: 'Как правильно принимать лекарства', 
+                        link: 'Pacientam_o_preparatax.html', 
+                        preview: 'Ознакомившись с этой информацией, вы станете осознанно подходить к приему лекарств, сможете контролировать процесс и отслеживать возможные побочные эффекты. Вы поймете, почему и когда проводятся необходимые обследования.' 
+                    },
+                    { 
+                        name: 'Почему нельзя пропускать прием лекарств', 
+                        link: 'nelzya_propuskat.html', 
+                        preview: 'Перерывы в лечении приводят к привыканию микробов к таблеткам, и тогда лечение перестает быть эффективным. Чтобы узнать, почему так происходит, нажмите "перейти"' 
+                    }
+                ]
+            },
+            prevention: {
+                items: [
+                    { 
+                        name: 'Организация работы в производственном очаге туберкулеза', 
+                        link: 'https://navigatorpacienta.github.io/informirovanie_v_ochagah_tuberculeza/', 
+                        preview: 'Туберкулёз редко касается только одного человека. Скорейшее обследование тных лиц это единственный способ своевременно предупредить развитие болезни или найти ее на самой ранней стадии.' 
+                    },
+                    { 
+                        name: 'О профосмотрах на туберкулез', 
+                        link: 'https://navigatorpacienta.github.io/o_profosmotrax_na_tuberkulez/', 
+                        preview: 'Профосмотр — это не формальность. Это способ обнаружить туберкулёз тогда, когда он лечится проще и быстрее. Текст сформирует понимание того, как организована работа системы здравоохранения по раннему выявлению туберкулеза.' 
+                    }
+                ]
+            },
+            feedback: {
+                items: [
+                    { 
+                        name: 'Оставить замечания или предложения', 
+                        link: 'https://forms.gle/bPcvrbcpFhjjPZai6', 
+                        preview: 'Здесь вы можете анонимно оставить свои замечания или предложения по работе нашего отделения. Нам важно ваше мнение!' 
+                    },
+                    { 
+                        name: 'Анкета удовлетворенности и комфорта пациента', 
+                        link: 'https://forms.gle/cviJBeGh2gwP1Gxy5', 
+                        preview: 'Комфорт и уважение — часть лечения. Анкета помогает увидеть медицинскую помощь глазами пациента. Пожалуйста, заполните краткую анкету — это поможет нам стать лучше и учесть ваши пожелания.' 
+                    }
+                ]
+            }
+        },
+        directLinks: {
+            quality: {
+                link: 'kachestvo_vmeste.html',
+                preview: 'Если что-то работает не так, мы должны об этом знать. Ваше сообщение помогает менять процессы, а не просто фиксировать проблему.'
+            },
+            general_info: {
+                link: 'informacia_iz_KK.html',
+                preview: 'Туберкулёз — излечимое заболевание. Здесь — простые обобщенные объяснения болезни, лечения, побочных эффектов и других рекомендаций во время терапии.'
+            },
+            surgery: {
+                link: 'https://navigatorpacienta.github.io/o_hirurgicheskom_lechenii/',
+                preview: 'Из этого раздела вы узнаете, что хирургическое лечение туберкулеза — это современный, безопасный и эффективный метод, который помогает добиться стойкого и благоприятного результата.'
+            },
+            clinical_guidelines: {
+                link: 'https://rof-tb.ru/structure',
+                preview: '<strong>Для чего эта информация вам?</strong><br><br>• <strong>Право на информацию:</strong> Согласно Федеральному закону № 323-ФЗ «Об основах охраны здоровья граждан в Российской Федерации» (ст. 22), каждый пациент имеет право на получение информации о своих правах и обязанностях, состоянии здоровья, а также о применяемых методах диагностики и лечения.<br><br>• <strong>Прозрачность лечения:</strong> Наличие доступа к документам позволяет пациенту понимать, насколько предлагаемое лечение соответствует актуальным научным данным.'
+            }
+        }
+    };
+
+    // ========== ЭЛЕМЕНТЫ DOM ==========
+    const elements = {
+        previewModal: document.getElementById('previewModal'),
+        itemPreviewModal: document.getElementById('itemPreviewModal'),
+        officialChoiceModal: document.getElementById('officialChoiceModal'),
+        modalPreviewBody: document.getElementById('modalPreviewBody'),
+        itemPreviewBody: document.getElementById('itemPreviewBody'),
+        closePreviewBtn: document.getElementById('closePreviewModal'),
+        closeItemPreviewBtn: document.getElementById('closeItemPreviewModal'),
+        closeOfficialChoiceBtn: document.getElementById('closeOfficialChoiceModal')
+    };
+
+    // ========== УПРАВЛЕНИЕ МОДАЛЬНЫМИ ОКНАМИ ==========
+    const modalManager = {
+        open: function(modal) {
+            if (modal) modal.classList.add('active');
+        },
+        close: function(modal) {
+            if (modal) modal.classList.remove('active');
+        },
+        closeAll: function() {
+            document.querySelectorAll('.modal-preview.active').forEach(m => m.classList.remove('active'));
+        }
+    };
+
+    // ========== УПРАВЛЕНИЕ ВЫПАДАЮЩИМИ СПИСКАМИ ==========
+    function initDropdowns() {
+        // Переключение карточек
+        window.toggleCard = function(card) {
+            if (card?.classList.contains('expandable')) {
+                card.classList.toggle('expanded');
+            }
+        };
+
+        // Переключение выпадающих списков
+        window.toggleDropdown = function(id, event) {
+            event?.stopPropagation();
+            
+            const dropdown = document.getElementById('dropdown-' + id);
+            const toggle = event?.currentTarget;
+            
+            if (!dropdown) return;
+            
+            // Закрываем все другие
+            document.querySelectorAll('.dropdown-content.show').forEach(el => {
+                if (el.id !== 'dropdown-' + id) el.classList.remove('show');
+            });
+            document.querySelectorAll('.dropdown-toggle.expanded').forEach(el => {
+                if (el !== toggle) el.classList.remove('expanded');
+            });
+            
+            // Переключаем текущий
+            dropdown.classList.toggle('show');
+            if (toggle) toggle.classList.toggle('expanded');
+        };
+
+        // Закрытие при клике вне
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.dropdown-toggle') && !e.target.closest('.dropdown-content')) {
+                document.querySelectorAll('.dropdown-content.show').forEach(d => d.classList.remove('show'));
+                document.querySelectorAll('.dropdown-toggle.expanded').forEach(t => t.classList.remove('expanded'));
+            }
+        });
+    }
+
+    // ========== ОТОБРАЖЕНИЕ КОНТЕНТА ==========
+    function showSectionList(sectionKey) {
+        const section = DATA.sections[sectionKey];
+        if (!section) return;
+
+        let html = '<div class="section-list">';
+        section.items.forEach((item, index) => {
+            html += `<div class="section-item" data-section="${sectionKey}" data-index="${index}">${item.name}</div>`;
+        });
+        html += '</div>';
+        
+        elements.modalPreviewBody.innerHTML = html;
+        modalManager.open(elements.previewModal);
+
+        // Добавляем обработчики на элементы
+        document.querySelectorAll('#modalPreviewBody .section-item').forEach(el => {
+            el.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const key = this.dataset.section;
+                const idx = this.dataset.index;
+                const item = DATA.sections[key].items[idx];
+                showItemPreview(item.link, item.preview);
+            });
+        });
+    }
+
+    function showItemPreview(link, previewText) {
+        const html = `
+            <div class="preview-card">
+                <div class="preview-card__text">${previewText}</div>
+                <a href="${link}" class="preview-card__button" target="_blank">Перейти →</a>
+            </div>
+        `;
+        elements.itemPreviewBody.innerHTML = html;
+        modalManager.open(elements.itemPreviewModal);
+    }
+
+    // ========== ОБРАБОТЧИКИ КАРТОЧЕК ==========
+    function initCards() {
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('click', function(e) {
+                // Пропускаем клики по выпадающим элементам
+                if (e.target.closest('.dropdown-toggle') || 
+                    e.target.closest('.dropdown-content') || 
+                    e.target.closest('.link-item')) {
+                    return;
+                }
+
+                // Обычные ссылки
+                if (this.tagName === 'A') return;
+
+                e.preventDefault();
+
+                // Expandable карточки
+                if (this.classList.contains('expandable') && this.dataset.preview) {
+                    const key = this.dataset.preview;
+                    if (DATA.sections[key]) showSectionList(key);
+                }
+                // Карточки с прямыми ссылками
+                else if (this.dataset.direct) {
+                    const key = this.dataset.direct;
+                    if (DATA.directLinks[key]) {
+                        const data = DATA.directLinks[key];
+                        showItemPreview(data.link, data.preview);
+                    }
+                }
+                // Официальный сайт
+                else if (this.dataset.official) {
+                    modalManager.open(elements.officialChoiceModal);
+                }
+            });
+        });
+    }
+
+    // ========== ОБРАБОТЧИКИ МОДАЛЬНЫХ ОКОН ==========
+    function initModals() {
+        // Закрытие по кнопкам
+        elements.closePreviewBtn?.addEventListener('click', () => modalManager.close(elements.previewModal));
+        elements.closeItemPreviewBtn?.addEventListener('click', () => modalManager.close(elements.itemPreviewModal));
+        elements.closeOfficialChoiceBtn?.addEventListener('click', () => modalManager.close(elements.officialChoiceModal));
+
+        // Закрытие по клику на фон
+        [elements.previewModal, elements.itemPreviewModal, elements.officialChoiceModal].forEach(modal => {
+            modal?.addEventListener('click', (e) => {
+                if (e.target === modal) modalManager.close(modal);
+            });
+        });
+
+        // Выбор отделения
+        document.querySelectorAll('[data-official-choice]').forEach(el => {
+            el.addEventListener('click', function() {
+                const choice = this.dataset.officialChoice;
+                let link = '';
+                
+                if (choice === 'klin') link = 'https://mokptd.ru/filial-klinskij/';
+                else if (choice === 'khimki') link = 'https://mokptd.ru/ximkinskoe-otdelenie/';
+                
+                modalManager.close(elements.officialChoiceModal);
+                
+                const previewText = 'На сайте вы сможете познакомиться с нашими врачами, увидеть расписание приема, а также перейти на главный сайт МОКПТД или страницу стационара.';
+                showItemPreview(link, previewText);
+            });
+        });
+    }
+
+    // ========== ЦЕНТРИРОВАНИЕ ПОСЛЕДНЕЙ КАРТОЧКИ ==========
+    function centerLastCard() {
+        const grid = document.getElementById('cardGrid');
+        if (!grid) return;
+        
+        const cards = Array.from(grid.children);
+        cards.forEach(c => {
+            c.classList.remove('centered');
+            c.style.width = c.style.maxWidth = '';
+        });
+
+        if (cards.length === 0) return;
+
+        const firstCard = cards[0];
+        const cardWidth = firstCard.offsetWidth;
+        const gridWidth = grid.offsetWidth;
+        const cardMinWidth = 320;
+        const gap = 25;
+        
+        let cardsPerRow = Math.floor((gridWidth + gap) / (cardMinWidth + gap));
+        cardsPerRow = Math.max(1, cardsPerRow);
+        
+        if (cards.length % cardsPerRow === 1) {
+            const lastCard = cards[cards.length - 1];
+            lastCard.classList.add('centered');
+            lastCard.style.width = lastCard.style.maxWidth = cardWidth + 'px';
+        }
+    }
+
+    // ========== ИНИЦИАЛИЗАЦИЯ ==========
+    function init() {
+        initDropdowns();
+        initCards();
+        initModals();
+        
+        // Центрирование при загрузке и изменении размера
+        window.addEventListener('load', () => setTimeout(centerLastCard, 50));
+        window.addEventListener('resize', centerLastCard);
+        window.addEventListener('pageshow', centerLastCard);
+    }
+
+    // Запускаем после полной загрузки DOM
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
+
+})();
+</script>
+</body>
+</html>

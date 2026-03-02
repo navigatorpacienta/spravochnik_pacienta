@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Основные принципы противотуберкулезной терапии</title>
+    <style>
+        /* =========================
+   ЛОКАЛЬНЫЕ ШРИФТЫ (как в index)
+========================= */
+        @font-face {
+            font-family: 'Inter';
+            src: url('fonts/inter-cyrillic-400-normal.woff2') format('woff2');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+        
+        @font-face {
+            font-family: 'Inter';
+            src: url('fonts/inter-cyrillic-500-normal.woff2') format('woff2');
+            font-weight: 500;
+            font-style: normal;
+            font-display: swap;
+        }
+        
+        @font-face {
+            font-family: 'Inter';
+            src: url('fonts/inter-cyrillic-600-normal.woff2') format('woff2');
+            font-weight: 600;
+            font-style: normal;
+            font-display: swap;
+        }
+        
+        @font-face {
+            font-family: 'Inter';
+            src: url('fonts/inter-cyrillic-700-normal.woff2') format('woff2');
+            font-weight: 700;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', 'Georgia', 'Times New Roman', serif;
+        }
+        body {
+            background-color: #f8f8f8;
+            color: #333;
+            line-height: 1.5;
+            padding: 0;
+            max-width: 100%;
+            margin: 0;
+        }
+        .container {
+            background-color: white;
+            padding: 20px 15px;
+            width: 100%;
+            max-width: 100%;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #195a7a; /* Спокойный синий */
+        }
+        h1 {
+            color: #195a7a; /* Спокойный синий */
+            font-size: 1.6em;
+            margin-bottom: 10px;
+            line-height: 1.3;
+        }
+        .accent {
+            background-color: #e7f0f7; /* Очень светлый синий фон */
+            border-left: 4px solid #195a7a;
+            padding: 15px;
+            margin-bottom: 20px;
+            font-weight: 500;
+            color: #0b4d6c;
+        }
+        .section {
+            margin-bottom: 25px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+        h2 {
+            color: #195a7a; /* Спокойный синий */
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #b3d0e0;
+        }
+        h3 {
+            color: #0b4d6c; /* Тоже синий, но чуть темнее */
+            font-size: 1.1em;
+            margin: 20px 0 10px 0;
+        }
+        p {
+            font-size: 1em;
+            color: #333;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        ul {
+            padding-left: 20px;
+            margin: 15px 0;
+        }
+        li {
+            margin-bottom: 10px;
+            padding-left: 5px;
+        }
+        .principle-box {
+            background-color: #ffffff;
+            border: 1px solid #d9e6f0;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+        }
+        .principle-title {
+            color: #195a7a;
+            font-size: 1.1em;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .important-box {
+            background-color: #f2f7fc;
+            border: 2px solid #4682a3;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 25px 0;
+        }
+        .important-title {
+            color: #195a7a;
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .source-info {
+            background-color: #f5f5f5;
+            padding: 15px;
+            margin-top: 30px;
+            border-radius: 5px;
+            font-size: 0.9em;
+            color: #4d6a7a;
+            text-align: center;
+            border-top: 2px solid #d0e0e8;
+        }
+        strong {
+            color: #0f4b6e; /* Темно-синий для акцента */
+        }
+        .footer-note {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #4f6b7a;
+            font-style: italic;
+            padding-top: 15px;
+            border-top: 1px solid #d0e0e8;
+        }
+
+        /* Медиа-запросы для планшетов */
+        @media (min-width: 600px) {
+            .container {
+                padding: 25px 20px;
+            }
+            h1 {
+                font-size: 1.8em;
+            }
+            .section {
+                padding: 20px;
+            }
+            h2 {
+                font-size: 1.4em;
+            }
+            p {
+                font-size: 1.05em;
+            }
+        }
+
+        /* Медиа-запросы для десктопов */
+        @media (min-width: 768px) {
+            body {
+                padding: 20px;
+                background-color: #f0f0f0;
+            }
+            .container {
+                padding: 40px;
+                max-width: 800px;
+                margin: 0 auto;
+                box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+                border-radius: 5px;
+            }
+            h1 {
+                font-size: 2em;
+            }
+            .section {
+                padding: 25px;
+            }
+            h2 {
+                font-size: 1.6em;
+            }
+            h3 {
+                font-size: 1.3em;
+            }
+            p {
+                font-size: 1.1em;
+                line-height: 1.6;
+            }
+        }
+
+        /* Для очень маленьких экранов */
+        @media (max-width: 360px) {
+            .container {
+                padding: 15px 12px;
+            }
+            h1 {
+                font-size: 1.4em;
+            }
+            .section {
+                padding: 12px 10px;
+            }
+            .important-box {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Основные принципы противотуберкулезной терапии</h1>
+        </header>
+
+        <div class="accent">
+            Лечение туберкулеза строится на семи ключевых принципах. Их соблюдение — основа эффективной терапии и защиты от лекарственной устойчивости.
+        </div>
+
+                <div class="section">
+            <div class="principle-box">
+                <div class="principle-title">1. Персонализированный подход</div>
+                <p>Противотуберкулезная терапия назначается с учетом резистентности МБТ к препаратам, переносимости больными противотуберкулезных препаратов и сопутствующих заболеваний и состояний. Подбор схемы лечения — непростой процесс, который проводится в условиях стационара, с учётом особенностей именно вашего организма и того, как вы переносите препараты. Будьте готовы к тому, что вам назначат сразу несколько лекарств в разных комбинациях — это индивидуально подобранная схема специально для вашего случая.</p>
+            </div>
+
+            <div class="principle-box">
+                <div class="principle-title">2. Своевременность</div>
+                <p>Останавливает прогрессирование туберкулезного воспаления и создает лучшие возможности для излечения больного. Не затягивайте с обследованиями на этапе диагностики и не откладывайте госпитализацию — чем быстрее вы начнете лечение, тем быстрее почувствуете улучшение и вернетесь к обычной жизни.</p>
+            </div>
+
+            <div class="principle-box">
+                <div class="principle-title">3. Правильная комбинация противотуберкулезных препаратов</div>
+                <p>Позволяет суммировать их противотуберкулезный эффект и предотвращает развитие лекарственной устойчивости. Именно поэтому так важно начать лечение в стационаре: первые недели терапии — это поиск самой эффективной и безопасной для вас комбинации под контролем специалистов</p>
+            </div>
+
+            <div class="principle-box">
+                <div class="principle-title">4. Непрерывность лечения</div>
+                <p>Оказывает существенное влияние на его эффективность. Преждевременный отказ от противотуберкулезной терапии не позволяет достигнуть стойкого клинического эффекта, следствием чего является дальнейшее прогрессирование туберкулезного процесса или развитие лекарственной устойчивости.</p>
+            </div>
+
+            <div class="principle-box">
+                <div class="principle-title">5. Комплексная терапия</div>
+                <p>Одновременное назначение нескольких противотуберкулезных препаратов в сочетании с лекарствами, которые помогают снизить побочные эффекты от основного лечения: витамины (особенно для защиты нервов), препараты для поддержки печени и другие средства, чтобы легче переносить терапию.</p>
+            </div>
+
+            <div class="principle-box">
+                <div class="principle-title">6. Контролируемый прием препаратов</div>
+                <p>Обеспечение регулярного приема препаратов в соответствии с назначением врача. Необоснованные перерывы в противотуберкулезной терапии недопустимы. В процессе лечения обязателен непосредственный контроль медицинского персонала за приемом противотуберкулезных препаратов.</p>
+            </div>
+
+            <div class="principle-box">
+                <div class="principle-title">7. Лабораторный и инструментальный мониторинг побочных действий лекарств</div>
+                <p>Регулярные анализы и обследования нужны, чтобы вовремя заметить, как организм реагирует на препараты. Побочные эффекты возникают не у всех, но если они появляются, важно выявить их на самой ранней стадии — еще до того, как они повлияют на самочувствие. Своевременное обнаружение изменений в анализах крови, моче или на ЭКГ позволяет врачу скорректировать лечение, добавить поддерживающие препараты (для печени, нервной системы и др.) и избежать серьезных последствий. Ваша задача — проходить все назначенные обследования и сразу сообщать врачу о любых новых ощущениях: это поможет сделать лечение не только эффективным, но и максимально безопасным.</p>
+            </div>
+        </div>
+
+        <div class="important-box">
+            <div class="important-title">Почему это важно</div>
+            <p>Соблюдение всех принципов терапии — единственный надежный путь к полному выздоровлению и предотвращению развития лекарственной устойчивости.</p>
+        </div>
+
+        <!-- Блок с источником (Васильева И.А.) -->
+        <div class="source-info">
+            <p>В основе материала — клинические рекомендации и принципы, сформулированные в выступлениях президента Российского общества фтизиатров, д.м.н., профессора <strong>Ирины Анатольевны Васильевой</strong>.</p>
+        </div>
+
+        <div class="footer-note">
+            Ваше здоровье — в вашей дисциплине и доверии к врачу
+        </div>
+    </div>
+</body>
+</html>

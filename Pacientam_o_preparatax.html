@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Рекомендации по приему лекарств</title>
+
+    <style>
+        /* =========================
+   ЛОКАЛЬНЫЕ ШРИФТЫ (как в index)
+========================= */
+        @font-face {
+            font-family: 'Inter';
+            src: url('./fonts/inter-cyrillic-400-normal.woff2') format('woff2');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+        
+        @font-face {
+            font-family: 'Inter';
+            src: url('./fonts/inter-cyrillic-500-normal.woff2') format('woff2');
+            font-weight: 500;
+            font-style: normal;
+            font-display: swap;
+        }
+        
+        @font-face {
+            font-family: 'Inter';
+            src: url('./fonts/inter-cyrillic-600-normal.woff2') format('woff2');
+            font-weight: 600;
+            font-style: normal;
+            font-display: swap;
+        }
+        
+        @font-face {
+            font-family: 'Inter';
+            src: url('./fonts/inter-cyrillic-700-normal.woff2') format('woff2');
+            font-weight: 700;
+            font-style: normal;
+            font-display: swap;
+        }
+        
+        :root {
+            --primary-color: #2a6e96;
+            --secondary-color: #4a9ecc;
+            --accent-color: #e63946;
+            --light-color: #f1faee;
+            --dark-color: #1d3557;
+            --warning-color: #ff9e00;
+            --safe-color: #2a9d8f;
+            --text-color: #333;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --border-radius: 10px;
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            width: 100%;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--dark-color));
+            color: white;
+            padding: 20px 15px;
+            border-radius: 0;
+            box-shadow: var(--shadow);
+            margin-bottom: 20px;
+            text-align: center;
+            width: 100%;
+        }
+        
+        header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        
+        header p {
+            max-width: 100%;
+            margin: 0 auto;
+            opacity: 0.9;
+            font-size: 1rem;
+            text-align: center;
+        }
+        
+        .warning-box {
+            background-color: #fff3cd;
+            border-left: 5px solid var(--warning-color);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+            color: #856404;
+            width: 100%;
+            text-align: left;
+            font-size: 1.05rem;
+        }
+        
+        .drug-selector {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 20px;
+            width: 100%;
+        }
+        
+        .drug-selector h2 {
+            font-size: 1.4rem;
+            color: var(--dark-color);
+            text-align: center;
+        }
+        
+        .drug-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            width: 100%;
+        }
+        
+        .drug-btn {
+            padding: 16px 20px;
+            background-color: white;
+            border: 2px solid var(--primary-color);
+            border-radius: var(--border-radius);
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 1;
+            min-width: 200px;
+            max-width: 100%;
+            justify-content: center;
+            width: 100%;
+            text-align: center;
+        }
+        
+        .drug-btn:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+        
+        .drug-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .drug-btn i {
+            font-size: 1.3rem;
+            color: var(--primary-color);
+        }
+        
+        .drug-btn:hover i,
+        .drug-btn.active i {
+            color: white;
+        }
+        
+        .drug-info-container {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 25px;
+            box-shadow: var(--shadow);
+            margin-top: 15px;
+            width: 100%;
+            min-height: 200px;
+        }
+        
+        .drug-header {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--light-color);
+            width: 100%;
+        }
+        
+        .drug-title {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        /* ПОЛНОСТЬЮ УБИРАЕМ КРУГЛЫЕ ИКОНКИ */
+        .drug-icon {
+            display: none;
+        }
+        
+        .drug-text-content {
+            overflow-y: visible;
+            padding-right: 0;
+            width: 100%;
+        }
+        
+        .text-paragraph {
+            margin-bottom: 22px;
+            padding-left: 15px;
+            border-left: 4px solid var(--secondary-color);
+            padding-top: 8px;
+            padding-bottom: 8px;
+            width: 100%;
+            font-size: 1.15rem;
+            line-height: 1.65;
+            text-align: justify;
+            text-justify: inter-word;
+        }
+        
+        .text-paragraph.warning {
+            border-left-color: var(--accent-color);
+            background-color: rgba(230, 57, 70, 0.05);
+        }
+        
+        .text-paragraph.important {
+            border-left-color: var(--warning-color);
+            background-color: rgba(255, 158, 0, 0.05);
+        }
+        
+        .key-point {
+            display: inline;
+            background-color: rgba(255, 235, 59, 0.3);
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-weight: 600;
+            margin: 0;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 15px;
+            color: #666;
+            font-size: 0.95rem;
+            border-top: 1px solid #eee;
+            width: 100%;
+        }
+        
+        .mobile-only {
+            display: none;
+        }
+        
+        .no-drug-selected {
+            text-align: center;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            padding: 40px;
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-top: 15px;
+            width: 100%;
+        }
+        
+        .loading-indicator {
+            display: none;
+            text-align: center;
+            padding: 30px;
+            color: var(--primary-color);
+        }
+        
+        .loading-spinner {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(42, 110, 150, 0.2);
+            border-radius: 50%;
+            border-top-color: var(--primary-color);
+            animation: spin 1s ease-in-out infinite;
+            margin-bottom: 15px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .loading-text {
+            font-size: 1.1rem;
+            margin-top: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+                max-width: 100%;
+            }
+            
+            header {
+                padding: 15px 10px;
+                margin-bottom: 15px;
+                border-radius: 0;
+            }
+            
+            header h1 {
+                font-size: 1.6rem;
+            }
+            
+            header p {
+                font-size: 0.95rem;
+            }
+            
+            .warning-box {
+                padding: 12px;
+                margin: 15px 0;
+                border-radius: 4px;
+                font-size: 1rem;
+            }
+            
+            .drug-selector h2 {
+                font-size: 1.3rem;
+            }
+            
+            .drug-selector {
+                margin-bottom: 15px;
+            }
+            
+            .drug-buttons {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+            
+            .drug-btn {
+                padding: 15px;
+                font-size: 1.1rem;
+                min-width: 100%;
+                width: 100%;
+                max-width: 100%;
+                border-radius: 8px;
+            }
+            
+            .drug-btn i {
+                font-size: 1.3rem;
+            }
+            
+            .drug-info-container {
+                padding: 18px;
+                margin-top: 10px;
+                border-radius: 8px;
+                width: 100%;
+                min-height: 150px;
+            }
+            
+            .drug-header {
+                margin-bottom: 15px;
+                padding-bottom: 10px;
+                gap: 10px;
+            }
+            
+            .drug-title {
+                font-size: 1.4rem;
+                gap: 10px;
+            }
+            
+            .drug-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 1.4rem;
+                display: none;  /* И ЗДЕСЬ ТОЖЕ ПРЯЧЕМ */
+            }
+            
+            .drug-text-content {
+                max-height: none;
+                overflow-y: visible;
+                padding-right: 0;
+            }
+            
+            .text-paragraph {
+                margin-bottom: 20px;
+                padding-left: 12px;
+                font-size: 1.1rem;
+                line-height: 1.6;
+                text-align: justify;
+            }
+            
+            footer {
+                margin-top: 20px;
+                padding: 12px 10px;
+                font-size: 0.9rem;
+            }
+            
+            .mobile-only {
+                display: block;
+                text-align: center;
+                margin: 10px 0;
+                color: var(--primary-color);
+                font-weight: 600;
+                font-size: 0.95rem;
+            }
+            
+            .no-drug-selected {
+                padding: 30px 20px;
+                font-size: 1.1rem;
+                margin-top: 10px;
+            }
+            
+            .loading-spinner {
+                width: 40px;
+                height: 40px;
+                border-width: 4px;
+            }
+            
+            .loading-text {
+                font-size: 1rem;
+            }
+        }
+        
+        .drug-info-container:empty {
+            display: none;
+        }
+        
+        @media (max-width: 480px) {
+            .drug-title {
+                font-size: 1.3rem;
+            }
+            
+            .drug-icon {
+                width: 45px;
+                height: 45px;
+                font-size: 1.3rem;
+                display: none;  /* И ЗДЕСЬ */
+            }
+            
+            .text-paragraph {
+                font-size: 1.05rem;
+            }
+            
+            header h1 {
+                font-size: 1.4rem;
+            }
+            
+            .no-drug-selected {
+                font-size: 1rem;
+                padding: 25px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- здесь начинается тело документа, которое остается без изменений -->
+    <header>
+        <h1>Рекомендации по приему лекарств для пациентов</h1>
+        <p>Филиал Клинский ГБУЗ МО МОКПТД</p>
+    </header>
+    
+    <div class="container">
+    <div class="warning-box">
+        <p>
+            <strong>Важно!</strong> Прочитав эту информацию, вы поймёте, какие обследования необходимы для контроля побочных эффектов препаратов, почему и когда их проводят. Такое понимание поможет вам <strong>осознанно</strong> подходить к прохождению исследований, <strong>соблюдать их кратность</strong> и быть активным участником процесса <strong>вместе</strong> с врачом.
+        </p>
+        <p style="margin-top: 1em;">
+            <strong>Все препараты принимаются строго по назначению врача.</strong> При появлении необычных симптомов немедленно обращайтесь к специалисту.
+        </p>
+    </div>
+
+
+        
+        <div class="drug-selector">
+            <h2>Выберите препарат:</h2>
+            <p class="mobile-only">Нажмите на название препарата</p>
+            
+            <div class="drug-buttons">
+                <button class="drug-btn" data-drug="isoniazid">
+                    <i class="fas fa-tablets"></i> Изониазид
+                </button>
+                <button class="drug-btn" data-drug="rifampicin">
+                    <i class="fas fa-capsules"></i> Рифампицин
+                </button>
+                <button class="drug-btn" data-drug="ethambutol">
+                    <i class="fas fa-tablets"></i> Этамбутол
+                </button>
+                <button class="drug-btn" data-drug="pirazinamid">
+                    <i class="fas fa-tablets"></i> Пиразинамид
+                </button>
+                <button class="drug-btn" data-drug="levofloxacin">
+                    <i class="fas fa-capsules"></i> Левофлоксацин
+                </button>
+                <button class="drug-btn" data-drug="moxifloxacin">
+                    <i class="fas fa-capsules"></i> Моксифлоксацин
+                </button>
+                <button class="drug-btn" data-drug="sparfloxacin">
+                    <i class="fas fa-capsules"></i> Спарфлоксацин
+                </button>
+                <button class="drug-btn" data-drug="bedaquiline">
+                    <i class="fas fa-tablets"></i> Бедаквилин
+                </button>
+                <button class="drug-btn" data-drug="delamanid">
+                    <i class="fas fa-tablets"></i> Деламанид
+                </button>
+                <button class="drug-btn" data-drug="linezolid">
+                    <i class="fas fa-tablets"></i> Линезолид
+                </button>
+                <button class="drug-btn" data-drug="cycloserine">
+                    <i class="fas fa-tablets"></i> Циклосерин
+                </button>
+                <button class="drug-btn" data-drug="terizidone">
+                    <i class="fas fa-tablets"></i> Теризидон
+                </button>
+                <button class="drug-btn" data-drug="protionamide">
+                    <i class="fas fa-tablets"></i> Протионамид
+                </button>
+                <button class="drug-btn" data-drug="pask">
+                    <i class="fas fa-tablets"></i> ПАСК
+                </button>
+            </div>
+        </div>
+        
+        <div class="loading-indicator" id="loading-indicator">
+            <div class="loading-spinner"></div>
+            <div class="loading-text">Загрузка информации о препарате...</div>
+        </div>
+        
+        <div class="no-drug-selected" id="no-drug-selected">
+            <p>Выберите препарат из списка выше, чтобы увидеть рекомендации по его приёму.</p>
+        </div>
+        
+        <div class="drug-info-container" id="drug-info-container"></div>
+        
+        <footer>
+            <p>При появлении любых необычных симптомов во время лечения немедленно обращайтесь к врачу.</p>
+            <p style="margin-top: 10px; color: var(--primary-color); font-weight: 600;">Соблюдайте рекомендации врача!</p>
+            <p style="margin-top: 15px; font-size: 0.9rem; color: #888;">
+                &copy; 2025
+            </p>
+        </footer>
+    </div>
+    
+    <script>
+                                       const drugData = {
+            'isoniazid': `<div class="drug-header"><div class="drug-title"><div class="drug-icon"><i class="fas fa-tablets"></i></div><h2>Изониазид</h2></div></div><div class="drug-text-content"><div class="text-paragraph">Для того чтобы лекарство подействовало наиболее эффективно, его принимают <span class="key-point">натощак</span>. Это значит, что между приёмом таблетки и едой должно пройти не меньше 30–60 минут. Так препарат полностью всосётся и создаст нужную концентрацию в крови. Запивайте его обычной водой — не молоком, не соком и не чаем.</div><div class="text-paragraph warning">Очень важный момент: на время лечения нужно <span class="key-point">полностью отказаться от алкоголя</span>. Совместный приём с изониазидом создаёт серьёзную нагрузку на печень и может вызвать поражение нервов. Это состояние проявляется слабостью, онемением или болями в руках и ногах. Отказ от алкоголя — важный шаг, чтобы лечение прошло безопасно.</div><div class="text-paragraph important">Изониазид может снижать запасы витамина B6 (пиридоксина) в организме. Чтобы этого не допустить и защитить нервную систему от возможных неприятных ощущений (покалывания, онемения в кистях и стопах), врач чаще всего рекомендует дополнительно принимать витамин B6. Обычная доза для профилактики — от 10 до 50 мг в сутки на протяжении всего курса. Это простая и эффективная мера, которая помогает чувствовать себя комфортно во время лечения.</div><div class="text-paragraph">Некоторым людям нужно быть чуть внимательнее. Если у вас есть <span class="key-point">сахарный диабет, были проблемы с питанием или заболевания нервной системы</span>, риск покалывания в ногах или руках может быть выше. В этом не ваша вина, просто врач будет чуть чаще интересоваться вашим самочувствием, чтобы вовремя помочь. Главное — не стесняйтесь рассказывать ему о любых новых ощущениях.</div><div class="text-paragraph important">Ещё одна особенность изониазида: он может реагировать с некоторыми продуктами. Чтобы избежать неприятных реакций (головной боли, жара, сердцебиения), лучше ограничить на время лечения <span class="key-point">выдержанные сыры, копчёности и вяленое мясо (колбасы, салями), квашеную капусту, соевый соус, а также пиво и красное вино, некоторые виды рыбы</span>. Это не строгий запрет навсегда, а временная мера предосторожности, чтобы организму было легче справиться с основной задачей — победить инфекцию.</div><div class="text-paragraph">Организм каждого человека уникален. Чтобы быть уверенными, что лечение идёт хорошо и печень справляется с нагрузкой, врач назначает <span class="key-point">регулярные анализы крови</span>. Это стандартная практика. Обычно их сдают раз в месяц в начале лечения и раз в три месяца — на втором этапе. Так мы вместе с вами контролируем ситуацию и вовремя замечаем, если нужна небольшая корректировка.</div><div class="text-paragraph">И последнее, но не менее важное: <span class="key-point">обязательно сообщите врачу обо всём, что вы принимаете</span>, включая витамины, травы и любые другие лекарства, которые вам прописали другие доктора. Это нужно для того, чтобы избежать неожиданных взаимодействий и сделать лечение максимально безопасным и комфортным для вас.</div></div>`,
+            
+            'rifampicin': `<div class="drug-header"><div class="drug-title"><div class="drug-icon"><i class="fas fa-capsules"></i></div><h2>Рифампицин</h2></div></div><div class="drug-text-content"><div class="text-paragraph">Чтобы рифампицин подействовал в полную силу, его лучше принимать <span class="key-point">натощак</span>. Это значит — примерно за час до еды или через два часа после. Запивайте капсулу обычной водой и, пожалуйста, не вскрывайте её — лекарство должно поступить в организм именно в той оболочке, в которой оно создано.</div><div class="text-paragraph warning">Очень важно знать: на время лечения <span class="key-point">алкоголь под запретом</span>. Вместе с рифампицином он даёт двойную нагрузку на печень. Мы заботимся о вашем здоровье, поэтому лучше поберечь этот важный орган.</div><div class="text-paragraph important">Может случиться так, что ваша <span class="key-point">моча, слёзы или пот станут оранжевато-красноватыми</span>. Не пугайтесь, это абсолютно нормально и безопасно. Так работает препарат. Единственный практический момент: мягкие контактные линзы могут окраситься, поэтому на время лечения лучше носить очки.</div><div class="text-paragraph">Мы будем <span class="key-point">регулярно проверять вашу кровь</span> (примерно раз в месяц), чтобы убедиться, что печень хорошо справляется с нагрузкой. Если вы заметите, что кожа или белки глаз стали желтоватыми, моча потемнела, появилась сильная слабость или тошнота — просто сразу сообщите об этом врачу. Это сигнал, на который мы обратим внимание и всё поправим. <span style="color: red; font-weight: bold;">Обязательно проходите все назначенные анализы в срок — это позволяет вовремя заметить изменения и предотвратить серьёзные последствия.</span></div><div class="text-paragraph important">Рифампицин — сильный препарат, который ускоряет работу печени по «переработке» других лекарств. Поэтому он может <span class="key-point">снижать эффективность некоторых других средств</span>. Это касается и антибиотиков, и сердечных препаратов, и многих других. <span style="color: red; font-weight: bold;">Обязательно сообщайте лечащему врачу обо всех препаратах, которые вы принимаете. Если другой доктор назначает вам новое лечение — всегда говорите, что вы принимаете рифампицин.</span></div><div class="text-paragraph warning">Особое предупреждение для женщин: рифампицин <span class="key-point">снижает эффективность противозачаточных таблеток</span>. Чтобы быть спокойной, на время лечения стоит пользоваться дополнительными, негормональными методами контрацепции. <span style="color: red; font-weight: bold;">Обязательно обсудите это со своим гинекологом — он поможет подобрать безопасный вариант.</span></div><div class="text-paragraph">Пожалуйста, держите врача в курсе всех препаратов, которые вы принимаете, даже если это просто витамины или травяные сборы. Это поможет нам скорректировать лечение и избежать любых нежелательных сюрпризов. Мы работаем в одной команде.</div></div>`,
+            
+            'ethambutol': `<div class="drug-header"><div class="drug-title"><div class="drug-icon"><i class="fas fa-tablets"></i></div><h2>Этамбутол</h2></div></div><div class="drug-text-content"><div class="text-paragraph">Этамбутол удобен тем, что его можно принимать <span class="key-point">в любое время дня, независимо от еды</span>. Главное — делать это регулярно, каждый день в примерно одно и то же время. Просто запейте таблетку водой, разжёвывать её не нужно.</div><div class="text-paragraph warning">Как и с другими препаратами, на время лечения <span class="key-point">лучше отказаться от алкоголя</span>, чтобы лишний раз не нагружать печень и нервную систему. Это поможет организму легче переносить терапию.</div><div class="text-paragraph important">Самое важное, что нужно знать об этамбутоле: он очень редко, но может влиять на зрение. Чтобы этого не случилось, мы разработали простую и надёжную систему контроля. <span class="key-point">Регулярные визиты к окулисту (примерно раз в месяц)</span> — это не просто формальность. Врач проверит остроту зрения, цветоощущение и поля зрения. Это позволяет заметить малейшие изменения на самом раннем этапе и сразу скорректировать лечение, сохранив ваше зрение в полном порядке. <span style="color: red; font-weight: bold;">Не пропускайте визиты к окулисту — это главное условие для сохранения зрения.</span></div><div class="text-paragraph">Поэтому так важно не пропускать визиты к окулисту и <span class="key-point">сразу говорить врачу, если вам показалось, что видеть вы стали чуть хуже, появился туман перед глазами или изменилось восприятие цветов</span>. Мы это поправим. Чаще всего такие изменения проходят, когда лечение немного корректируют.</div><div class="text-paragraph">Врач назначает этамбутол, только убедившись, что это безопасно. Но если у вас уже есть какие-то особенности зрения, например катаракта или последствия диабета, мы просто будем чуть внимательнее и будем наблюдаться у офтальмолога немного чаще. Это обычная практика.</div><div class="text-paragraph">Также мы будем <span class="key-point">контролировать работу почек с помощью анализов крови</span>. Это нужно, чтобы правильно рассчитать дозу — если почки работают хорошо, препарат выводится вовремя и не накапливается. Всё это рутинные, стандартные меры безопасности, которые делают лечение комфортным.</div></div>`,
+            
+            'pirazinamid': `<div class="drug-header"><div class="drug-title"><div class="drug-icon"><i class="fas fa-tablets"></i></div><h2>Пиразинамид</h2></div></div><div class="drug-text-content"><div class="text-paragraph">Для наилучшего эффекта пиразинамид рекомендуют принимать <span class="key-point">на пустой желудок</span> — примерно за полчаса до еды. Так он полностью всасывается и начинает работать в полную силу. Запивайте его просто водой.</div><div class="text-paragraph warning">И снова важное правило: <span class="key-point">алкоголь во время лечения под запретом</span>. Вместе с пиразинамидом он создаёт слишком большую нагрузку на печень. Берегите себя, отложите спиртное до окончания терапии.</div><div class="text-paragraph important">У пиразинамида есть одна особенность: он может немного <span class="key-point">повышать уровень мочевой кислоты в крови</span>. У некоторых людей это может вызывать лёгкую болезненность в суставах, похожую на лёгкий приступ подагры. Это не опасно, если вовремя заметить. Именно поэтому мы <span class="key-point">каждый месяц проверяем вашу кровь</span>. Если уровень мочевой кислоты повышается, мы видим это по анализам и можем принять меры, чтобы вы не чувствовали никакого дискомфорта.</div><div class="text-paragraph">Иногда препарат может давать знать о себе лёгкой тошнотой или тяжестью в правом боку. Если вы такое заметили — просто скажите врачу. Мы проверим печень с помощью биохимического анализа (АЛТ, АСТ) и убедимся, что всё в порядке. Чаще всего эти ощущения проходят сами, но нам важно быть уверенными.</div><div class="text-paragraph">Если у вас есть особенности, например, <span class="key-point">сахарный диабет или подагра</span> в прошлом, — ничего страшного. Просто сообщите об этом врачу заранее. Мы будем чуть чаще смотреть анализы, и это позволит нам подобрать идеальную для вас схему лечения, без лишних неудобств.</div></div>`,
+            
+            'levofloxacin': `<div class="drug-header"><div class="drug-title"><div class="drug-icon"><i class="fas fa-capsules"></i></div><h2>Левофлоксацин</h2></div></div><div class="drug-text-content"><div class="text-paragraph">Левофлоксацин удобен тем, что его можно принимать <span class="key-point">в любое время, не привязываясь к еде</span>. Главное — делать это каждый день в одно и то же время и запивать полным стаканом воды. Обратите внимание: если вы принимаете препараты кальция, магния или железо (например, витамины), между ними и левофлоксацином должно пройти не меньше 2 часов, чтобы лекарство хорошо усвоилось.</div><div class="text-paragraph warning">Алкоголь и левофлоксацин — несовместимы. Это может вызвать сильную нагрузку на нервную систему и печень. Поэтому на время лечения лучше быть совсем «трезвым». </div><div class="text-paragraph important">Левофлоксацин, как и некоторые другие препараты для лечения туберкулёза, может влиять на сердечный ритм (удлинять интервал QT). Чтобы мы были абсолютно спокойны за ваше сердце, мы <span class="key-point">регулярно делаем ЭКГ (примерно раз в месяц)</span> и проверяем уровень калия и магния в крови. Это стандартная процедура безопасности. Если вы принимаете несколько препаратов, которые могут влиять на сердце, ЭКГ могут делать чуть чаще в начале лечения — это просто мера предосторожности, чтобы убедиться, что сердце работает как часы. <span style="color: red; font-weight: bold;">Не пропускайте плановые ЭКГ и анализы крови — это важно для контроля сердечного ритма.</span></div><div class="text-paragraph">Особенно внимательно мы будем следить за самочувствием, если у вас уже есть особенности сердечного ритма или если вы принимаете лекарства от давления. Пожалуйста, просто сообщите об этом врачу — это позволит нам составить самый безопасный план наблюдения лично для вас.</div><div class="text-paragraph important">Для тех, у кого сахарный диабет: левофлоксацин может влиять на уровень сахара. Поэтому в период лечения <span class="key-point">важно немного чаще измерять сахар глюкометром</span> (хотя бы раз в неделю). Если вдруг почувствуете резкую слабость, потливость или наоборот — сильную жажду, сразу измерьте сахар и позвоните врачу. Мы всё отрегулируем.</div><div class="text-paragraph">Очень редко фторхинолоны (группа, к которой относится препарат) могут влиять на сухожилия. <span class="key-point">Если вы вдруг почувствуете боль или отёк в области ахиллова сухожилия (пятка), плеча или кисти</span>, не нужно терпеть — просто прекратите принимать препарат и сразу свяжитесь с врачом. Это временное явление, и мы быстро подберём другое решение.</div><div class="text-paragraph">Также в первые дни возможна лёгкая бессонница или чувство тревоги. Это нормальная реакция, она быстро проходит. А ещё на время лечения кожа становится чувствительнее к солнцу, поэтому лучше пользоваться солнцезащитным кремом и не загорать специально.</div></div>`,
+            
+            'moxifloxacin': `<div class="drug-header"><div class="drug-title"><div class="drug-icon"><i class="fas fa-capsules"></i></div><h2>Моксифлоксацин</h2></div></div><div class="drug-text-content"><div class="text-paragraph">Моксифлоксацин принимается один раз в день, <span class="key-point">в одно и то же время</span>, независимо от еды. Запивайте таблетку большим стаканом воды. Как и в случае с левофлоксацином, если вы пьёте молоко, антациды или препараты железа, делайте перерыв в 2 часа.</div><div class="text-paragraph warning">Важно: алкоголь под строгим запретом. Он мешает организму справляться с лечением и усиливает нагрузку на печень.</div><div class="text-paragraph important">Моксифлоксацин, как и его «собрат» левофлоксацин, может влиять на сердечный ритм. Чтобы исключить любые риски, мы будем <span class="key-point">делать ЭКГ и проверять уровень калия и магния примерно раз в месяц</span>. Это совершенно безболезненная процедура, которая даёт нам полную картину вашего здоровья. Если вы принимаете несколько препаратов, мы можем предложить чуть более частый контроль в самом начале — так мы убедимся, что сердце чувствует себя прекрасно. <span style="color: red; font-weight: bold;">Проходите все назначенные обследования вовремя — это необходимо для вашей безопасности.</span></div><div class="text-paragraph">Если у вас уже есть какие-то особенности сердца (например, брадикардия или вы принимаете препараты для поддержания ритма), ничего страшного. Просто скажите об этом врачу — мы просто будем наблюдать за вами чуть внимательнее, чтобы вы чувствовали себя в полной безопасности.</div><div class="text-paragraph important">Для пациентов с сахарным диабетом: моксифлоксацин может немного менять уровень сахара. Поэтому <span class="key-point">держите глюкометр под рукой и измеряйте сахар хотя бы раз в неделю</span>. Если заметите необычные колебания (резкую слабость или жажду) — звоните, мы скорректируем дозу или питание.</div><div class="text-paragraph">Очень редко, но может возникнуть чувствительность сухожилий. <span class="key-point">При появлении боли в области пятки, плеча или кисти</span> — не занимайтесь самолечением, просто приостановите приём и позвоните врачу. Мы быстро разберёмся и предложим альтернативу.</div><div class="text-paragraph">В первые дни возможна лёгкая тревожность или нарушение сна. Это временно. Также не забывайте про защиту от солнца — кожа сейчас более чувствительна к ультрафиолету.</div></div>`,
+            
+            'sparfloxacin': `<div class="drug-header"><div class="drug-title"><div class="drug-icon"><i class="fas fa-capsules"></i></div><h2>Спарфлоксацин</h2></div></div><div class="drug-text-content"><div class="text-paragraph">Принимайте спарфлоксацин <span class="key-point">один раз в день, в одно и то же время</span>. Еда не влияет на его всасывание, но если вы принимаете препараты кальция, железа или просто пьёте молоко, делайте перерыв в 2 часа.</div><div class="text-paragraph warning">Как и для всех препаратов этой группы, <span class="key-point">алкоголь исключён полностью</span>. Это вопрос вашей безопасности.</div><div class="text-paragraph important">Спарфлоксацин может влиять на сердечный ритм, удлиняя интервал QT. Чтобы мы были уверены, что ваше сердце работает стабильно, мы <span class="key-point">регулярно (обычно раз в месяц) делаем ЭКГ и проверяем электролиты крови</span>. Это стандартная процедура заботы о вас. Если вы принимаете несколько препаратов, влияющих на сердце, мы просто начнём с чуть более частого контроля — это наша обычная практика для спокойствия всех. <span style="color: red; font-weight: bold;">Соблюдайте график обследований — это помогает вовремя заметить изменения.</span></div><div class="text-paragraph">Если у вас есть особенности сердечно-сосудистой системы, просто поставьте врача в известность. Мы учтём это при составлении графика обследований и подберём для вас самый комфортный режим наблюдения.</div><div class="text-paragraph important">Пациентам с сахарным диабетом: препарат может влиять на сахар крови. <span class="key-point">Контролируйте уровень глюкозы (хотя бы раз в неделю)</span> и держите связь с врачом. При любых резких изменениях самочувствия мы быстро скорректируем терапию.</div><div class="text-paragraph">Очень редко могут беспокоить сухожилия. <span class="key-point">Если появилась боль в области пятки, плеча или кисти</span> — не ждите, свяжитесь с нами. Это явление временное и решаемое.</div><div class="text-paragraph">Также возможна лёгкая фотосенсибилизация (чувствительность к солнцу). Используйте кремы с SPF и избегайте прямых солнечных лучей в часы пик. Это простая мера, чтобы кожа чувствовала себя комфортно.</div></div>`,
+            
+            'bedaquiline': `<div class="drug-header"><div class="drug-title"><div class="drug-icon"><i class="fas fa-tablets"></i></div><h2>Бедаквилин</h2></div></div><div class="drug-text-content"><div class="text-paragraph">Бедаквилин принимается <span class="key-point">строго по схеме, назначенной врачом</span>, один раз в день. Таблетку глотаем целиком, запивая водой. Его можно пить как с едой, так и без — главное, соблюдать регулярность.</div><div class="text-paragraph warning">И снова про алкоголь: на время лечения <span class="key-point">его быть не должно</span>. Это дополнительная и совершенно ненужная нагрузка на печень. Давайте побережём её.</div><div class="text-paragraph important">Бедаквилин, как и некоторые другие препараты, может влиять на сердечный ритм (интервал QT). Для вашей же безопасности мы <span class="key-point">регулярно (примерно раз в месяц) делаем ЭКГ и проверяем уровень калия и магния</span>. Это позволяет нам быть уверенными, что сердце работает ровно и спокойно. Если вы принимаете несколько препаратов, мы можем проводить ЭКГ чуть чаще в первый месяц — это просто дополнительная мера предосторожности, чтобы убедиться, что всё идеально. <span style="color: red; font-weight: bold;">Не пропускайте плановые ЭКГ — это важно для контроля сердечного ритма.</span></div><div class="text-paragraph">Также мы будем следить за <span class="key-point">функцией печени по анализам крови</span>. Если вдруг вы почувствуете тяжесть в правом боку или заметите, что моча потемнела — просто сообщите об этом. Чаще всего никаких симптомов нет, а мы всё равно увидим картину по анализам. Это рутинный контроль, который помогает нам своевременно реагировать.</div><div class="text-paragraph">Если у вас есть какие-то заболевания сердца или вы принимаете лекарства от давления, ничего страшного. Просто сообщите об этом врачу — мы скорректируем план наблюдения специально под вас.</div></div>`,
+            
+            'delamanid': `<div class="drug-header"><div class="drug-title"><div class="drug-icon"><i class="fas fa-tablets"></i></div><h2>Деламанид</h2></div></div><div class="drug-text-content"><div class="text-paragraph">Деламанид принимается <span class="key-point">два раза в день, обязательно вместе с едой</span> — так он лучше усваивается. Запивайте таблетку водой, не разжёвывайте.</div><div class="text-paragraph important">Перед началом лечения мы проверим уровень белка (альбумина) в крови. Это нужно, чтобы убедиться, что препарат будет хорошо переноситься. Если показатель чуть снижен — не проблема, мы просто будем аккуратнее и внимательнее, и всё пройдёт отлично.</div><div class="text-paragraph warning">Алкоголь на время лечения исключаем полностью — это дополнительная нагрузка, которая нам ни к чему.</div><div class="text-paragraph important">Деламанид, как и бедаквилин, может влиять на сердечный ритм. Мы будем <span class="key-point">контролировать ЭКГ и уровень калия с магнием примерно раз в месяц</span>, чтобы быть спокойными за ваше сердце. Если вы принимаете несколько таких препаратов, ЭКГ может проводиться чуть чаще в начале лечения — это просто способ убедиться, что всё идёт по плану. <span style="color: red; font-weight: bold;">Проходите все назначенные обследования — это необходимо для вашей безопасности.</span></div><div class="text-paragraph">Если у вас уже есть какие-то особенности сердечного ритма, просто поставьте врача в известность. Это не противопоказание, а лишь повод быть чуть внимательнее, и мы разработаем для вас идеальный график наблюдения.</div><div class="text-paragraph">При появлении любых необычных ощущений — сильного сердцебиения, головокружения, отёков — просто позвоните нам. Лучше переспросить, чем волноваться.</div></div>`,
+            
+            'linezolid': `<div class="drug-header"><div class="drug-title"><div class="drug-icon"><i class="fas fa-tablets"></i></div><h2>Линезолид</h2></div></div><div class="drug-text-content"><div class="text-paragraph">Линезолид принимается <span class="key-point">один раз в день, в одно и то же время</span>, независимо от еды. Просто запейте таблетку водой. Это поможет поддерживать нужный уровень лекарства в крови постоянно.</div><div class="text-paragraph warning">Алкоголь исключаем — он мешает нервной системе и усиливает сонливость, которая может возникать от препарата.</div><div class="text-paragraph important">Самое важное, что нужно знать о линезолиде: во время лечения и <span class="key-point">в течение двух недель после его окончания</span> нужно избегать продуктов, богатых веществом под названием тирамин. Это не навсегда и не сложно. К таким продуктам относятся: <span class="key-point">выдержанные сыры, копчёное и вяленое мясо/рыба, квашеная капуста, соевый соус, пиво, красное вино, квас, перезрелые бананы и авокадо</span>. Почему это важно? Линезолид может помешать организму расщеплять тирамин, и его избыток способен резко повысить давление. Чтобы этого не случилось, мы просто убираем эти продукты из рациона на время лечения. Это главное условие для вашего комфорта и безопасности. <span style="color: red; font-weight: bold;">Внимательно следите за своим рационом — это так же важно, как приём таблеток.</span></div><div class="text-paragraph">Мы будем <span class="key-point">регулярно проверять общий анализ крови</span>, чтобы убедиться, что все показатели (лейкоциты, тромбоциты) в норме. Это стандартный контроль.</div><div class="text-paragraph important">Очень редко при длительном приёме линезолид может влиять на зрение. <span class="key-point">Если вы заметили, что стали хуже видеть или изменилось восприятие цветов</span> — просто сообщите об этом врачу. Мы направим вас к окулисту на проверку. Чаще всего это временное явление, которое проходит при корректировке лечения. Главное — не пропустить этот момент и сказать нам.</div><div class="text-paragraph">Также при появлении необычной слабости, синяков или кровоточивости дёсен — сразу звоните. Это редкие, но важные сигналы, на которые мы быстро отреагируем.</div></div>`,
+            
+            'cycloserine': `<div class="drug-header"><div class="drug-title"><div class="drug-icon"><i class="fas fa-tablets"></i></div><h2>Циклосерин</h2></div></div><div class="drug-text-content"><div class="text-paragraph">Циклосерин лучше принимать <span class="key-point">за 1–2 часа до еды или через 2 часа после</span>, чтобы он хорошо усвоился. Делайте это строго по схеме, назначенной врачом.</div><div class="text-paragraph warning">Алкоголь во время лечения циклосерином <span class="key-point">полностью исключён</span>. Он может вызвать сильные реакции со стороны нервной системы — головокружение, спутанность сознания, судороги. Нам это совсем не нужно.</div><div class="text-paragraph">Кофеин тоже лучше ограничить (кофе, крепкий чай, энергетики). Он может усиливать беспокойство и нарушать сон, а на фоне циклосерина нервная система и так работает в особом режиме.</div><div class="text-paragraph important">Циклосерин — очень эффективный препарат, но он требует внимания к нервной системе. Именно поэтому мы будем <span class="key-point">регулярно интересоваться вашим самочувствием и сном</span>. Если вы вдруг заметите, что стали более тревожным, появилась бессонница или необычные ощущения (покалывание, онемение в руках или ногах) — обязательно скажите об этом врачу. Это не значит, что лечение нужно прекращать, это значит, что нам нужно чуть скорректировать подход или добавить витамины для защиты нервов.</div><div class="text-paragraph">Если у вас в прошлом были судороги, депрессия или сильная тревога, обязательно сообщите врачу. Это не запрет, а информация для того, чтобы мы могли подобрать для вас самую бережную схему лечения и наблюдения.</div></div>`,
+            
+            'terizidone': `<div class="drug-header"><div class="drug-title"><div class="drug-icon"><i class="fas fa-tablets"></i></div><h2>Теризидон</h2></div></div><div class="drug-text-content"><div class="text-paragraph">Теризидон, как и циклосерин, лучше принимать <span class="key-point">натощак, за 1–2 часа до еды или через 2 часа после</span>, запивая водой.</div><div class="text-paragraph warning">Алкоголь строго запрещён — это может вызвать опасные реакции со стороны нервной системы.</div><div class="text-paragraph">Кофе и другие стимуляторы тоже лучше временно исключить или сильно ограничить, чтобы не провоцировать тревожность и бессонницу.</div><div class="text-paragraph important">Мы с вами будем на связи и будем <span class="key-point">внимательно следить за любыми изменениями в вашем самочувствии</span>. Если появится онемение в пальцах, покалывание, или вы заметите, что стали хуже спать или более тревожны — просто расскажите об этом врачу. Это важно для того, чтобы мы вовремя поддержали вашу нервную систему. Часто в таких случаях помогают витамины группы B, и лечение продолжается без проблем.</div><div class="text-paragraph">Как и в случае с циклосерином, если у вас есть особенности нервной системы (судороги, депрессия в прошлом), просто сообщите об этом. Мы будем просто чуть внимательнее, и всё пройдёт хорошо.</div></div>`,
+            
+            'protionamide': `<div class="drug-header"><div class="drug-title"><div class="drug-icon"><i class="fas fa-tablets"></i></div><h2>Протионамид</h2></div></div><div class="drug-text-content"><div class="text-paragraph">Чтобы уменьшить возможное влияние на желудок, протионамид лучше принимать <span class="key-point">во время еды или сразу после неё</span>. Запивайте водой, не разжёвывайте.</div><div class="text-paragraph warning">Алкоголь под запретом — он сильно нагружает печень, которой и так приходится непросто.</div><div class="text-paragraph">В первые дни может появиться лёгкая тошнота или неприятные ощущения в животе. Это нормально, организм привыкает к препарату. Если ощущения усиливаются, <span class="key-point">обязательно скажите врачу</span>. Мы можем проверить печень (АЛТ, АСТ) и поджелудочную железу (амилазу), чтобы убедиться, что всё в порядке. Часто достаточно просто немного скорректировать режим приёма.</div><div class="text-paragraph important">Как и изониазид, протионамид может влиять на запасы витамина B6. Чтобы защитить нервную систему от покалывания и онемения в конечностях, врач почти всегда рекомендует <span class="key-point">принимать витамин B6 (пиридоксин) на протяжении всего курса</span>. Это простая и эффективная профилактика.</div><div class="text-paragraph important">Очень редко, но препарат может влиять на работу щитовидной железы. Чтобы быть спокойными, мы <span class="key-point">будем проверять уровень ТТГ (тиреотропного гормона) раз в полгода</span>. Это обычный анализ крови, который покажет, всё ли в порядке. Если вдруг потребуется небольшая поддержка, врач назначит препараты для щитовидной железы — это легко корректируется.</div><div class="text-paragraph">Главное — держать врача в курсе всех своих ощущений. Мы работаем вместе, чтобы лечение было максимально комфортным.</div></div>`,
+            
+            'pask': `<div class="drug-header"><div class="drug-title"><div class="drug-icon"><i class="fas fa-tablets"></i></div><h2>ПАСК (Парааминосалициловая кислота)</h2></div></div><div class="drug-text-content"><div class="text-paragraph">ПАСК может немного раздражать желудок, поэтому его <span class="key-point">обязательно принимают во время еды или сразу после</span>. Чтобы было совсем комфортно, можно запивать таблетки водой, молоком или йогуртом — это защитит желудок.</div><div class="text-paragraph warning">Алкоголь на фоне приёма ПАСК исключаем — это лишняя нагрузка на печень и желудочно-кишечный тракт.</div><div class="text-paragraph">Иногда препарат может вызывать послабление стула или лёгкую тошноту. Организм часто привыкает к нему за пару недель. Если дискомфорт сохраняется или усиливается, <span class="key-point">обязательно сообщите врачу</span> — мы можем проверить, как чувствуют себя печень и желудок.</div><div class="text-paragraph important">Как и многие другие препараты, ПАСК может влиять на печень и состав крови. Чтобы мы были спокойны, <span class="key-point">мы будем регулярно (примерно раз в месяц) проверять биохимию крови (АЛТ, АСТ) и общий анализ</span>. Это позволяет нам видеть полную картину вашего здоровья и вовремя реагировать, если потребуется небольшая поддержка. <span style="color: red; font-weight: bold;">Не пропускайте плановые анализы — они помогают вовремя заметить изменения.</span></div><div class="text-paragraph important">Также ПАСК может влиять на работу щитовидной железы. Поэтому раз в полгода мы будем <span class="key-point">контролировать уровень ТТГ</span>. Это рутинный анализ, который помогает убедиться, что гормональный фон в порядке.</div><div class="text-paragraph">При появлении желтоватого оттенка кожи, потемнении мочи или необычных синяках — просто сразу звоните. Это редкие ситуации, но мы должны быть на связи, чтобы быстро помочь.</div></div>`
+        };
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const drugButtons = document.querySelectorAll('.drug-btn');
+            const noDrugSelected = document.getElementById('no-drug-selected');
+            const drugInfoContainer = document.getElementById('drug-info-container');
+            const loadingIndicator = document.getElementById('loading-indicator');
+            
+            drugButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const drugId = this.getAttribute('data-drug');
+                    showDrugInfo(drugId, this);
+                });
+            });
+            
+            function showDrugInfo(drugId, clickedButton) {
+                loadingIndicator.style.display = 'block';
+                noDrugSelected.style.display = 'none';
+                drugInfoContainer.innerHTML = '';
+                
+                drugButtons.forEach(btn => btn.classList.remove('active'));
+                clickedButton.classList.add('active');
+                
+                setTimeout(() => {
+                    if (drugData[drugId]) {
+                        drugInfoContainer.innerHTML = drugData[drugId];
+                        fixPunctuation();
+                        loadingIndicator.style.display = 'none';
+                        
+                        if (window.innerWidth <= 768) {
+                            drugInfoContainer.scrollIntoView({ 
+                                behavior: 'smooth', 
+                                block: 'start' 
+                            });
+                        }
+                    } else {
+                        showError('Информация о препарате не найдена');
+                    }
+                }, 300);
+            }
+            
+            function fixPunctuation() {
+                const keyPoints = drugInfoContainer.querySelectorAll('.key-point');
+                keyPoints.forEach(point => {
+                    const text = point.textContent;
+                    const nextSibling = point.nextSibling;
+                    if (nextSibling && nextSibling.nodeType === 3) {
+                        const nextText = nextSibling.textContent;
+                        if (nextText && /^[.,:;!?]/.test(nextText)) {
+                            point.textContent = text + nextText.charAt(0);
+                            nextSibling.textContent = nextText.substring(1);
+                        }
+                    }
+                });
+            }
+            
+            function showError(message) {
+                drugInfoContainer.innerHTML = `
+                    <div class="no-drug-selected">
+                        <p style="color: var(--accent-color);">${message}</p>
+                        <p style="margin-top: 10px;">Пожалуйста, попробуйте выбрать другой препарат.</p>
+                    </div>
+                `;
+                loadingIndicator.style.display = 'none';
+            }
+            
+            function checkMobile() {
+                if (window.innerWidth <= 768) {
+                    document.querySelector('.mobile-only').style.display = 'block';
+                } else {
+                    document.querySelector('.mobile-only').style.display = 'none';
+                }
+            }
+            
+            window.addEventListener('resize', checkMobile);
+            checkMobile();
+        });
+    </script>
+</body>
+</html>

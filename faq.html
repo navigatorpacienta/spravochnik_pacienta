@@ -1,0 +1,1918 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Часто задаваемые вопросы</title>
+    <style>
+        /* =========================
+   ЛОКАЛЬНЫЕ ШРИФТЫ (как в index)
+========================= */
+        @font-face {
+            font-family: 'Inter';
+            src: url('fonts/inter-cyrillic-400-normal.woff2') format('woff2');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+        
+        @font-face {
+            font-family: 'Inter';
+            src: url('fonts/inter-cyrillic-500-normal.woff2') format('woff2');
+            font-weight: 500;
+            font-style: normal;
+            font-display: swap;
+        }
+        
+        @font-face {
+            font-family: 'Inter';
+            src: url('fonts/inter-cyrillic-600-normal.woff2') format('woff2');
+            font-weight: 600;
+            font-style: normal;
+            font-display: swap;
+        }
+        
+        @font-face {
+            font-family: 'Inter';
+            src: url('fonts/inter-cyrillic-700-normal.woff2') format('woff2');
+            font-weight: 700;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #1e88e5, #0d47a1);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .faq-container {
+            padding: 0;
+        }
+        
+        .faq-item {
+            border-bottom: 1px solid #eaeaea;
+        }
+        
+        .faq-question {
+            padding: 24px 30px;
+            background: white;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s;
+            font-weight: 600;
+            font-size: 1.15rem;
+        }
+        
+        .faq-question:hover {
+            background: #f8fafd;
+            padding-left: 35px;
+        }
+        
+        .faq-question::after {
+            content: '+';
+            font-size: 1.8rem;
+            font-weight: 300;
+            color: #1e88e5;
+            transition: transform 0.3s;
+        }
+        
+        .no-results {
+            padding: 60px 30px;
+            text-align: center;
+            color: #757575;
+            display: none;
+            font-size: 1.1rem;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 25px;
+            color: #757575;
+            font-size: 0.95rem;
+            border-top: 1px solid #eaeaea;
+            background: #fcfcfc;
+        }
+        
+        /* Модальное окно */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 1000;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 95%;
+            max-width: 1000px;
+            height: 90vh;
+            max-height: 900px;
+            background: white;
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+        
+        .modal-header {
+            padding: 28px 35px;
+            background: linear-gradient(135deg, #1e88e5, #0d47a1);
+            color: white;
+            border-radius: 16px 16px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-shrink: 0;
+        }
+        
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 0;
+            flex: 1;
+            padding-right: 25px;
+            line-height: 1.4;
+        }
+        
+        .modal-actions {
+            display: flex;
+            gap: 12px;
+        }
+        
+        .print-button, .close-button {
+            background: rgba(255, 255, 255, 0.25);
+            border: none;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            padding: 10px 20px;
+            border-radius: 24px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+        }
+        
+        .print-button:hover, .close-button:hover {
+            background: rgba(255, 255, 255, 0.35);
+            transform: translateY(-2px);
+        }
+        
+        .close-button {
+            width: 44px;
+            height: 44px;
+            padding: 0;
+            justify-content: center;
+            font-size: 1.6rem;
+            font-weight: 300;
+        }
+        
+        .modal-body {
+            flex: 1;
+            padding: 35px;
+            overflow-y: auto;
+            font-size: 1.15rem;
+            line-height: 1.7;
+        }
+        
+        /* Стили для отформатированного текста */
+        .modal-body h2 {
+            color: #0d47a1;
+            margin: 30px 0 20px 0;
+            padding-bottom: 12px;
+            border-bottom: 3px solid #e3f2fd;
+            font-size: 1.8rem;
+        }
+        
+        .modal-body h3 {
+            color: #1e88e5;
+            margin: 25px 0 18px 0;
+            padding-left: 15px;
+            border-left: 5px solid #1e88e5;
+            font-size: 1.5rem;
+        }
+        
+        .modal-body h4 {
+            color: #1565c0;
+            margin: 22px 0 15px 0;
+            font-size: 1.3rem;
+        }
+        
+        .modal-body p {
+            margin: 18px 0;
+            line-height: 1.8;
+            text-align: left;
+        }
+        
+        .modal-body .note {
+            color: #666;
+            font-style: italic;
+            padding: 18px 22px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #ff9800;
+            font-size: 1.1rem;
+        }
+        
+        .modal-body ul {
+            margin: 20px 0 20px 25px;
+            padding-left: 20px;
+        }
+        
+        .modal-body li {
+            margin: 12px 0;
+            line-height: 1.7;
+        }
+        
+        .modal-body ul ul {
+            margin: 10px 0 10px 30px;
+        }
+        
+        .modal-body hr {
+            margin: 30px 0;
+            border: none;
+            border-top: 2px solid #eaeaea;
+        }
+        
+        .modal-body .quote-box {
+            background-color: #f8f9fa;
+            border-left: 5px solid #ff9800;
+            padding: 25px;
+            margin: 25px 0;
+            font-style: italic;
+            color: #555;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .modal-body .important-box {
+            background-color: #e8f5e8;
+            border: 2px solid #4caf50;
+            border-radius: 10px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+        
+        .modal-body .important-box p {
+            margin: 15px 0;
+        }
+        
+        .modal-body strong {
+            color: #d32f2f;
+            font-weight: 700;
+        }
+        
+        .modal-body blockquote {
+            border-left: 5px solid #2196f3;
+            padding-left: 25px;
+            margin: 25px 0;
+            color: #555;
+            font-style: italic;
+            background: #f8fafd;
+            padding: 20px;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .highlight {
+            background-color: #fff9c4;
+            padding: 4px 8px;
+            border-radius: 5px;
+            font-weight: 600;
+        }
+        
+        .modal-body table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 1rem;
+        }
+        
+        .modal-body th {
+            background-color: #e3f2fd;
+            padding: 15px;
+            border: 1px solid #bbdefb;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        .modal-body td {
+            padding: 14px;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .modal-body tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        /* Стили для скроллбара */
+        .modal-body::-webkit-scrollbar {
+            width: 12px;
+        }
+        
+        .modal-body::-webkit-scrollbar-track {
+            background: #f5f5f5;
+            border-radius: 6px;
+        }
+        
+        .modal-body::-webkit-scrollbar-thumb {
+            background: #b0b0b0;
+            border-radius: 6px;
+        }
+        
+        .modal-body::-webkit-scrollbar-thumb:hover {
+            background: #909090;
+        }
+
+        /* Стили для печати */
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            .modal,
+            .modal * {
+                visibility: visible;
+            }
+            .modal {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: auto;
+                background: white;
+            }
+            .modal-content {
+                position: relative;
+                width: 100%;
+                height: auto;
+                transform: none;
+                left: 0;
+                top: 0;
+                box-shadow: none;
+                border-radius: 0;
+                max-width: none;
+                max-height: none;
+            }
+            .modal-header {
+                background: #1e88e5 !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .modal-actions {
+                display: none;
+            }
+            .modal-body {
+                padding: 25px;
+                font-size: 1rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .container {
+                border-radius: 10px;
+            }
+            
+            header {
+                padding: 30px 20px;
+            }
+            
+            h1 {
+                font-size: 1.9rem;
+            }
+            
+            .subtitle {
+                font-size: 1.1rem;
+                padding: 0 10px;
+            }
+            
+            .faq-question {
+                padding: 20px;
+                font-size: 1.05rem;
+            }
+            
+            .faq-question:hover {
+                padding-left: 25px;
+            }
+            
+            .modal-content {
+                width: 98%;
+                height: 95vh;
+                max-height: none;
+                border-radius: 12px;
+            }
+            
+            .modal-header {
+                padding: 20px;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            
+            .modal-title {
+                font-size: 1.3rem;
+                padding-right: 0;
+                width: 100%;
+            }
+            
+            .modal-actions {
+                width: 100%;
+                justify-content: flex-end;
+            }
+            
+            .modal-body {
+                padding: 20px;
+                font-size: 1.05rem;
+            }
+            
+            .print-button span {
+                display: none;
+            }
+            
+            .print-button {
+                padding: 10px 15px;
+            }
+            
+            .close-button {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .modal-body h2 {
+                font-size: 1.5rem;
+                margin: 25px 0 15px 0;
+            }
+            
+            .modal-body h3 {
+                font-size: 1.3rem;
+                margin: 20px 0 15px 0;
+            }
+            
+            .modal-body p, .modal-body li {
+                font-size: 1.05rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.7rem;
+            }
+            
+            .faq-question {
+                padding: 18px;
+                font-size: 1rem;
+            }
+            
+            .modal-content {
+                width: 100%;
+                height: 100vh;
+                border-radius: 0;
+            }
+            
+            .modal-header {
+                padding: 18px;
+                border-radius: 0;
+            }
+            
+            .modal-body {
+                padding: 18px;
+            }
+            
+            .modal-title {
+                font-size: 1.2rem;
+            }
+            
+            .modal-body h2 {
+                font-size: 1.4rem;
+            }
+            
+            .modal-body h3 {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Часто задаваемые вопросы</h1>
+            <p class="subtitle">Ответы на самые распространённые вопросы пациентов и темы, которые волнуют их чаще всего</p>
+        </header>
+        
+        <div class="faq-container" id="faqContainer">
+            <!-- FAQ items will be inserted here by JavaScript -->
+        </div>
+        
+        <div class="no-results" id="noResults">
+            <p>По вашему запросу ничего не найдено. Попробуйте изменить поисковый запрос.</p>
+        </div>
+        
+        <footer>
+            <p>ГБУЗ МО "МОКПТД", филиал "Клинский"</p>
+        </footer>
+    </div>
+
+    <!-- Модальное окно -->
+    <div class="modal" id="answerModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalTitle"></h2>
+                <div class="modal-actions">
+                    <button class="print-button" id="printButton">
+                        <span>🖨️ Печать</span>
+                    </button>
+                    <button class="close-button" id="closeModal">&times;</button>
+                </div>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Содержимое ответа будет здесь -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // FAQ data
+        const faqData = [
+           
+            {
+    question: "Как добраться до стационара?",
+    answer: `
+        <h2>Как добраться до стационара</h2>
+        <p>Выберите нужный стационар, чтобы открыть подробную инструкцию по проезду:</p>
+        <p style="margin-top: 20px; display: flex; flex-direction: column; gap: 10px;">
+            <a href="kak_dobratsia_k1.html" target="_blank" style="display: inline-block; background: #4B0082; color: white; padding: 12px 20px; border-radius: 8px; text-decoration: none; font-weight: 500; text-align: center;">🏥 Стационар ГБУЗ МО "МОКПТД", Клиника 1 (пос. Здравница)</a>
+            <a href="kak_dobratsia_k2.html" target="_blank" style="display: inline-block; background: #4B0082; color: white; padding: 12px 20px; border-radius: 8px; text-decoration: none; font-weight: 500; text-align: center;">🏥 Стационар ГБУЗ МО "МОКПТД", Клиника 2 (пос. Алешино)</a>
+            <a href="kak_dobratsia_bal.html" target="_blank" style="display: inline-block; background: #4B0082; color: white; padding: 12px 20px; border-radius: 8px; text-decoration: none; font-weight: 500; text-align: center;">🏥 Стационар ГБУЗ МО "МОКПТД", филиал "Балашихинский"</a>
+        </p>
+    `
+},
+            {
+                question: "Что брать с cобой в стационар?",
+                answer: `
+                    <h2>Полный список для госпитализации в противотуберкулезный стационар</h2>
+                    
+                    <p class="note"><strong>Главный принцип:</strong> Берите удобные, практичные вещи, которые не жалко будет подвергать частой стирке и дезинфекции. Лучше одна вместительная сумка или рюкзак, чем несколько пакетов.</p>
+                    
+                    <hr>
+                    
+                    <h3>📄 ДОКУМЕНТЫ</h3>
+                    
+                    <p class="note"><em>Сложить в отдельную папку с застежкой</em></p>
+                    
+                    <ul>
+                        <li>Паспорт</li>
+                        <li>Полис ОМС</li>
+                        <li>СНИЛС</li>
+                        <li>Направление на госпитализацию (если есть)</li>
+                        <li>Все медицинские документы:
+                            <ul>
+                                <li>Выписки из истории болезни</li>
+                                <li>Результаты флюорографии, КТ, рентгеновские снимки (и файлы с диском, если есть)</li>
+                            </ul>
+                        </li>
+                        <li>Контактные телефоны близких родственников (записать на бумаге, помимо телефона)</li>
+                    </ul>
+                    
+                    <hr>
+                    
+                    <h3>🧼 ПРЕДМЕТЫ ЛИЧНОЙ ГИГИЕНЫ</h3>
+                    
+                    <p><strong>Основное:</strong></p>
+                    
+                    <ul>
+                        <li>Зубная щетка в футляре и паста</li>
+                        <li>Мыло (жидкое в пластиковой бутылке с дозатором удобнее) или мыло в мыльнице</li>
+                        <li>Шампунь (небольшой флакон)</li>
+                        <li>Мочалка / гель для душа</li>
+                        <li>Расческа/гребешок</li>
+                        <li>Бритвенный станок (лучше одноразовый)</li>
+                        <li>Ножницы для ногтей</li>
+                    </ul>
+                    
+                    <p><strong>Бумажная продукция:</strong></p>
+                    
+                    <ul>
+                        <li>Туалетная бумага (2-3 рулона)</li>
+                        <li>Бумажные носовые платки/салфетки</li>
+                        <li>Влажные салфетки (антибактериальные и обычные)</li>
+                    </ul>
+                    
+                    <p><strong>Полотенца:</strong></p>
+                    
+                    <ul>
+                        <li>Полотенце для лица (1 шт.)</li>
+                        <li>Полотенце для тела (1 шт., можно большое банное)</li>
+                    </ul>
+                    
+                    <p><strong>Для женщин:</strong></p>
+                    
+                    <ul>
+                        <li>Средства интимной гигиены (прокладки, тампоны)</li>
+                        <li>Прокладки на каждый день</li>
+                        <li>Гигиеническая помада / крем для рук</li>
+                    </ul>
+                    
+                    <hr>
+                    
+                    <h3>👕 ОДЕЖДА И ОБУВЬ</h3>
+                    
+                    <p class="note"><em>Главное — удобство и возможность стирки при высоких температурах.</em></p>
+                    
+                    <p><strong>Для палаты:</strong></p>
+                    
+                    <ul>
+                        <li>Пижама / ночная сорочка (2 комплекта)</li>
+                        <li>Домашний халат или удобная кофта</li>
+                        <li>Спортивные штаны/леггинсы и несколько футболок/лонгсливов</li>
+                        <li>Носки (хлопковые, 5-7 пар)</li>
+                    </ul>
+                    
+                    <p><strong>Нижнее белье:</strong></p>
+                    
+                    <ul>
+                        <li>Трусы (хлопковые, 7-10 шт.)</li>
+                        <li>Майки/бюстгальтеры (удобные, без косточек)</li>
+                    </ul>
+                    
+                    <p><strong>Обувь:</strong></p>
+                    
+                    <ul>
+                        <li>Тапочки для палаты (моющиеся, мягкие)</li>
+                        <li>Тапочки для душа/туалета (резиновые или пластиковые, с закрытым задником)</li>
+                    </ul>
+                    
+                    <p><strong>На прогулку (если разрешено):</strong></p>
+                    
+                    <ul>
+                        <li>Спортивный костюм по сезону</li>
+                        <li>Ветровка / куртка</li>
+                        <li>Шапка/кепка, перчатки (по сезону)</li>
+                    </ul>
+                    
+                    <hr>
+                    
+                    <h3>🍽️ ПОСУДА И СТОЛОВЫЕ ПРИБОРЫ</h3>
+                    
+                    <ul>
+                        <li>Кружка (небьющаяся, пластиковая или металлическая)</li>
+                        <li>Тарелка (глубокая, небьющаяся)</li>
+                        <li>Ложка, вилка (можно несколько)</li>
+                        <li>Контейнер для еды с крышкой</li>
+                        <li>Моющее средство для посуды и губка</li>
+                        <li>Кухонное полотенце (небольшое)</li>
+                    </ul>
+                    
+                    <hr>
+                    
+                    <h3>💊 ЛЕКАРСТВА И СРЕДСТВА УХОДА</h3>
+                    
+                    <ul>
+                        <li>Лекарства, которые вы принимаете постоянно (в оригинальных упаковках с инструкциями!). <span class="highlight">СРОЧНО: сообщите о них врачу при поступлении!</span></li>
+                        <li>Крем для рук и лица</li>
+                        <li>Пластырь, бинт (на случай мелких ран)</li>
+                    </ul>
+                    
+                    <hr>
+                    
+                    <h3>📱 ДЛЯ СВЯЗИ И ДОСУГА</h3>
+                    
+                    <ul>
+                        <li>Мобильный телефон</li>
+                        <li>Зарядное устройство + длинный кабель (1.5-2 м)</li>
+                        <li>Power Bank (внешний аккумулятор)</li>
+                        <li>Наушники (очень важная вещь!)</li>
+                        <li>Книги, журналы</li>
+                        <li>Блокнот и ручка (для записей, вопросов врачу)</li>
+                        <li>Небольшие хобби: вязание, вышивка, кроссворды и т.д.</li>
+                    </ul>
+                    
+                    <hr>
+                    
+                    <h3>❌ ЧТО БРАТЬ КАТЕГОРИЧЕСКИ НЕЛЬЗЯ:</h3>
+                    
+                    <ul>
+                        <li>Алкогольные и слабоалкогольные напитки.</li>
+                        <li>Наркотические и психотропные вещества.</li>
+                        <li>Табачные изделия, электронные сигaреты, вейпы (курение на территории ПТД строго запрещено).</li>
+                        <li>Острые, колющие и режущие предметы (кроме одноразовых бритвенных станков).</li>
+                        <li>Дорогие ювелирные украшения, крупные суммы денеги.</li>
+                        <li>Скоропортящиеся продукты (домашние обеды, колбасы, молочка и т.д.).</li>
+                    </ul>
+                    
+                    <hr>
+                    
+                    <div class="important-box">
+                        <p><strong>Совет:</strong> Соберите вещи заранее, не откладывая на последний день. Желаем скорейшего выздоровления и сил на пути к здоровью! Этот список поможет вам чувствовать себя комфортнее в новой обстановке.</p>
+                    </div>
+                `
+            },
+            {
+                question: "Что делать, если родители отказываются от Манту или Диаскинтеста?",
+                answer: `
+                    <h2>Отказ от обследования ребёнка на туберкулёз: последствия и рекомендации</h2>
+                    
+                    <p class="note">Этот текст подготовлен <strong>на основании Клинических рекомендаций «Латентная туберкулёзная инфекция у детей», Москва, 2024</strong> и объясняет родителям, что делать и какие последствия возможны, если отказаться от обследования ребёнка на туберкулёз.</p>
+                    
+                    <hr>
+                    
+                    <h3>1. Массовое обследование детей (П.3.1)</h3>
+                    
+                    <p>Согласно клиническим рекомендациям, для массового скрининга разрешено использовать <strong>только зарегистрированные в РФ препараты</strong>:</p>
+                    
+                    <ul>
+                        <li><strong>Проба Манту</strong> — стандартная кожная проба с аллергеном бактерий.</li>
+                        <li><strong>Диаскинтест®</strong> — стандартная кожная проба с рекомбинантным туберкулезным аллергеном.</li>
+                    </ul>
+                    
+                    <p><strong>Зачем это нужно:</strong> Эти методы позволяют выявлять латентную туберкулёзную инфекцию у детей и предотвращать развитие заболевания.</p>
+                    
+                    <hr>
+                    
+                    <h3>2. Альтернативные методы при противопоказаниях или отказе родителей (П.3.4)</h3>
+                    
+                    <p>Если у ребёнка <strong>противопоказаны кожные пробы</strong> (Манту, АТР) или родители <strong>отказываются их проводить</strong>, применяются <strong>тесты in vitro</strong>, которые измеряют выработку интерферона гамма (ИФН-γ) лимфоцитами на антигены Mycobacterium tuberculosis:</p>
+                    
+                    <ul>
+                        <li>ТиграТест® ТВ</li>
+                        <li>T-SPOT®.TB</li>
+                        <li>QFT-Plus</li>
+                    </ul>
+                    
+                    <p><strong>Важно:</strong> Эти тесты официально признаны и дают достоверные результаты, их можно использовать вместо Манту или Диаскинтеста.</p>
+                    
+                    <hr>
+                    
+                    <h3>3. Полный отказ от обследования (П.5.1.2, П.5.2.9)</h3>
+                    
+                    <p>Если родители <strong>отказываются от любых иммунологических тестов</strong>:</p>
+                    
+                    <ul>
+                        <li>По письменному согласию родителей можно провести <strong>рентгенографию органов грудной клетки</strong>, чтобы исключить активный туберкулёз.</li>
+                        <li><strong>Не рекомендуется</strong> использовать:
+                            <ul>
+                                <li>анализ крови методом ПЦР</li>
+                                <li>ИФА сыворотки</li>
+                            </ul>
+                            <p>Использование этих методов вместо Манту, Диаскинтеста или тестов in vitro <strong>не признаётся официально</strong>.</p>
+                        </li>
+                    </ul>
+                    
+                    <p><strong>Важно:</strong></p>
+                    
+                    <ul>
+                        <li><strong>Врач-фтизиатр не может принимать решение о допуске ребёнка в образовательную организацию.</strong></li>
+                        <li><strong>В случае полного отказа от всех видов обследования врач-фтизиатр делает только следующее заключение:</strong></li>
+                    </ul>
+                    
+                    <div class="quote-box">
+                        <p>«Исключить заболевание туберкулёзом не представляется возможным. Рекомендовано проведение иммунодиагностических проб (АТР, in vitro) для исключения активной туберкулёзной инфекции».</p>
+                    </div>
+                    
+                    <hr>
+                    
+                    <h3>4. Допуск ребёнка в образовательные организации</h3>
+                    
+                    <p>Согласно пункту 823 СП 3.3686–21:</p>
+                    
+                    <ul>
+                        <li>Если родители <strong>не предоставили заключение фтизиатра</strong> после пробы Манту в течение 1 месяца, <strong>ребёнок не допускается</strong> в детский сад или школу.</li>
+                        <li>Дети без проведённой туберкулинодиагностики могут быть допущены <strong>только при наличии заключения врача-фтизиатра об отсутствии туберкулёза</strong>.</li>
+                    </ul>
+                    
+                    <p><strong>Для оформления заключения учитываются:</strong></p>
+                    
+                    <ul>
+                        <li>результаты обследований на туберкулёз (включая тесты in vitro)</li>
+                        <li>рентгенологическое обследование окружения ребёнка (не старше 6 месяцев при положительных тестах)</li>
+                        <li>сведения о контакте с больными туберкулёзом</li>
+                    </ul>
+                    
+                    <p><strong>Важно:</strong></p>
+                    
+                    <ul>
+                        <li>Врач-фтизиатр <strong>не решает</strong>, допускать ребёнка в образовательную организацию.</li>
+                        <li>Этим занимается администрация учреждения, чтобы защитить здоровье всех детей.</li>
+                        <li>Родители, отказываясь от обследований, должны понимать:
+                            <ul>
+                                <li>ответственность за возможные последствия отказа лежит на них</li>
+                                <li>ребёнок может посещать образовательную организацию только в иной законной форме (например, индивидуальное обучение)</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    
+                    <hr>
+                    
+                    <h3>5. Почему мы ориентируемся на клинические рекомендации</h3>
+                    
+                    <div class="quote-box">
+                        <p>Клинические рекомендации — это не просто советы. Федеральный закон № 323-ФЗ устанавливает, что качество медицинской помощи обеспечивается, в том числе, с применением клинических рекомендаций.</p>
+                        
+                        <p>Врач сам определяет тактику обследования и лечения, но обязан действовать <strong>клинически обоснованно и безопасно</strong>.</p>
+                        
+                        <p>Поэтому мы используем рекомендации «Латентная туберкулёзная инфекция у детей» — это официальный и законный инструмент, гарантирующий правильное оказание помощи ребёнку.</p>
+                    </div>
+                `
+            },
+            {
+                question: "Когда меня направят на медико-социальную экспертизу (МСЭ) для оформления инвалидности по туберкулезу?",
+                answer: `
+                    <h2>Направление на медико-социальную экспертизу (МСЭ) при туберкулезе</h2>
+                    
+                    <p>Направление на МСЭ для установления инвалидности при туберкулезе оформляется в следующих случаях:</p>
+                    
+                    <ul>
+                        <li><strong>После 8 месяцев лечения</strong> — если, несмотря на проводимую терапию, сохраняется выраженное нарушение функций дыхания или других систем организма.</li>
+                        <li><strong>При наличии осложнений или сопутствующих заболеваний</strong>, которые ограничивают жизнедеятельность и трудоспособность.</li>
+                        <li><strong>Если заболевание протекает в хронической форме</strong> с частыми обострениями и требует длительного лечения.</li>
+                    </ul>
+                    
+                    <hr>
+                    
+                    <h3>Кто принимает решение о направлении на МСЭ?</h3>
+                    
+                    <p>Решение принимает врачебная комиссия диспансера на основании:</p>
+                    
+                    <ul>
+                        <li>Результатов контрольных обследований (рентген, КТ, анализы мокроты)</li>
+                        <li>Динамики заболевания в процессе лечения</li>
+                        <li>Степени нарушения функций организма</li>
+                        <li>Ограничений жизнедеятельности и трудоспособности</li>
+                    </ul>
+                    
+                    <div class="important-box">
+                        <p><strong>Важно:</strong> Вы можете самостоятельно обратиться к лечащему врачу с вопросом о необходимости направления на МСЭ, если чувствуете, что заболевание существенно ограничивает вашу способность работать и вести обычный образ жизни.</p>
+                    </div>
+                    
+                    <hr>
+                    
+                    
+                    <p class="note">Точный перечень документов и сроки оформления вам разъяснит лечащий врач при подготовке к МСЭ.</p>
+                `
+            },
+            {
+                question: "Могу ли я получить компенсацию за коммунальные услуги, пока лежу в стационаре? Как это оформить?",
+                answer: `
+                    <h2>Компенсация коммунальных услуг при лечении в стационаре</h2>
+                    
+                    <p>Да, в некоторых случаях пациенты, находящиеся на длительном лечении в стационаре, могут получить компенсацию за коммунальные услуги. Однако это зависит от нескольких факторов:</p>
+                    
+                    <hr>
+                    
+                    <h3>Условия получения компенсации</h3>
+                    
+                    <ul>
+                        <li><strong>Льготная категория граждан</strong> — инвалиды, ветераны, малоимущие семьи могут иметь право на компенсацию</li>
+                        <li><strong>Длительность госпитализации</strong> — обычно от 1 месяца и более</li>
+                        <li><strong>Наличие регистрации по месту жительства</strong> — компенсация оформляется по месту постоянной регистрации</li>
+                        <li><strong>Отсутствие прописанных в квартире</strong> — если в жилом помещении временно никто не проживает</li>
+                    </ul>
+                    
+                    <hr>
+                    
+                    <h3>Как оформить компенсацию: пошаговая инструкция</h3>
+                    
+                    <ol>
+                        <li><strong>Получите справку о нахождении в стационаре</strong> — обратитесь в отделение, где вы лечитесь, за официальной справкой с указанием сроков госпитализации.</li>
+                        <li><strong>Обратитесь в управляющую компанию или ТСЖ</strong> — предоставьте справку из стационара и напишите заявление о перерасчете коммунальных платежей.</li>
+                        <li><strong>Для льготных категорий</strong> — дополнительно обратитесь в органы социальной защиты по месту регистрации с пакетом документов:
+                            <ul>
+                                <li>Паспорт</li>
+                                <li>Справка из стационара</li>
+                                <li>Документы, подтверждающие льготный статус</li>
+                                <li>Квитанции об оплате ЖКУ</li>
+                            </ul>
+                        </li>
+                        <li><strong>Подайте документы в МФЦ</strong> — многие услуги по перерасчету можно оформить через многофункциональные центры.</li>
+                    </ol>
+                    
+                    <div class="important-box">
+                        <p><strong>Важно:</strong> Перерасчет делается только за те периоды, когда в квартире действительно никто не проживал. Если у вас остаются проживающие родственники, компенсация может быть не положена или будет рассчитана пропорционально.</p>
+                    </div>
+                    
+                    <hr>
+                    
+                    <h3>На какие услуги возможен перерасчет?</h3>
+                    
+                    <ul>
+                        <li>Холодное и горячее водоснабжение</li>
+                        <li>Водоотведение (канализация)</li>
+                        <li>Электроснабжение</li>
+                        <li>Газоснабжение (если используется для приготовления пищи)</li>
+                        <li>Отопление (в отопительный сезон)</li>
+                    </ul>
+                    
+                    <p class="note">Конкретные условия перерасчета и перечень необходимых документов уточняйте в своей управляющей компании и органах социальной защиты по месту регистрации.</p>
+                `
+            },
+            {
+                question: "На сколько дают больничный при туберкулезе? Когда я смогу вернуться на работу?",
+                answer: `
+                    <h2>Больничный лист при туберкулезе: сроки и возвращение к работе</h2>
+                    
+                    <p>Продолжительность больничного листа при туберкулезе зависит от формы заболевания, тяжести состояния и эффективности лечения.</p>
+                    
+                    <hr>
+                    
+                    <h3>Стандартные сроки больничного листа</h3>
+                    
+                    <ul>
+                        <li><strong>Впервые выявленный туберкулез</strong> — от 3 до 10 месяцев непрерывного лечения</li>
+                        <li><strong>Хронические формы, рецидивы</strong> — могут потребовать более длительного лечения, иногда до 12 месяцев и более</li>
+                    </ul>
+                    
+                    <div class="quote-box">
+                        <p>Согласно Приказу Минздравсоцразвития РФ № 624н, максимальная продолжительность одного больничного листа составляет 10 месяцев (при туберкулезе — до 12 месяцев). При необходимости более длительного лечения больничный продлевается по решению врачебной комиссии.</p>
+                    </div>
+                    
+                    <hr>
+                    
+                    <h3>Когда можно вернуться к работе?</h3>
+                    
+                    <p>Возвращение к работе возможно при соблюдении следующих условий:</p>
+                    
+                    <ul>
+                        <li><strong>Прекращение бактериовыделения</strong> — отрицательные анализы мокроты на микобактерии туберкулеза в течение 2-3 месяцев  в сочетании со стабилизацией процесса по данным  рентгеновских исследований </li>
+                        <li><strong>Положительная динамика на рентгене/КТ</strong> — уменьшение очагов, закрытие полостей распада</li>
+                        <li><strong>Отсутствие противопоказаний по роду деятельности</strong> — некоторые профессии (учитель, повар, медицинский работник) требуют  больше сроков нахождения на обличной листе, и решение о допуске к труду принимается Центральной врачебной комиссией</li>
+                    </ul>
+                    
+                    <hr>
+                    
+                    <h3>Этапы возвращения к трудовой деятельности</h3>
+                    
+                    <ol>
+                        <li><strong>Лечебный режим</strong> — полное освобождение от работы на период активного лечения</li>
+                        <li><strong>Облегченный труд</strong> — после улучшения состояния возможен перевод на легкую работу (при согласии работодателя)</li>
+                        <li><strong>Полная трудоспособность</strong> — после завершения основного курса лечения и стойкого улучшения</li>
+                    </ol>
+                    
+                    <div class="important-box">
+                        <p><strong>Важно:</strong> Окончательное решение о закрытии больничного листа и возможности возвращения к работы принимает лечащий врач-фтизиатр на основе результатов контрольных обследований. Не прерывайте лечение самостоятельно, даже если почувствовали улучшение!</p>
+                    </div>
+                `
+            },
+            {
+                question: "Через сколько времени меня могут выписать из стационара?",
+                answer: `
+                    <h2>Сроки выписки из противотуберкулезного стационара</h2>
+                    
+                    <p>Сроки выписки из стационара зависят от нескольких факторов и определяются индивидуально для каждого пациента.</p>
+                    
+                    <hr>
+                    
+                    <h3>Основные критерии для выписки</h3>
+                    
+                    <ul>
+                        <li><strong>Прекращение бактериовыделения</strong> — отрицательные результаты микроскопии и посева мокроты в течение 2-3 месяцев</li>
+                        <li><strong>Положительная рентгенологическая динамика</strong> — уменьшение инфильтрации, закрытие полостей распада</li>
+                        <li><strong>Клиническое улучшение</strong> — нормализация температуры, уменьшение кашля, улучшение общего состояния</li>
+                        <li><strong>Хорошая переносимость лечения</strong> — отсутствие тяжелых побочных эффектов от препаратов</li>
+                        <li><strong>Наличие условий для продолжения лечения амбулаторно</strong> — жилищные условия, социальная поддержка</li>
+                    </ul>
+                    
+                    <hr>
+                    
+                    <h3>Ориентировочные сроки госпитализации</h3>
+                    
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Форма туберкулеза</th>
+                                <th>Средний срок стационарного лечения</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Впервые выявленный, без МЛУ</td>
+                                <td>2-4 месяца</td>
+                            </tr>
+                            <tr>
+                                <td>Туберкулез с множественной лекарственной устойчивостью (МЛУ)</td>
+                                <td>6-8 месяцев и более</td>
+                            </tr>
+                            <tr>
+                                <td>Обострение хронического туберкулеза</td>
+                                <td>2-3 месяца</td>
+                            </tr>
+                            <tr>
+                                <td>Туберкулез с осложнениями</td>
+                                <td>Индивидуально, может потребовать длительного лечения</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <hr>
+                    
+                    <h3>Что происходит после выписки?</h3>
+                    
+                    <ol>
+                        <li><strong>Продолжение лечения амбулаторно</strong> — прием препаратов под контролем участкового фтизиатра</li>
+                        <li><strong>Регулярные контрольные обследования</strong> — анализы мокроты, рентген/КТ каждые 2-3 месяца</li>
+                        <li><strong>Наблюдение в противотуберкулезном диспансере</strong> — до полного излечения и снятия с учета</li>
+                        <li><strong>Реабилитационные мероприятия</strong> — санаторно-курортное лечение, физиотерапия, ЛФК</li>
+                    </ol>
+                    
+                    <div class="important-box">
+                        <p><strong>Важно:</strong> Решение о выписке принимает лечащий врач совместно с заведующим отделением на основании комплексной оценки состояния пациента. Не торопитесь с выпиской — завершение полного курса стационарного лечения значительно снижает риск рецидива заболевания.</p>
+                    </div>
+                `
+            },
+            {
+                question: "Где и как я мог заразиться туберкулезом?",
+                answer: `
+                    <h2>Пути заражения туберкулезом: где и как это могло произойти</h2>
+                    
+                    <p>Туберкулез — это инфекционное заболевание, которое передается от человека к человеку воздушно-капельным путем. Вот основные ситуации, в которых могло произойти заражение:</p>
+                    
+                    <hr>
+                    
+                    <h3>Основные пути передачи</h3>
+                    
+                    <ul>
+                        <li><strong>Воздушно-капельный путь (основной)</strong> — при разговоре, кашле, чихании больного человека с активной формой туберкулеза</li>
+                        <li><strong>Бытовой контакт</strong> — использование общих предметов гигиены, посуды (менее вероятно, но возможно)</li>
+                        <li><strong>Пылевой путь</strong> — при вдыхании пыли, содержащей микобактерии туберкулеза</li>
+                    </ul>
+                    
+                    <div class="important-box">
+                        <p><strong>Важно:</strong> Туберкулез не передается через рукопожатия, объятия, поцелуи (если нет непосредственного попадания мокроты), через продукты питания или воду в современных условиях.</p>
+                    </div>
+                    
+                    <hr>
+                    
+                    <h3>Где могло произойти заражение?</h3>
+
+<p>
+Чаще всего невозможно точно определить конкретное место заражения туберкулёзом.
+Это связано с тем, что микобактерия может попасть в организм задолго до появления
+каких-либо симптомов.
+</p>
+
+<p>
+У многих людей инфекция длительное время находится в организме в неактивном,
+«спящем» состоянии и никак себя не проявляет.
+</p>
+
+<hr>
+
+<h3>Почему тогда развивается заболевание?</h3>
+
+<p>
+Ключевая причина развития активного туберкулёза — не сам факт заражения,
+а <strong>снижение способности иммунной системы сдерживать инфекцию</strong>.
+</p>
+
+<ul>
+    <li>Инфицирование могло произойти много лет назад</li>
+    <li>Долгое время иммунитет удерживал инфекцию под контролем</li>
+    <li>При ослаблении защитных сил организма инфекция может активироваться</li>
+</ul>
+
+<p>
+Поэтому большинство пациентов не могут связать начало заболевания
+с каким-то одним конкретным контактом или событием.
+</p>
+
+<hr>
+
+<h3>Факторы, которые могут привести к активации инфекции</h3>
+
+<ul>
+    <li><strong>Хронические заболевания</strong> и длительные воспалительные процессы</li>
+    <li><strong>Стресс, переутомление, недосып</strong></li>
+    <li><strong>Недостаточное или нерегулярное питание</strong></li>
+    <li><strong>Вредные привычки</strong></li>
+    <li><strong>Возрастные изменения иммунитета</strong></li>
+    <li><strong>Сопутствующие инфекции</strong></li>
+</ul>
+
+<hr>
+
+<h3>Что важно понимать пациенту</h3>
+
+<div class="note">
+    <p>
+        <strong>Туберкулёз — это не всегда результат недавнего заражения.</strong><br>
+        Заболевание часто развивается потому, что в определённый момент
+        организм перестаёт эффективно сдерживать уже имеющуюся инфекцию.
+    </p>
+</div>
+
+<hr>
+
+<h3>Что делать дальше?</h3>
+
+<ol>
+    <li>
+        <strong>Постарайтесь вспомнить возможные места и ситуации контакта</strong> —
+        место работы, проживания, частые посещаемые помещения,
+        длительное общение с людьми, особенно с теми, у кого был кашель
+        или хронические заболевания.
+    </li>
+    <li>
+        <strong>Сообщите врачу всю известную вам информацию</strong> —
+        это необходимо для выявления возможного очага туберкулёзной инфекции.
+    </li>
+    <li>
+        <strong>Проведение противоэпидемических мероприятий</strong> —
+        обследование контактных лиц позволяет выявить заболевание
+        на ранних стадиях или предотвратить его развитие.
+    </li>
+    <li>
+        <strong>Это помогает защитить окружающих</strong> —
+        своевременное выявление туберкулёза у контактных лиц
+        может сохранить здоровье и жизнь другим людям.
+    </li>
+</ol>
+
+<div class="note">
+    <p>
+        <strong>Важно:</strong><br>
+        Даже если инфицирование произошло давно, развитие заболевания
+        может быть связано с недавним интенсивным контактом с источником инфекции.
+        Поэтому выявление и обследование очага туберкулёза имеет
+        принципиальное значение.
+    </p>
+</div>
+
+<p>
+Сотрудничество пациента с врачом — важная часть лечения
+и эффективной профилактики распространения туберкулёза.
+</p>
+ 
+                `
+            },
+            {
+                question: "Правда ли, что туберкулез — это болезнь только социально неблагополучных людей? Я стесняюсь говорить о своем диагнозе.",
+                answer: `
+                    <h2>Туберкулёз: мифы и реальность</h2>
+
+<div class="important-box">
+    <p>
+        <strong>Важное сообщение:</strong><br>
+        Туберкулёз — это инфекционное заболевание, которое может развиться у любого человека,
+        независимо от социального статуса, уровня дохода, образования или образа жизни.
+        Это не «стыдная» болезнь, а медицинское состояние, требующее лечения.
+    </p>
+</div>
+
+<hr>
+
+<h3>Разрушаем распространённые мифы</h3>
+
+<ul>
+    <li>
+        <strong>Миф:</strong> туберкулёз — болезнь только социально неблагополучных людей.
+    </li>
+    <li>
+        <strong>Реальность:</strong> туберкулёз встречается у людей всех профессий и социальных групп —
+        у врачей, учителей, студентов, офисных работников, предпринимателей, спортсменов.
+    </li>
+
+    <li>
+        <strong>Миф:</strong> если человек заболел, значит он вёл «неправильный» образ жизни.
+    </li>
+    <li>
+        <strong>Реальность:</strong> заболевание развивается тогда, когда иммунная система
+        по каким-то причинам перестаёт сдерживать инфекцию.
+        Это может быть связано со стрессом, переутомлением, хроническими заболеваниями,
+        недосыпанием, нарушением питания.
+    </li>
+</ul>
+
+<hr>
+
+<h3>Почему туберкулёз может развиться у любого человека?</h3>
+
+<ul>
+    <li>
+        <strong>Микобактерия туберкулёза</strong> широко распространена
+        и может попасть в организм незаметно.
+    </li>
+    <li>
+        <strong>Инфекция может длительное время находиться в организме</strong>
+        в неактивном («спящем») состоянии.
+    </li>
+    <li>
+        <strong>Решающую роль играет состояние иммунитета</strong>,
+        а не социальный статус человека.
+    </li>
+    <li>
+        <strong>Современный ритм жизни</strong> — постоянный стресс, недосып,
+        высокая нагрузка — может способствовать ослаблению защитных сил организма.
+    </li>
+</ul>
+
+<hr>
+
+<h3>Известные люди, болевшие туберкулёзом</h3>
+
+<div class="quote-box">
+    <p>
+        В разные исторические периоды туберкулёзом болели многие выдающиеся люди —
+        писатели, художники, композиторы, учёные.
+        Это ещё раз подтверждает, что заболевание не связано
+        с уровнем образования или социальным положением.
+    </p>
+</div>
+
+<hr>
+
+<h3>Почему нам кажется, что окружающие постоянно думают о нашем диагнозе?</h3>
+
+<p>
+В психологии это явление называется <strong>«эффект прожектора»</strong>.
+Человеку кажется, что окружающие постоянно обращают на него внимание,
+думают о нём и обсуждают его.
+</p>
+
+<p>
+На самом деле большинство людей в первую очередь заняты собой —
+своими делами, проблемами, здоровьем, работой и личной жизнью.
+</p>
+
+<hr>
+
+<h3>Как это связано со стыдом и тревогой?</h3>
+
+<p>
+После постановки диагноза человеку может казаться, что:
+</p>
+
+<ul>
+    <li>его будут обсуждать</li>
+    <li>его будут осуждать</li>
+    <li>о его болезни будут помнить долго</li>
+</ul>
+
+<p>
+Но в реальности:
+</p>
+
+<ul>
+    <li>люди быстро возвращаются к своей жизни</li>
+    <li>чужие проблемы редко надолго задерживаются в памяти</li>
+    <li>большинство забывает детали уже через несколько дней</li>
+</ul>
+
+<hr>
+
+<h3>Попробуйте посмотреть на ситуацию иначе</h3>
+
+<div class="quote-box">
+    <p>
+        Вспомните: если что-то серьёзное происходило с кем-то из вашего окружения —
+        долго ли вы сами думали об этом человеке?
+        Часто ли вспоминали подробности его болезни?
+    </p>
+    <p>
+        Скорее всего — нет.
+    </p>
+</div>
+
+<p>
+Точно так же и окружающие не фиксируются на вашем диагнозе,
+даже если сейчас вам кажется обратное.
+</p>
+
+<hr>
+
+<h3>Что важно понять</h3>
+
+<div class="important-box">
+    <p>
+        <strong>Вы испытываете стеснение и тревогу не потому, что о вас действительно думают.</strong><br>
+        А потому, что вы — как и любой человек — в первую очередь думаете о себе
+        и своём впечатлении на окружающих.
+    </p>
+    <p>
+        В реальности каждый занят собой.
+        О вашем диагнозе забудут гораздо быстрее, чем вам сейчас кажется.
+    </p>
+</div>
+
+<hr>
+
+<h3>Поддержка и лечение</h3>
+
+<ol>
+    <li>
+        <strong>Вы не виноваты в своей болезни.</strong>
+        Туберкулёз — это инфекция, а не характеристика личности.
+    </li>
+    <li>
+        <strong>Сосредоточьтесь на лечении.</strong>
+        Современная медицина позволяет эффективно лечить туберкулёз
+        при соблюдении рекомендаций врача.
+    </li>
+    <li>
+        <strong>Не оставайтесь с тревогой в одиночку.</strong>
+        При необходимости вы можете обратиться за помощью к медицинскому психологу —
+        это часть лечебного процесса.
+    </li>
+</ol>
+
+<p>
+Ваше здоровье и выздоровление гораздо важнее чужих мимолётных мыслей.
+</p>
+
+                `
+             },
+            {
+                question: "Опасен ли я для окружающих? Социальная и юридическая ответственность",
+                answer: `
+                    <h2>Опасен ли я для окружающих? Социальная и юридическая ответственность</h2>
+
+<p>
+Да — человек с активной формой туберкулёза лёгких может представлять
+реальную опасность для окружающих. Эта опасность медицински обоснована
+и требует строгого соблюдения противоэпидемических мер.
+</p>
+
+<hr>
+
+<h3>Когда вы заразны для окружающих?</h3>
+
+<ul>
+    <li>
+        <strong>При активной форме туберкулёза лёгких</strong> —
+        микобактерии могут выделяться <strong>при кашле и даже при обычном дыхании</strong>.
+    </li>
+    <li>
+        Отсутствие микобактерий в одном анализе мокроты
+        <strong>не означает</strong> отсутствия заразности —
+        бактерии могут не быть выявлены именно в день сдачи анализа.
+    </li>
+    <li>
+        Заразность может сохраняться до стойкого прекращения бактериовыделения
+        на фоне лечения.
+    </li>
+</ul>
+
+<hr>
+
+<h3>Почему необходим режим изоляции (госпитализации)</h3>
+
+<p>
+При подозрении или подтверждении заразной формы туберкулёза
+необходим режим изоляции <strong>(госпитализации в специализированный стационар)</strong>.
+Это основная мера защиты окружающих.
+</p>
+
+<ul>
+    <li>
+        До изоляции проводится <strong>текущая дезинфекция</strong> в очаге инфекции.
+    </li>
+    <li>
+        После госпитализации пациента проводится
+        <strong>заключительная дезинфекция</strong>.
+    </li>
+    <li>
+        Даже при намерении «не выходить из дома» пациент
+        всё равно вынужден контактировать с окружающими —
+        посещать магазины, медицинские учреждения, получать препараты.
+    </li>
+</ul>
+
+<p>
+Поэтому при наличии заразной формы туберкулёза
+пребывание пациента вне стационара
+рассматривается как потенциальная угроза распространения инфекции.
+</p>
+
+<hr>
+
+<h3>Юридическая ответственность и защита окружающих</h3>
+
+<p>
+В случае отказа пациента от госпитализации
+или нарушения противоэпидемического режима
+закон предусматривает меры защиты населения.
+</p>
+
+<ul>
+    <li>
+        Возможна подача искового заявления в суд
+        о <strong>принудительной госпитализации</strong>
+        в специализированный противотуберкулёзный стационар.
+    </li>
+    <li>
+        Эти меры направлены не на наказание пациента,
+        а на предотвращение заражения других людей.
+    </li>
+</ul>
+
+<p class="note">
+Это не вопрос личного выбора пациента —
+изоляция при заразной форме туберкулёза
+является <strong>мерой, предусмотренной законодательством</strong>
+для обеспечения эпидемиологической безопасности.
+</p>
+
+<hr>
+
+<div class="important-box">
+    <p>
+        <strong>Помните:</strong><br>
+        туберкулёз — это болезнь, а не преступление.
+        Но при заразной форме ответственность пациента
+        заключается в соблюдении изоляции и лечении,
+        чтобы защитить окружающих людей.
+    </p>
+</div>
+
+                `
+            },
+            {
+    question: "Могу ли я лечиться амбулаторно?",
+    answer: `
+        <h2>Амбулаторное лечение туберкулеза: почему начинать нужно в стационаре</h2>
+        
+        <div class="important-box">
+            <p><strong>Важное уточнение:</strong> Начинать лечение туберкулеза амбулаторно <strong>нельзя</strong>. Подбор и начало противотуберкулезной терапии обязательно проводятся в стационарных условиях.</p>
+        </div>
+        
+        <hr>
+        
+        <h3>Почему подбор лечения возможен только в стационаре?</h3>
+        
+        <ol>
+            <li><strong>Круглосуточное медицинское наблюдение</strong> — врачи и медперсонал контролируют состояние 24/7</li>
+            <li><strong>Контроль побочных реакций</strong> — противотуберкулезные препараты часто вызывают серьезные побочные эффекты:
+                <ul>
+                    <li>Токсическое воздействие на печень и почки</li>
+                    <li>Аллергические реакции</li>
+                    <li>Нарушения со стороны ЖКТ</li>
+                    <li>Неврологические осложнения</li>
+                </ul>
+            </li>
+            <li><strong>Оценка эффективности лечения</strong> — требуется регулярный контроль:
+                <ul>
+                    <li>КТ-исследования для оценки динамики</li>
+                    <li>Лабораторные анализы крови и мокроты</li>
+                    <li>Мониторинг общего состояния</li>
+                </ul>
+            </li>
+            <li><strong>Коррекция схемы лечения</strong> — при необходимости быстрая замена препаратов</li>
+            <li><strong>Профилактика развития лекарственной устойчивости</strong> — строгий контроль приема препаратов</li>
+        </ol>
+        
+        <hr>
+        
+        <h3>Комплексное обследование в стационаре</h3>
+        
+        <div class="note">
+            <p>В наших стационарах организована полноценная диагностическая база и работают все необходимые узкие специалисты:</p>
+        </div>
+        
+        <ul>
+            <li><strong>Офтальмологи (окулисты)</strong> — для контроля возможного токсического воздействия препаратов на зрение</li>
+            <li><strong>Кардиологи</strong> — для оценки состояния сердечно-сосудистой системы</li>
+            <li><strong>Эндокринологи</strong> — для контроля обменных процессов и гормонального фона</li>
+            <li><strong>Гастроэнтерологи</strong> — для мониторинга состояния ЖКТ и функции печени</li>
+            <li><strong>Неврологи</strong> — для контроля неврологических побочных эффектов</li>
+            <li><strong>Нефрологи</strong> — для оценки функции почек</li>
+            <li><strong>Отоларингологи (ЛОР)</strong> — для обследования верхних дыхательных путей</li>
+        </ul>
+        
+        <hr>
+        
+        <h3>Врачебные комиссии и качество медицинской помощи</h3>
+        
+        <div class="quote-box">
+            <p>В нашем стационаре все сложные клинические случаи рассматриваются на врачебных комиссиях, в состав которых входят специалисты высокого уровня квалификации, включая врачей с учеными степенями <strong>кандидатов медицинских наук</strong>.</p>
+        </div>
+        
+        <p>Это обеспечивает:</p>
+        
+        <ul>
+            <li><strong>Высокое качество диагностики</strong> — применение современных научно обоснованных методик</li>
+            <li><strong>Коллегиальное принятие решений</strong> — каждый случай рассматривается несколькими опытными специалистами</li>
+            <li><strong>Индивидуальный подход к лечению</strong> — разработка персонализированных схем терапии</li>
+            <li><strong>Своевременную коррекцию лечения</strong> — оперативное реагирование на изменения состояния пациента</li>
+            <li><strong>Применение передовых методик</strong> — внедрение новейших достижений медицинской науки</li>
+        </ul>
+        
+        <div class="important-box">
+            <p>Участие специалистов с научными степенями в лечебном процессе гарантирует, что все решения принимаются на основании современных клинических рекомендаций и с учетом последних научных данных в области фтизиатрии.</p>
+        </div>
+        
+        <hr>
+        
+        <h3>Когда возможно продолжить лечение амбулаторно?</h3>
+        
+        <p>Перевод на амбулаторное лечение возможен <strong>только после</strong>:</p>
+        
+        <ul>
+            <li><strong>Стабилизации состояния</strong> в стационаре</li>
+            <li><strong>Подбора эффективной схемы</strong> лечения с хорошей переносимостью</li>
+            <li><strong>Прекращения бактериовыделения</strong> (отрицательные анализы мокроты)</li>
+            <li><strong>Положительной динамики</strong> по данным КТ/рентгена</li>
+            <li><strong>Отсутствия серьезных побочных эффектов</strong> от препаратов</li>
+            <li><strong>Обучения пациента</strong> правилам приема препаратов и самоконтроля</li>
+            <li><strong>Одобрения врачебной комиссии</strong> — решение о переводе принимается коллегиально</li>
+        </ul>
+        
+        <hr>
+        
+        <h3>Этапы лечения туберкулеза</h3>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Этап</th>
+                    <th>Где проводится</th>
+                    <th>Продолжительность</th>
+                    <th>Цель</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1. Подбор терапии</td>
+                    <td><strong>СТАЦИОНАР</strong> (обязательно)</td>
+                    <td>2-3 месяца</td>
+                    <td>Найти эффективную схему, контролировать побочные эффекты</td>
+                </tr>
+                <tr>
+                    <td>2. Основное лечение</td>
+                    <td>Амбулаторно (после стационара)</td>
+                    <td>4-6 месяцев</td>
+                    <td>Продолжение эффективной терапии под контролем диспансера</td>
+                </tr>
+                <tr>
+                    <td>3. Завершающий этап</td>
+                    <td>Амбулаторно</td>
+                    <td>2-4 месяца</td>
+                    <td>Закрепление результатов, профилактика рецидивов</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <hr>
+        
+        <div class="important-box">
+            <p><strong>Запомните:</strong> Начинать лечение туберкулеза амбулаторно — это риск для вашего здоровья и здоровья окружающих. Стационарный этап необходим для безопасного и эффективного подбора терапии. Только после стабилизации состояния и подбора рабочей схемы лечения возможен перевод на амбулаторное наблюдение.</p>
+            
+            <p>В нашем стационаре созданы все условия для комплексного обследования и лечения: современное диагностическое оборудование, полный штат узких специалистов и врачебные комиссии с участием кандидатов медицинских наук, что обеспечивает высочайшее качество медицинской помощи и всесторонний контроль за вашим здоровьем.</p>
+        </div>
+        
+        <p>Если у вас есть вопросы о сроках госпитализации или условиях перевода на амбулаторное лечение, обсудите это с вашим лечащим врачом-фтизиатром.</p>
+    `
+},
+            {
+                question: "Эффективность народных средств. Могу ли я лечиться народными средствами?",
+                answer: `
+                    <h2>Народные средства при туберкулезе: можно ли ими лечиться?</h2>
+                    
+                    <div class="important-box">
+                        <p><strong>Короткий ответ:</strong> Нет, народные средства не могут заменить противотуберкулезные препараты. Без противотуберкулезных препаратов излечение туберкулеза практически
+невозможно! Туберкулез — серьезное инфекционное заболевание, требующее длительного лечения специальными препаратами под контролем врача.</p>
+                    </div>
+                    
+                    <hr>
+                    
+                    <h3>Почему народные средства неэффективны против туберкулеза?</h3>
+                    
+                    <ul>
+                        <li><strong>Микобактерия туберкулеза</strong> обладает особой защитной оболочкой, которая делает ее устойчивой ко многим веществам</li>
+                        <li><strong>Требуется комбинация специальных антибиотиков</strong> — обычно 4-5 препаратов одновременно</li>
+                        <li><strong>Лечение должно быть длительным</strong> — от 6 месяцев до 2 лет, в зависимости от формы</li>
+                        <li><strong>Народные средства не уничтожают бактерии</strong> — они могут лишь временно облегчить некоторые симптомы</li>
+                    </ul>
+                    
+                    <div class="note">
+                        <p>До изобретения противотуберкулезных препаратов в XX веке смертность от туберкулеза достигала 50-70%. Никакие народные средства не смогли изменить эту статистику. Только с появлением специфического лечения выздоравливать стали 85-95% пациентов.</p>
+                    </div>
+                    
+                    <hr>
+                    
+                    <h3>Опасности лечения народными средствами</h3>
+                    
+                    <ol>
+                        <li><strong>Упущенное время</strong> — болезнь прогрессирует, развиваются осложнения</li>
+                        <li><strong>Формирование лекарственной устойчивости</strong> — если принимать народные средства вместе с препаратами, можно нарушить схему лечения</li>
+                        <li><strong>Токсическое действие</strong> — некоторые народные средства могут повреждать печень, почки, особенно в сочетании с противотуберкулезными препаратами</li>
+                        <li><strong>Ложное чувство безопасности</strong> — временное улучшение симптомов не означает излечение</li>
+                        <li><strong>Заражение окружающих</strong> — пока вы не получаете правильного лечения, вы остаетесь источником инфекции</li>
+                    </ol>
+                    
+                    <hr>
+                    
+                    <h3>Какие народные средства могут быть опасны?</h3>
+                    
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Средство</th>
+                                <th>Предполагаемый эффект</th>
+                                <th>Реальные риски</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Собачий/барсучий жир</td>
+                                <td>Укрепление иммунитета</td>
+                                <td>Нагрузка на печень, аллергические реакции</td>
+                            </tr>
+                            <tr>
+                                <td>Настойки на спирту</td>
+                                <td>Антибактериальный эффект</td>
+                                <td>Токсическое действие на печень, несовместимость с препаратами</td>
+                            </tr>
+                            <tr>
+                                <td>Ингаляции с эфирными маслами</td>
+                                <td>Облегчение дыхания</td>
+                                <td>Раздражение дыхательных путей, аллергические реакции</td>
+                            </tr>
+                            <tr>
+                                <td>Голодание, строгие диеты</td>
+                                <td>Очищение организма</td>
+                                <td>Истощение, снижение иммунитета, ухудшение состояния</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <hr>
+                    
+                    <h3>Роль народной медицины как вспомогательного средства</h3>
+                    
+                    <p>Некоторые методы <strong>могут использоваться как дополнение</strong> к основному лечению, но только после консультации с врачом:</p>
+                    
+                    <ul>
+                        <li><strong>Укрепляющие средства</strong> — витаминные чаи, отвары шиповника, клюквенный морс (для поддержки иммунитета)</li>
+                        <li><strong>Общеукрепляющая диета</strong> — богатая белками, витаминами и минералами</li>
+                        <li><strong>Дыхательная гимнастика</strong> — для улучшения функции легких</li>
+                        <li><strong>Прогулки на свежем воздухе</strong> — в разрешенное врачом время</li>
+                    </ul>
+                    
+                    <div class="important-box">
+                        <p><strong>Обязательное условие:</strong> Любые дополнительные методы должны быть согласованы с вашим лечащим врачом-фтизиатром. Не принимайте никакие средства, даже растительные, без его разрешения.</p>
+                    </div>
+                    
+                    <hr>
+                    
+                    <h3>Что действительно эффективно против туберкулеза?</h3>
+                    
+                    <ol>
+                        <li><strong>Противотуберкулезные препараты</strong> — по назначенной врачом схеме, без пропусков</li>
+                        <li><strong>Полноценное питание</strong> — богатое белками, витаминами, калориями</li>
+                        <li><strong>Режим дня</strong> — достаточный сон, отсутствие стрессов</li>
+                        <li><strong>Отказ от вредных привычек</strong> — курение и алкоголь снижают эффективность лечения</li>
+                        <li><strong>Позитивный настрой</strong> и поддержка близких</li>
+                    </ol>
+                    
+                    <div class="quote-box">
+                        <p><strong>Запомните:</strong> Туберкулез сегодня успешно лечится в 85-95% случаев при условии своевременного начала и правильного проведения терапии. Не рискуйте своим здоровьем и здоровьем окружающих — доверьте лечение профессионалам. Народные средства могут быть лишь небольшим дополнением к основному лечению и только с разрешения врача.</p>
+                    </div>
+                    
+                    <p>Если вы сомневаетесь в эффективности назначенного лечения или хотите использовать дополнительные методы, обязательно обсудите это с вашим лечащим врачом. Он подскажет, что действительно поможет, а что может навредить.</p>
+                `
+            },
+                        // ===== ДОБАВЛЕННЫЕ ВОПРОСЫ =====
+            {
+                question: "Почему я должен оплачивать справку при трудоустройстве?",
+                answer: `
+                    <h2>Оплата справки при трудоустройстве: законные основания</h2>
+                    
+                    <p>Получение справки для трудоустройства о наличии или отсутствии у вас учета в противотуберкулезном диспансере — это платная услуга, так как она не входит в программу государственных гарантий бесплатного оказания гражданам медицинской помощи (не является страховым случаем по ОМС). Это означает, что фонды обязательного медицинского страхования не компенсируют ее стоимость.</p>
+                    
+                    <p>В то же время, законодательством предусмотрен механизм, согласно которому такие расходы не должны ложиться на самого гражданина. Согласно статье 213 Трудового кодекса РФ, все обязательные медицинские осмотры (и предварительные, и периодические), в рамках которых выдается данная справка, полностью оплачиваются работодателем.</p>
+                    
+                    <p>Поскольку наша медицинская организация не имеет прямого договора с вашим работодателем, мы не можем выставить счет ему напрямую. Таким образом, услуга оказывается вам лично на платной основе.</p>
+                    
+                    <div class="important-box">
+                        <p><strong>Что делать:</strong> Вы можете оплатить справку самостоятельно, а затем предоставить чек и договор в бухгалтерию по месту работы для обязательной компенсации этих расходов. Все вопросы по возмещению стоимости вам необходимо решать непосредственно с вашим работодателем, ссылаясь на ст. 213 ТК РФ.</p>
+                    </div>
+                `
+            },
+            {
+                question: "Что будет, если я откажусь от обработки персональных данных?",
+                answer: `
+                    <h2>Отказ от обработки персональных данных: правовые аспекты для медрегистраторов</h2>
+                    
+                    <h3>Федеральный закон от 27.07.2006 №152-ФЗ «О персональных данных»</h3>
+                    
+                    <p><strong>Статья 6, пункт 2:</strong></p>
+                    
+                    <div class="quote-box">
+                        <p>«Обработка персональных данных допускается, если она необходима для осуществления и выполнения возложенных законодательством РФ на оператора функций, полномочий и обязанностей».</p>
+                    </div>
+                    
+                    <p><strong>Применение к медучреждению:</strong> обработка данных пациента для ведения истории болезни, оформления справок и учёта оказанных услуг в электронной системе обязательна, не требует согласия пациента.</p>
+                    
+                    <p><strong>Пациенты по ОМС:</strong> данные используются для расчёта оплаты через фонд ОМС.</p>
+                    
+                    <p><strong>Пациенты по бюджетному финансированию:</strong> данные используются для учёта выполнения государственного задания Минздрава.</p>
+                    
+                    <p><strong>Защита данных:</strong> гарантируется Министерством здравоохранения РФ.</p>
+                    
+                    <div class="important-box">
+                        <p>«Для оказания медицинской помощи и оформления справки мы обрабатываем ваши персональные данные (ФИО, дата рождения, медицинская информация, результаты анализов). Это необходимо для ведения истории болезни и учёта оказанных услуг. Согласно ст. 6 п.2 ФЗ-152, ваше согласие не требуется. Министерство здравоохранения гарантирует защиту ваших персональных данных».</p>
+                    </div>
+                    
+                    <p>Если пациент отказывается подписывать согласие — это не препятствует оказанию медицинской помощи и внесению его данных в ЕМИАС. При этом  отказ он может написать, запоненный в произвольной форме бланк подшивается к амбулаторной карте</p>
+                `
+            },
+            {
+                question: "Почему я должен иметь полис ОМС данного региона?",
+                answer: `
+                    <h2>Полис ОМС другого региона: почему важно оформить местный</h2>
+                    
+                    <p>Специализированная медицинская помощь при таком заболевании, как туберкулез, в Российской Федерации организуется по территориальному принципу.</p>
+                    
+                    <p>Это означает следующее:</p>
+                    
+                    <p><strong>Финансирование.</strong> Бесплатное лечение туберкулеза финансируется не из федерального бюджета, а целиком за счет бюджета того региона, где вы постоянно зарегистрированы (прописаны). Наш регион (например, Московская область) может предоставлять такую помощь бесплатно только тем гражданам, чьи медицинские полисы и регистрация привязаны к нашему региону.</p>
+                    
+                    <p><strong>Юридическое основание.</strong> Данный порядок установлен Программой государственных гарантий бесплатного оказания гражданам медицинской помощи. В рамках этой программы базовый перечень услуг действует по всему РФ, но высокотехнологичная и специализированная помощь, к которой относится лечение туберкулеза, обеспечивается регионом проживания.</p>
+                    
+                    <p><strong>Что это значит для Вас?</strong></p>
+                    
+                    <ul>
+                        <li>Поскольку Вы не имеете постоянной или временной регистрации в нашем регионе, наш диспансер не получает финансирование из местного бюджета на Ваше диагностику и лечение.</li>
+                        <li>К сожалению, мы не можем оказать Вам эту помощь бесплатно, так как не имеем законных оснований для этого.</li>
+                    </ul>
+                    
+                    <p><strong>Что Вы можете сделать?</strong></p>
+                    
+                    <ul>
+                        <li><strong>Обратиться по месту регистрации.</strong> Для получения бесплатного лечения Вам необходимо обратиться в противотуберкулезный диспансер в том регионе, где вы официально зарегистрированы.</li>
+                        <li><strong>Оформить временную регистрацию.</strong> Если Вы планируете находиться в нашем городе долгое время, Вы можете оформить временную регистрацию по месту пребывания. После этого Вы получите право на прикрепление к нашей медицинской организации и бесплатное лечение в рамках региональной программы.</li>
+                    </ul>
+                    
+                    <div class="important-box">
+                        <p>Мы понимаем, что эта ситуация может вызывать затруднения, и готовы предоставить Вам консультативную помощь и необходимые документы для обращения в медучреждение по месту Вашей регистрации.</p>
+                    </div>
+                `
+            },
+            {
+                question: "Можно ли у вас пройти флюорографическое исследование?",
+                answer: `
+                    <h2>Флюорография и рентген: что нужно знать медрегистратору при ответах по телефону</h2>
+                    
+                    <p>При обращении пациента с вопросом о возможности проведения флюорографии обязательно уточните: "Когда вы последний раз делали рентген или КТ органов грудной клетки?"</p>
+                    
+                    <p>Если исследование проводилось недавно, разъясните, что флюорография и рентген органов грудной клетки <span class="highlight">признаются аналогичными процедурами и имеют одинаковую юридическую силу</span>, но рентген обладает более высокой диагностической точностью. Подчеркните, что в нашем учреждении выполняется именно рентгенографическое исследование. Также уточните о предыдущей флюорографии - многие пациенты не знают, что результаты можно найти в единой электронной базе и думают, что при утере справки нужно проходить исследование заново.</p>
+                    
+                    <h3>Условия оказания услуги:</h3>
+                    
+                    <ul>
+                        <li>Для граждан РФ обследование проводится бесплатно</li>
+                        <li>При платном обследовании сообщите стоимость рублей</li>
+                        <li>Укажите, что оплата принимается только банковской картой</li>
+                        <li>При записи учитывайте расписание работы рентген-кабинета для распределения взрослых пациентов и детского потока.</li>
+                    </ul>
+                    
+                    <div class="note">
+                        <p><strong>Важно:</strong> Понимание этого текста поможет избежать повторного облучения.</p>
+                    </div>
+                `
+            }
+            // ===== КОНЕЦ ДОБАВЛЕННЫХ ВОПРОСОВ =====
+        ];
+
+        // Initialize FAQ
+        document.addEventListener('DOMContentLoaded', function() {
+            const faqContainer = document.getElementById('faqContainer');
+            const noResults = document.getElementById('noResults');
+            const modal = document.getElementById('answerModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalBody = document.getElementById('modalBody');
+            const closeModal = document.getElementById('closeModal');
+            const printButton = document.getElementById('printButton');
+            
+            let currentQuestion = '';
+            
+            // Render FAQ items
+            function renderFAQ(items) {
+                faqContainer.innerHTML = '';
+                
+                if (items.length === 0) {
+                    noResults.style.display = 'block';
+                    return;
+                }
+                
+                noResults.style.display = 'none';
+                
+                items.forEach((item, index) => {
+                    const faqItem = document.createElement('div');
+                    faqItem.className = 'faq-item';
+                    faqItem.innerHTML = `
+                        <div class="faq-question">${item.question}</div>
+                    `;
+                    
+                    faqItem.addEventListener('click', function() {
+                        // Показываем модальное окно с ответом
+                        showModal(item.question, item.answer);
+                    });
+                    
+                    faqContainer.appendChild(faqItem);
+                });
+            }
+            
+            // Show modal with answer
+            function showModal(question, answer) {
+                currentQuestion = question;
+                modalTitle.textContent = question;
+                modalBody.innerHTML = answer;
+                modal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+                
+                // Показываем кнопку печати только для списка в стационар
+                if (question === "Что брать с cобой в стационар?") {
+                    printButton.style.display = 'flex';
+                } else {
+                    printButton.style.display = 'none';
+                }
+            }
+            
+            // Close modal
+            function hideModal() {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+            
+            // Print function
+            function printContent() {
+                window.print();
+            }
+            
+            // Event listeners
+            closeModal.addEventListener('click', hideModal);
+            printButton.addEventListener('click', printContent);
+            
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    hideModal();
+                }
+            });
+            
+            // Close on Escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && modal.style.display === 'block') {
+                    hideModal();
+                }
+            });
+            
+            // Initial render
+            renderFAQ(faqData);
+        });
+    </script>
+</body>
+</html>

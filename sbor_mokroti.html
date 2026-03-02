@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Почему важно правильно собирать мокроту | Диагностика туберкулёза</title>
+    
+    <style>
+        /* ШРИФТЫ - абсолютный путь от корня (как в файле index) */
+        @font-face {
+            font-family: 'Inter';
+            src: url('/fonts/inter-cyrillic-400-normal.woff2') format('woff2');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+        
+        @font-face {
+            font-family: 'Inter';
+            src: url('/fonts/inter-cyrillic-500-normal.woff2') format('woff2');
+            font-weight: 500;
+            font-style: normal;
+            font-display: swap;
+        }
+        
+        @font-face {
+            font-family: 'Inter';
+            src: url('/fonts/inter-cyrillic-600-normal.woff2') format('woff2');
+            font-weight: 600;
+            font-style: normal;
+            font-display: swap;
+        }
+        
+        @font-face {
+            font-family: 'Inter';
+            src: url('/fonts/inter-cyrillic-700-normal.woff2') format('woff2');
+            font-weight: 700;
+            font-style: normal;
+            font-display: swap;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.7;
+            color: #333;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+            padding: 20px;
+            max-width: 1100px;
+            margin: 0 auto;
+            font-size: 17px;
+        }
+        
+        .article-container {
+            background-color: white;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            border-radius: 12px;
+            overflow: hidden;
+            padding: 50px 60px;
+            position: relative;
+        }
+        
+        .article-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(to right, #3498db, #2ecc71);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 45px;
+            padding-bottom: 25px;
+            border-bottom: 2px solid #eaeaea;
+            position: relative;
+        }
+        
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 25%;
+            width: 50%;
+            height: 3px;
+            background: linear-gradient(to right, transparent, #3498db, transparent);
+        }
+        
+        h1 {
+            color: #2c3e50;
+            font-size: 34px;
+            margin-bottom: 15px;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+        
+        .subtitle {
+            color: #7f8c8d;
+            font-size: 20px;
+            font-weight: normal;
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+        
+        .author {
+            color: #95a5a6;
+            font-size: 16px;
+            margin-top: 15px;
+        }
+        
+        .content-section {
+            margin-bottom: 40px;
+            position: relative;
+        }
+        
+        .section-title {
+            color: #2c3e50;
+            font-size: 26px;
+            margin: 35px 0 20px 0;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #f0f0f0;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 80px;
+            height: 3px;
+            background: #3498db;
+        }
+        
+        .subsection-title {
+            color: #3498db;
+            font-size: 21px;
+            margin: 25px 0 15px 0;
+            padding-left: 15px;
+            border-left: 4px solid #3498db;
+        }
+        
+        .highlight-box {
+            background: linear-gradient(to right, #f8f9fa, #f0f7ff);
+            border-left: 5px solid #3498db;
+            padding: 22px;
+            margin: 25px 0;
+            border-radius: 0 8px 8px 0;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+        
+        .info-box {
+            background-color: #f0f9ff;
+            border: 1px solid #d1e7ff;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 8px;
+            position: relative;
+        }
+        
+        .info-box::before {
+            content: 'ℹ️';
+            position: absolute;
+            top: 20px;
+            left: -15px;
+            background: white;
+            border: 2px solid #d1e7ff;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+        
+        .image-container {
+            text-align: center;
+            margin: 35px 0;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            border: 1px solid #eaeaea;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .image-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+        }
+        
+        .image-caption {
+            font-style: italic;
+            color: #555;
+            margin-top: 15px;
+            font-size: 16px;
+            line-height: 1.5;
+            padding: 0 10px;
+        }
+        
+        .image-number {
+            display: inline-block;
+            background: #3498db;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-weight: bold;
+            margin-right: 8px;
+            font-size: 15px;
+        }
+        
+        .highlight {
+            background-color: rgba(52, 152, 219, 0.15);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        ul, ol {
+            padding-left: 30px;
+            margin: 20px 0;
+        }
+        
+        li {
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+        
+        .numbered-list {
+            counter-reset: list-counter;
+            list-style-type: none;
+            padding-left: 0;
+        }
+        
+        .numbered-list li {
+            position: relative;
+            padding-left: 45px;
+            margin-bottom: 20px;
+        }
+        
+        .numbered-list li::before {
+            counter-increment: list-counter;
+            content: counter(list-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: #3498db;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 16px;
+            box-shadow: 0 3px 6px rgba(52, 152, 219, 0.3);
+        }
+        
+        .warning-box {
+            background: #fff3e0;
+            border-left: 5px solid #e67e22;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .question-box {
+            background: linear-gradient(to right, #fff8e1, #fffde7);
+            border-left: 5px solid #ffb300;
+            padding: 22px;
+            margin: 30px 0;
+            border-radius: 0 8px 8px 0;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+        
+        .question {
+            font-weight: bold;
+            color: #ff8f00;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+        
+        .answer {
+            color: #333;
+            padding-left: 20px;
+            border-left: 3px solid #ffb300;
+            margin-top: 15px;
+        }
+        
+        .conclusion {
+            background: linear-gradient(to right, #e8f5e9, #f1f8e9);
+            border-left: 5px solid #4caf50;
+            padding: 30px;
+            margin: 40px 0;
+            border-radius: 0 10px 10px 0;
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.1);
+        }
+        
+        .conclusion h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 26px;
+            text-align: center;
+        }
+        
+        .conclusion p {
+            font-size: 18px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .conclusion ul {
+            text-align: left;
+            display: inline-block;
+            margin: 0 auto;
+            font-size: 18px;
+            list-style-type: disc;
+            padding-left: 40px;
+        }
+        
+        .footer {
+            margin-top: 50px;
+            padding-top: 25px;
+            border-top: 1px solid #eee;
+            text-align: center;
+            color: #7f8c8d;
+            font-size: 15px;
+        }
+        
+        .figure-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+        
+        .figure-item {
+            text-align: center;
+        }
+        
+        .figure-item img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+                font-size: 14pt;
+            }
+            
+            .article-container {
+                box-shadow: none;
+                padding: 20px;
+                page-break-inside: avoid;
+            }
+            
+            .image-container, .figure-item {
+                page-break-inside: avoid;
+                break-inside: avoid;
+            }
+            
+            h1, h2, h3 {
+                page-break-after: avoid;
+            }
+            
+            .image-container:hover {
+                transform: none;
+                box-shadow: 0 3px 6px rgba(0,0,0,0.08);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+                font-size: 16px;
+            }
+            
+            .article-container {
+                padding: 25px;
+            }
+            
+            h1 {
+                font-size: 28px;
+            }
+            
+            .section-title {
+                font-size: 22px;
+            }
+            
+            .figure-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .conclusion ul {
+                padding-left: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="article-container">
+        <div class="header">
+            <h1>Почему важно правильно собирать мокроту?</h1>
+            <p class="subtitle">От качества анализа зависит точность диагностики и лечение</p>
+            <p class="author">Информационный материал для пациентов. Текст адаптирован для пациентов.</p>
+        </div>
+        
+        <div class="content-section">
+            <p>Сбор мокроты — это не формальность и не «галочка для врача». От того, как именно вы соберёте мокроту, напрямую зависит точность диагностики и подбор лечения.</p>
+            
+            <div class="info-box">
+                <p>От того, <span class="highlight">как именно</span> вы соберёте мокроту, напрямую зависит:</p>
+                <ul>
+                    <li>найдут ли возбудителя туберкулёза;</li>
+                    <li>смогут ли определить, какие лекарства подойдут именно вам;</li>
+                    <li>будет ли лечение эффективным с самого начала.</li>
+                </ul>
+                <p style="margin-top: 15px; font-weight: 600;">Проще говоря: правильная мокрота = правильно подобранное лечение.</p>
+            </div>
+        </div>
+        
+        <div class="content-section">
+            <h2 class="section-title">Что именно ищут врачи в мокроте?</h2>
+            
+            <p>Туберкулёз вызывает бактерия — <span class="highlight">микобактерия туберкулёза</span> (её часто называют «палочкой»).</p>
+            
+            <p>Важно понимать:</p>
+            <ul>
+                <li>у каждого пациента — свои микобактерии;</li>
+                <li>они могут по-разному реагировать на противотуберкулёзные препараты.</li>
+            </ul>
+            
+            <div class="highlight-box">
+                <p>👉 найти именно вашу микобактерию</p>
+                <p>👉 изучить её современными методами</p>
+                <p>👉 понять, какими препаратами её нужно лечить именно в вашем случае</p>
+            </div>
+        </div>
+        
+        <div class="content-section">
+            <h2 class="section-title">Что такое «чувствительность к препаратам»?</h2>
+            
+            <p><span class="highlight">Чувствительность</span> — это ответ на вопрос: <em>к каким противотуберкулёзным препаратам чувствительны именно ваши микобактерии?</em></p>
+            
+            <p>Если микобактерия чувствительна к препаратам стандартной схемы лечения — эти лекарства эффективно на неё действуют.</p>
+            
+            <div class="info-box">
+                <p>Если же микобактерия нечувствительна к препаратам стандартной схемы, это обязательно будет выявлено, и в таком случае врач подберёт другую схему лечения с применением других препаратов.</p>
+            </div>
+        </div>
+        
+        <div class="content-section">
+            <h2 class="section-title">Почему без тщательно собранной мокроты это невозможно?</h2>
+            
+            <p>Чтобы определить чувствительность, микобактерию нужно:</p>
+            <ul>
+                <li>найти в мокроте;</li>
+                <li>выделить и изучить;</li>
+                <li>проверить её реакцию на разные препараты.</li>
+            </ul>
+            
+            <div class="highlight-box">
+                <p>Если мокрота собрана недостаточно тщательно или в контейнер попали посторонние бактерии, микобактерию могут не обнаружить с первого раза или не смогут провести все необходимые исследования.</p>
+            </div>
+        </div>
+        
+        <div class="content-section">
+            <h2 class="section-title">Почему анализ мокроты могут назначать несколько раз?</h2>
+            
+            <p><span class="highlight">Сдавайте анализ мокроты столько раз, сколько назначает врач. Каждый раз — так же тщательно.</span></p>
+            
+            <p>Иногда микобактерию не удаётся обнаружить с первого исследования. Если не получилось в первый раз — может получиться во второй или в третий, если это необходимо.</p>
+            
+            <div class="info-box">
+                <p>Каждый правильно собранный анализ повышает шанс точной диагностики.</p>
+            </div>
+        </div>
+        
+        <div class="content-section">
+            <h2 class="section-title">Правила сбора мокроты для анализа</h2>
+            
+            <div class="warning-box">
+                <p><strong>Критически важно:</strong> Для анализа пригодна только мокрота, выделяемая из нижних дыхательных путей (бронхов) при глубоком кашле. Слюна или слизь из носоглотки не подходят и приведут к недостоверному результату. В образец не должны попасть частицы пищи или иные посторонние примеси.</p>
+            </div>
+            
+            <h3 class="subsection-title">Подготовка и время сбора</h3>
+            <ul>
+                <li><span class="highlight">Собирайте мокроту утром</span>, сразу после пробуждения.</li>
+                <li><span class="highlight">Не чистите зубы</span> перед сбором.</li>
+                <li>Перед сбором можно прополоскать рот чистой кипяченой водой или слабым (1-2%) раствором пищевой соды.</li>
+            </ul>
+            
+            <h3 class="subsection-title">Пошаговая инструкция</h3>
+            <p>Для получения качественного образца выполните следующие действия:</p>
+            
+            <ol class="numbered-list">
+                <li><strong>Тщательно прополощите рот</strong> согласно указаниям выше.</li>
+                <li><strong>Сделайте несколько (5-10) постепенно углубляющихся вдохов и выдохов.</strong> Начинайте спокойно, с каждым циклом вдыхайте глубже, а выдыхайте с большим усилием.</li>
+                <li><strong>На последнем, самом глубоком вдохе задержите дыхание на 2-3 секунды, затем резко и с силой выдохните, чтобы спровоцировать отхождение мокроты.</strong></li>
+                <li><strong>Постарайтесь откашлять мокроту</strong>, почувствовав, что она идет из глубины грудной клетки, а не из горла.</li>
+                <li><strong>Сплюньте полученную мокроту в стерильный контейнер</strong>, стараясь не касаться его краев. Главное — собрать именно мокроту. Для анализа подходит даже небольшое ее количество.</li>
+                <li><strong>Плотно закройте контейнер крышкой</strong> и тщательно вымойте руки с мылом.</li>
+            </ol>
+        </div>
+
+        <!-- НОВЫЙ РАЗДЕЛ: Что делать, если мокрота не дала результата? -->
+        <div class="content-section">
+            <h2 class="section-title">Что делать, если мокрота не дала результата?</h2>
+            
+            <p>Иногда пациент кашляет, но в собранной мокроте не находят микобактерий. Частая причина — мокрота поступает из верхних дыхательных путей (носоглотки, гортани), где палочки туберкулёза нет. Для диагностики нужен материал из бронхов и лёгких.</p>
+            
+            <p><strong>Как поступает врач?</strong></p>
+            
+            <p><strong>Раздражающая ингаляция.</strong> Если обычный сбор неэффективен, в стационаре проводят ингаляцию с подогретым солевым раствором. Она провоцирует глубокий кашель и помогает получить мокроту именно из нижних отделов дыхательных путей.</p>
+            
+            <p><strong>Бронхоскопия с браш-биопсией или лаважом.</strong> Если ингаляция не помогла или мокрота продолжает поступать из верхних отделов, следующим этапом становится бронхоскопия. Это процедура, при которой врач через тонкий зонд вводит миниатюрную щёточку («браш») непосредственно в бронхи и забирает материал оттуда (также может выполняться смыв — бронхоальвеолярный лаваж). Только так можно гарантированно получить образец из очага инфекции.</p>
+            
+            <p><strong>Лечение не начинают «вслепую».</strong> До получения материала и определения лекарственной чувствительности противотуберкулёзную терапию не назначают. Исключение — жизнеугрожающие состояния (остро прогрессирующий туберкулез, особенно у ВИЧ-инфицированных, казеозная пневмония, милиарный туберкулёз, менингит), когда промедление может стоить жизни. Но в стандартной ситуации сначала — диагноз, потом — лечение.</p>
+        </div>
+        
+        <div class="conclusion">
+            <h2>Главное, что нужно запомнить</h2>
+            <p>Тщательный сбор мокроты и выполнение рекомендаций врача помогает:</p>
+            <ul>
+                <li>повысить вероятность обнаружить микобактерию;</li>
+                <li>определить ее чувствительность к препаратам;</li>
+                <li>подобрать наиболее подходящую схему лечения.</li>
+            </ul>
+        </div>
+        
+        <div class="footer">
+            <p>Информационный материал о важности правильного сбора мокроты для диагностики туберкулёза.</p>
+            <p>Текст адаптирован для пациентов</p>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Стили для печати
+            const printStyles = document.createElement('style');
+            printStyles.innerHTML = `
+                @media print {
+                    body {
+                        background-color: white;
+                        padding: 0;
+                        font-size: 12pt !important;
+                        line-height: 1.5 !important;
+                    }
+                    
+                    .article-container {
+                        box-shadow: none;
+                        padding: 20px !important;
+                        margin: 0 !important;
+                        border-radius: 0 !important;
+                        page-break-inside: avoid;
+                    }
+                    
+                    .image-container, .figure-item {
+                        margin: 20px 0 !important;
+                        page-break-inside: avoid !important;
+                        break-inside: avoid !important;
+                    }
+                    
+                    img {
+                        max-width: 100% !important;
+                        height: auto !important;
+                    }
+                    
+                    .highlight-box, .info-box, .question-box, .conclusion, .warning-box {
+                        page-break-inside: avoid !important;
+                    }
+                    
+                    h1, h2, h3 {
+                        page-break-after: avoid !important;
+                    }
+                }
+            `;
+            document.head.appendChild(printStyles);
+        });
+    </script>
+</body>
+</html>

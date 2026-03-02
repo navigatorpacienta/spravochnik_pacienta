@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="favicon.ico?v=2" type="image/x-icon"> 
+    <title>Как добраться | Клиника № 1 (Здравница)</title>
+    
+    <!-- ЛОКАЛЬНЫЕ ШРИФТЫ (как в исходном файле) -->
+    <style>
+        @font-face {
+            font-family: 'Inter';
+            src: url('./fonts/inter-cyrillic-400-normal.woff2') format('woff2');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'Inter';
+            src: url('./fonts/inter-cyrillic-500-normal.woff2') format('woff2');
+            font-weight: 500;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'Inter';
+            src: url('./fonts/inter-cyrillic-600-normal.woff2') format('woff2');
+            font-weight: 600;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'Inter';
+            src: url('./fonts/inter-cyrillic-700-normal.woff2') format('woff2');
+            font-weight: 700;
+            font-style: normal;
+            font-display: swap;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+        
+        :root {
+            --primary: #4B0082;
+            --primary-light: #f0f8ff; 
+            --primary-dark: #370066; 
+            --primary-very-light: #f3f8ff;
+            --secondary: #64748b;
+            --accent: #00BCD4;
+            --dark-turquoise: #009ACD;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --background: #ffffff;
+            --surface: #ffffff;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --border: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+        
+        body {
+            background: var(--background);
+            color: var(--text-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
+        }
+        
+        .content-header {
+            background: var(--surface);
+            padding: 35px 40px 35px 60px; 
+            border-bottom: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            text-align: left; 
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 30px; 
+        }
+
+        .content-header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), #1E90FF, var(--accent));
+        }
+
+        .header-logo {
+            width: 180px; 
+            height: 180px;
+            margin: 0;
+            flex-shrink: 0;
+            display: block;
+            object-fit: contain;
+            position: relative; 
+            z-index: 2;
+        }
+
+        .header-text-container {
+            flex-grow: 1;
+            text-align: left;
+        }
+        
+        .institution-main {
+            color: var(--text-secondary);
+            font-size: 1.3rem;
+            margin-bottom: 4px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+        
+        .page-title {
+            font-size: 3rem; 
+            font-weight: 800;
+            background: none; 
+            -webkit-background-clip: unset;
+            -webkit-text-fill-color: unset;
+            background-clip: unset;
+            color: var(--text-primary); 
+            margin-bottom: 6px;
+            line-height: 1.1;
+        }
+
+        .title-navigator { 
+            color: var(--primary); 
+        }
+
+        .title-specialist {
+            color: var(--dark-turquoise); 
+        }
+
+        .page-description {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            font-weight: 400;
+            max-width: none;
+            margin: 0;
+            line-height: 1.5;
+            text-align: left;
+        }
+        
+        .content-area {
+            padding: 35px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .route-card {
+            background: var(--surface);
+            border-radius: 20px;
+            padding: 28px;
+            box-shadow: var(--shadow-lg);
+            margin-bottom: 30px;
+            border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .route-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+        }
+
+        .route-card h2 {
+            color: var(--primary);
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .route-card h2 span {
+            font-size: 2rem;
+        }
+
+        .route-card h3 {
+            color: var(--dark-turquoise);
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin: 25px 0 15px 0;
+        }
+
+        .route-card p {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            color: var(--text-primary);
+        }
+
+        .route-list {
+            list-style: none;
+            margin: 15px 0 20px 30px;
+        }
+
+        .route-list li {
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .route-list li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        .highlight-box {
+            background: var(--primary-very-light);
+            border-left: 4px solid var(--accent);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 25px 0;
+        }
+
+        .highlight-box p {
+            margin-bottom: 10px;
+        }
+
+        .highlight-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        .badge {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-right: 10px;
+        }
+
+        .stop-name {
+            font-weight: 700;
+            color: var(--primary);
+            background: var(--primary-light);
+            padding: 2px 8px;
+            border-radius: 6px;
+            display: inline-block;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 35px;
+            color: var(--text-secondary);
+            background: var(--surface);
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-lg);
+            margin-top: 35px;
+        }
+        
+        .footer p {
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+        
+        .year {
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 1.05rem;
+        }
+
+        @media (max-width: 768px) {
+            .content-header {
+                padding: 25px 20px;
+                flex-direction: column;
+                align-items: flex-start;
+                text-align: left;
+                gap: 15px;
+            }
+            .header-logo {
+                width: 100px;
+                height: 100px;
+            }
+            .page-title {
+                font-size: 2rem;
+            }
+            .content-area {
+                padding: 20px;
+            }
+            .route-card {
+                padding: 20px;
+            }
+            .route-card h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="main-content">
+        <header class="content-header">
+            <img src="header-logo.png" alt="Логотип ГБУЗ МО МОКПТД" class="header-logo"> 
+            
+            <div class="header-text-container">
+                <div class="institution-main">Клиника № 1 ГБУЗ МО «МОКПТД»</div>
+                <h1 class="page-title">
+                    <span class="title-navigator">Как добраться</span> <span class="title-specialist">до стационара</span>
+                </h1>
+                <p class="page-description">пос. Здравница, ул. Дубки, д. 7</p>
+            </div>
+        </header>
+        
+        <div class="content-area">
+            <!-- Вариант 1: Электричка до Здравницы + пешком -->
+            <div class="route-card">
+                <h2><span>🚂</span> Вариант 1: Электричка до станции «Здравница» + пешком</h2>
+                <p><strong>Подходит для:</strong> тех, кто хочет без пересадок и готов пройтись 15 минут по лесопарку.</p>
+                
+                <ol class="route-list" style="list-style: none; counter-reset: step-counter; margin-left: 0;">
+                    <li style="counter-increment: step-counter; padding-left: 40px; margin-bottom: 20px; position: relative;">
+                        <strong style="position: absolute; left: 0; color: var(--accent); font-size: 1.3rem;">1.</strong>
+                        В Москве едете до станции метро <span class="stop-name">«Комсомольская»</span>. Выходите на Ярославский вокзал.
+                    </li>
+                    <li style="counter-increment: step-counter; padding-left: 40px; margin-bottom: 20px; position: relative;">
+                        <strong style="position: absolute; left: 0; color: var(--accent); font-size: 1.3rem;">2.</strong>
+                        Садитесь на <strong>любую электричку</strong> в сторону Пушкино, Сергиева Посада или Софрино.
+                    </li>
+                    <li style="counter-increment: step-counter; padding-left: 40px; margin-bottom: 20px; position: relative;">
+                        <strong style="position: absolute; left: 0; color: var(--accent); font-size: 1.3rem;">3.</strong>
+                        Выходите на станции <span class="stop-name">«Здравница»</span>. Ехать около 30–40 минут.
+                    </li>
+                </ol>
+
+                <h3>Как выходить и куда идти:</h3>
+                <ul class="route-list">
+                    <li>Выходите из электрички на платформе «Здравница». Перед вами — железнодорожные пути. Вам нужно перейти на другую сторону. Ищите <strong>пешеходный мост</strong> (лестница вверх, потом вниз).</li>
+                    <li>Спустились с моста — вы в поселке. Там сразу начинается асфальтовая дорога, которая уходит прямо в лесопарк.</li>
+                    <li><strong>Идите прямо по этой дороге, никуда не сворачивая.</strong> Через 10–15 минут вы упретесь прямо в забор больничного городка.</li>
+                  
+                </ul>
+            </div>
+
+            <!-- Вариант 2: Электричка до Мытищ + автобус -->
+            <div class="route-card">
+                <h2><span>🚂🚌</span> Вариант 2: Электричка до станции «Мытищи» + автобус или маршрутка</h2>
+                <p><strong>Подходит для:</strong> тех, кто не хочет идти пешком 15 минут от Здравницы, или кому нужно точнее попасть к остановке «Дубки» (она прямо у больницы).</p>
+                
+                <ol class="route-list" style="list-style: none; counter-reset: step-counter; margin-left: 0;">
+                    <li style="counter-increment: step-counter; padding-left: 40px; margin-bottom: 20px; position: relative;">
+                        <strong style="position: absolute; left: 0; color: var(--accent); font-size: 1.3rem;">1.</strong>
+                        С <span class="stop-name">Ярославского вокзала</span> (метро Комсомольская) садитесь на электричку до станции <span class="stop-name">«Мытищи»</span>.
+                    </li>
+                    <li style="counter-increment: step-counter; padding-left: 40px; margin-bottom: 20px; position: relative;">
+                        <strong style="position: absolute; left: 0; color: var(--accent); font-size: 1.3rem;">2.</strong>
+                        Выходите на станции «Мытищи». Вам нужно на привокзальную площадь — там останавливаются автобусы и маршрутки.
+                    </li>
+                </ol>
+
+                <h3>Дальше два варианта:</h3>
+                
+                <div style="margin: 20px 0 20px 20px;">
+                    <p><span class="badge">🚌</span> <strong>Автобус № 22, 23, 26 или 314.</strong> Садитесь в любой из них. Говорите водителю: вам выходить на остановке <span class="stop-name">«Дубки»</span>. От этой остановки до больницы — 2 минуты пешком, видно сразу.</p>
+                    
+                    <p style="margin-top: 15px;"><span class="badge" style="background: var(--primary);">🚐</span> <strong>Маршрутка № 34.</strong> Садитесь на нее. Она идет до конечной остановки <span class="stop-name">«Здравница»</span> (это в поселке). От конечной до больницы идти пешком около 5–10 минут по той же главной дороге (ориентир — лесопарк и забор больницы).</p>
+                </div>
+            </div>
+
+            <!-- Вариант 3: Метро + автобус -->
+            <div class="route-card">
+                <h2><span>🚇🚌</span> Вариант 3: Метро + автобус (без электрички)</h2>
+                <p><strong>Подходит для:</strong> тех, кто живет рядом с метро «Медведково» или не хочет связываться с вокзалами.</p>
+                
+                <ol class="route-list" style="list-style: none; counter-reset: step-counter; margin-left: 0;">
+                    <li style="counter-increment: step-counter; padding-left: 40px; margin-bottom: 20px; position: relative;">
+                        <strong style="position: absolute; left: 0; color: var(--accent); font-size: 1.3rem;">1.</strong>
+                        Едете до станции метро <span class="stop-name">«Медведково»</span> (оранжевая ветка, конечная).
+                    </li>
+                    <li style="counter-increment: step-counter; padding-left: 40px; margin-bottom: 20px; position: relative;">
+                        <strong style="position: absolute; left: 0; color: var(--accent); font-size: 1.3rem;">2.</strong>
+                        Выходите из метро, ищете остановку автобусов. Вам нужен <strong>автобус № 314</strong>.
+                    </li>
+                    <li style="counter-increment: step-counter; padding-left: 40px; margin-bottom: 20px; position: relative;">
+                        <strong style="position: absolute; left: 0; color: var(--accent); font-size: 1.3rem;">3.</strong>
+                        Едете до остановки <span class="stop-name">«Дубки»</span>. Выходите — больница рядом, видно.
+                    </li>
+                </ol>
+            </div>
+
+            <!-- Контакты (если заблудились) -->
+            <div class="highlight-box" style="background: var(--primary-very-light); border-left-color: var(--primary);">
+                <h3 style="color: var(--primary); margin-bottom: 15px; font-size: 1.4rem;">Контакты (если заблудились)</h3>
+                <ul class="route-list" style="margin-bottom: 0;">
+                    <li><strong>Приемное отделение:</strong> 8 (495) 584-06-00</li>
+                    <li><strong>Дежурный врач:</strong> 8 (985) 861-02-11</li>
+                    <li><strong>Адрес:</strong> Московская область, Мытищинский район, пос. Здравница, ул. Дубки, д. 7</li>
+                </ul>
+            </div>
+            
+            <!-- Важная информация -->
+            <div class="route-card" style="background: var(--primary-very-light); border-left: 4px solid var(--primary);">
+                <h3 style="color: var(--primary); margin-bottom: 15px;">Важно</h3>
+                <p style="font-size: 1.2rem; font-weight: 600; color: var(--primary); margin-bottom: 0;">Просьба явиться для госпитализации до 14:00</p>
+            </div>
+
+            <!-- Подвал (как в исходном файле) -->
+            <div class="footer">
+                <p style="font-size: 1rem; max-width: 700px; margin: 0 auto 25px auto; line-height: 1.5; color: var(--text-primary);">
+                    Если что-то непонятно или нашли ошибку — напишите. Этот текст будет дополняться.
+                </p>
+                
+                <div style="margin-bottom: 20px;">
+                    <p style="font-size: 1rem; margin-bottom: 8px;">
+                        📧 <a href="mailto:mz_mokptd_klin@mosreg.ru" style="color: var(--primary); text-decoration: none; font-weight: 500;">mz_mokptd_klin@mosreg.ru</a>
+                    </p>
+                    <p style="font-size: 0.95rem; color: var(--text-primary);">
+                        ГБУЗ МО «МОКПТД»
+                    </p>
+                </div>
+                
+                <div style="border-top: 1px solid var(--border); padding-top: 20px;">
+                    <span class="year">2025</span>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
