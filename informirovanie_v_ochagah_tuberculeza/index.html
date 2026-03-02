@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Хирургическое лечение туберкулёза: понятное и честное объяснение для пациента</title>
+    
+    <!-- ШРИФТЫ - абсолютный путь от корня (как в файле 609) -->
+    <style>
+        @font-face {
+            font-family: 'Inter';
+            src: url('./fonts/inter-cyrillic-400-normal.woff2') format('woff2');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+        
+        @font-face {
+            font-family: 'Inter';
+            src: url('./fonts/inter-cyrillic-500-normal.woff2') format('woff2');
+            font-weight: 500;
+            font-style: normal;
+            font-display: swap;
+        }
+        
+        @font-face {
+            font-family: 'Inter';
+            src: url('./fonts/inter-cyrillic-600-normal.woff2') format('woff2');
+            font-weight: 600;
+            font-style: normal;
+            font-display: swap;
+        }
+        
+        @font-face {
+            font-family: 'Inter';
+            src: url('./fonts/inter-cyrillic-700-normal.woff2') format('woff2');
+            font-weight: 700;
+            font-style: normal;
+            font-display: swap;
+        }
+        
+        body {
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.7;
+            color: #333;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #3498db;
+        }
+        h2 {
+            color: #2980b9;
+            margin-top: 35px;
+            margin-bottom: 15px;
+            padding-left: 10px;
+            border-left: 4px solid #3498db;
+        }
+        h3 {
+            color: #16a085;
+            margin-top: 25px;
+            margin-bottom: 10px;
+        }
+        .section {
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+        }
+        .highlight {
+            background-color: #e8f4fc;
+            border-left: 5px solid #3498db;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .benefits {
+            margin: 20px 0;
+        }
+        .benefit-item {
+            margin-bottom: 15px;
+            padding-left: 25px;
+            position: relative;
+        }
+        .benefit-item:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #27ae60;
+            font-weight: bold;
+        }
+        .image-comparison {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin: 30px 0;
+            gap: 20px;
+        }
+        .image-pair {
+            flex: 1 1 300px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .image-container {
+            width: 100%;
+            height: 350px;
+            background-color: #ecf0f1;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        .image-container:hover {
+            transform: scale(1.02);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+        }
+        .image-label {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        .before {
+            color: #e74c3c;
+        }
+        .after {
+            color: #27ae60;
+        }
+        .click-hint {
+            font-size: 0.85em;
+            color: #7f8c8d;
+            font-style: italic;
+            margin-top: 5px;
+        }
+        .conclusion {
+            background-color: #fef9e7;
+            border: 1px solid #f7dc6f;
+            border-radius: 10px;
+            padding: 25px;
+            margin-top: 30px;
+        }
+        
+        /* Стили для модального окна */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+            position: relative;
+        }
+        
+        .modal-content img {
+            max-width: 100%;
+            max-height: 90vh;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: -40px;
+            right: -10px;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            background: none;
+            border: none;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: color 0.3s;
+        }
+        
+        .close-btn:hover {
+            color: #3498db;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+            .section {
+                padding: 20px;
+            }
+            .image-comparison {
+                flex-direction: column;
+            }
+            .image-container {
+                height: 300px;
+            }
+            .close-btn {
+                top: -50px;
+                right: 0;
+                font-size: 35px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Хирургическое лечение туберкулёза: понятное и честное объяснение для пациента</h1>
+    
+    <div class="section">
+        <p>Когда человек впервые слышит диагноз «туберкулёз», это всегда неожиданно.<br>
+        Появляется тревога, много вопросов, неопределённость. Перед направлением в стационар важно получить простое и честное понимание: какие есть варианты лечения и зачем иногда предлагают хирургический путь.</p>
+        
+        <p>Эта информация поможет заранее сформировать правильное отношение — спокойно, без страха, без лишних сомнений.</p>
+    </div>
+    
+    <div class="section">
+        <h2>🌟 Почему операции при туберкулёзе — это нормально и современно</h2>
+        
+        <p>Да, туберкулёз лечится лекарствами — и во многих случаях только ими.<br>
+        Но у части пациентов в лёгком остаются участки ткани, которые не могут полностью восстановиться и продолжают:</p>
+        
+        <ul>
+            <li>поддерживать воспаление,</li>
+            <li>мешать лёгкому работать,</li>
+            <li>быть потенциальным источником рецидива.</li>
+        </ul>
+        
+        <p>Хирургическое лечение применяется именно для таких случаев.</p>
+        
+        <div class="highlight">
+            <p><strong>Важно понимать:</strong><br>
+            операция — это не крайняя мера и не показатель тяжести,<br>
+            а наоборот — возможность убрать то, что мешает организму полностью выздороветь.</p>
+        </div>
+    </div>
+    
+    <div class="section">
+        <h2>🫁 Что даёт операция? Простыми словами</h2>
+        
+        <p>Вот что происходит после удаления очага туберкулёза:</p>
+        
+        <div class="benefits">
+            <div class="benefit-item"><strong>1. Убирается участок, который больше не работает</strong><br>Разрушенная ткань или каверна мешает лёгкому и стимулирует воспаление. После её удаления здоровая часть лёгкого раскрывается свободнее.</div>
+            
+            <div class="benefit-item"><strong>2. Снижается риск рецидива</strong><br>Когда очага больше нет — болеть повторно гораздо менее вероятно.</div>
+            
+            <div class="benefit-item"><strong>3. Улучшается эффективность лекарств</strong><br>Антибактериальные препараты начинают работать в условиях, где уже нет «мешающей» разрушенной ткани.</div>
+            
+            <div class="benefit-item"><strong>4. Ускоряется путь к выздоровлению</strong><br>У многих пациентов после операции курс лечения становится короче и переносится легче.</div>
+            
+            <div class="benefit-item"><strong>5. Возвращается нормальное дыхание</strong><br>Через пару месяцев ощущается лёгкость, уменьшается утомляемость, исчезает слабость.</div>
+        </div>
+    </div>
+    
+    <div class="section">
+        <h2>🛡️ Это безопасно?</h2>
+        
+        <p>Современная торакальная хирургия — это отработанный, спокойный и контролируемый процесс.</p>
+        
+        <p>В специализированных центрах операции проходят с высокой эффективностью:<br>
+        до 90% пациентов полностью избавляются от очага заболевания, если отбор проведён правильно.</p>
+        
+        <p>Используются щадящие методы, глубокое обезболивание, проводится подготовка к операции и наблюдение после неё.</p>
+        
+        <p>Как и при любой операции, существуют возможные риски. Специалисты учитывают их заранее и предлагают хирургическое лечение только тогда, когда польза для здоровья значительно превышает потенциальные осложнения.</p>
+    </div>
+    
+    <div class="section">
+        <h2>⚖️ Операция подходит не всем — и это нормально</h2>
+        
+        <p>Смысл направления в специализированный стационар как раз в том, чтобы:</p>
+        
+        <ul>
+            <li>внимательно изучить ваше состояние,</li>
+            <li>оценить снимки и анализы,</li>
+            <li>понять, будет ли для вас операция лучшим шагом,</li>
+            <li>или достаточно одного медикаментозного лечения.</li>
+        </ul>
+        
+        <p>Если хирург скажет, что операция не нужна — значит, ваш организм справляется и без неё.</p>
+        
+        <p>Если скажет, что операция показана — значит, это доказанный способ повысить шанс полного выздоровления.</p>
+    </div>
+    
+    <div class="section">
+        <h2>🩺 Как всё проходит</h2>
+        
+        <div class="benefits">
+            <div class="benefit-item"><strong>Подготовка:</strong> обследования, КТ, анализы, подбор терапии.</div>
+            
+            <div class="benefit-item"><strong>Операция:</strong> проводится специалистами с большим опытом.</div>
+            
+            <div class="benefit-item"><strong>Восстановление:</strong> несколько недель — и лёгкое постепенно возвращается к нормальной работе.</div>
+            
+            <div class="benefit-item"><strong>Продолжение терапии:</strong> чтобы закрепить результат и вывести болезнь в устойчивое излечение.</div>
+        </div>
+    </div>
+    
+    <div class="section">
+        <h2>📉 Почему риск рецидива после операции меньше?</h2>
+
+        <p>Если после лечения в лёгком остаётся участок повреждённой ткани или полость, он не участвует в нормальном дыхании и может сохранять условия для повторной активности инфекции. Такие остаточные изменения иногда становятся источником рецидива, поэтому их удаление снижает вероятность возвращения заболевания и улучшает общий прогноз.</p>
+
+        <p>Удаление очага = исключение этого риска.</p>
+
+        <p>Особенно важно при устойчивых формы туберкулёза, когда часть препаратов работает хуже.</p>
+    </div>
+    
+    <div class="section">
+        <h2>⚡До / После</h2>
+        
+        <div class="image-comparison">
+            <div class="image-pair">
+                <div class="image-container" data-image="image1.png">
+                    <!-- Изображение будет загружено через JavaScript -->
+                </div>
+                <div class="image-label before">До операции:</div>
+                <div class="click-hint">Нажмите для увеличения</div>
+                <p>Большой туберкулезный процесс с одной стороны (обведено красным).<br>Сравните с противоположной стороной для наглядности.<br>Это место уже не участвует в дыхании и может поддерживать болезнь.</p>
+            </div>
+            
+            <div class="image-pair">
+                <div class="image-container" data-image="image2.png">
+                    <!-- Изображение будет загружено через JavaScript -->
+                </div>
+                <div class="image-label after">После операции:</div>
+                <div class="click-hint">Нажмите для увеличения</div>
+                <p>Снимок здоровой ткани или состояние после удаления очага.<br>Лёгкое раскрывается лучше, дыхание становится свободнее, риск рецидива ниже.</p>
+            </div>
+        </div>
+        
+        <!-- Убрал остальные 4 изображения, оставил только 2 -->
+    </div>
+    
+    <div class="section conclusion">
+        <h2>❤️ Что вы должны знать перед направлением в стационар</h2>
+        
+        <p>Хирургическое лечение — это современный метод, помогающий добиться стойкого благоприятного результата.</p>
+        
+        <p>Это не наказание и не крайняя мера, а инструмент, который иногда работает лучше всего.</p>
+        
+        <p>Операции по поводу туберкулёза выполняются давно, качественно и безопасно.</p>
+        
+        <p>Этот путь уже помог тысячам людей не просто вылечить болезнь, но и освободиться от страха её возвращения.</p>
+        
+        <p><strong>В стационаре вам помогут разобраться, подходит ли это именно вам.</strong></p>
+    </div>
+    
+    <!-- Модальное окно для увеличенного изображения -->
+    <div class="modal-overlay" id="imageModal">
+        <div class="modal-content">
+            <button class="close-btn" id="closeModal">&times;</button>
+            <img id="modalImage" src="" alt="Увеличенное изображение">
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Массив с путями к изображениям (оставили только 2)
+            const images = ['image1.png', 'image2.png'];
+            
+            // Находим все контейнеры для изображений
+            const imageContainers = document.querySelectorAll('.image-container');
+            const modal = document.getElementById('imageModal');
+            const modalImage = document.getElementById('modalImage');
+            const closeModal = document.getElementById('closeModal');
+            
+            // Загружаем изображения
+            imageContainers.forEach((container, index) => {
+                if (index < images.length) {
+                    // Очищаем контейнер
+                    container.innerHTML = '';
+                    
+                    // Создаём элемент изображения
+                    const img = document.createElement('img');
+                    img.src = images[index];
+                    img.alt = index === 0 ? 'До операции' : 'После операции';
+                    
+                    // Сохраняем путь к изображению в data-атрибуте
+                    container.setAttribute('data-image', images[index]);
+                    
+                    // Добавляем изображение в контейнер
+                    container.appendChild(img);
+                    
+                    // Делаем контейнер кликабельным - открываем модальное окно
+                    container.addEventListener('click', function() {
+                        const imagePath = this.getAttribute('data-image');
+                        modalImage.src = imagePath;
+                        modalImage.alt = index === 0 ? 'Увеличенное изображение: До операции' : 'Увеличенное изображение: После операции';
+                        modal.style.display = 'flex';
+                        document.body.style.overflow = 'hidden'; // Отключаем прокрутку страницы
+                    });
+                    
+                    // Добавляем стили для указателя
+                    container.style.cursor = 'pointer';
+                }
+            });
+            
+            // Закрытие модального окна по крестику
+            closeModal.addEventListener('click', function() {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto'; // Включаем прокрутку страницы
+            });
+            
+            // Закрытие модального окна по клику на оверлей
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = 'auto'; // Включаем прокрутку страницы
+                }
+            });
+            
+            // Закрытие модального окна по клавише ESC
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && modal.style.display === 'flex') {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = 'auto'; // Включаем прокрутку страницы
+                }
+            });
+        });
+    </script>
+</body>
+</html>
