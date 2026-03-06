@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Почему важна заключительная дезинфекция | Профилактика туберкулёза</title>
+    
+    <style>
+        /* ШРИФТЫ - абсолютный путь от корня (как в файле index) */
+        @font-face {
+            font-family: 'Inter';
+            src: url('./fonts/inter-cyrillic-400-normal.woff2') format('woff2');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+        
+        @font-face {
+            font-family: 'Inter';
+            src: url('./fonts/inter-cyrillic-500-normal.woff2') format('woff2');
+            font-weight: 500;
+            font-style: normal;
+            font-display: swap;
+        }
+        
+        @font-face {
+            font-family: 'Inter';
+            src: url('./fonts/inter-cyrillic-600-normal.woff2') format('woff2');
+            font-weight: 600;
+            font-style: normal;
+            font-display: swap;
+        }
+        
+        @font-face {
+            font-family: 'Inter';
+            src: url('./fonts/inter-cyrillic-700-normal.woff2') format('woff2');
+            font-weight: 700;
+            font-style: normal;
+            font-display: swap;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.7;
+            color: #333;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+            padding: 20px;
+            max-width: 1100px;
+            margin: 0 auto;
+            font-size: 17px;
+        }
+        
+        .article-container {
+            background-color: white;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            border-radius: 12px;
+            overflow: hidden;
+            padding: 50px 60px;
+            position: relative;
+        }
+        
+        .article-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(to right, #2e7d32, #66bb6a);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 45px;
+            padding-bottom: 25px;
+            border-bottom: 2px solid #eaeaea;
+            position: relative;
+        }
+        
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 25%;
+            width: 50%;
+            height: 3px;
+            background: linear-gradient(to right, transparent, #2e7d32, transparent);
+        }
+        
+        h1 {
+            color: #2c3e50;
+            font-size: 34px;
+            margin-bottom: 15px;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+        
+        .subtitle {
+            color: #7f8c8d;
+            font-size: 20px;
+            font-weight: normal;
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+        
+        .author {
+            color: #95a5a6;
+            font-size: 16px;
+            margin-top: 15px;
+        }
+        
+        .content-section {
+            margin-bottom: 40px;
+            position: relative;
+        }
+        
+        .section-title {
+            color: #2c3e50;
+            font-size: 26px;
+            margin: 35px 0 20px 0;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #f0f0f0;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 80px;
+            height: 3px;
+            background: #2e7d32;
+        }
+        
+        .subsection-title {
+            color: #2e7d32;
+            font-size: 21px;
+            margin: 25px 0 15px 0;
+            padding-left: 15px;
+            border-left: 4px solid #2e7d32;
+        }
+        
+        .highlight-box {
+            background: linear-gradient(to right, #f8f9fa, #f0f7ff);
+            border-left: 5px solid #2e7d32;
+            padding: 22px;
+            margin: 25px 0;
+            border-radius: 0 8px 8px 0;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+        
+        .info-box {
+            background-color: #f0f9ff;
+            border: 1px solid #d1e7ff;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 8px;
+            position: relative;
+        }
+        
+        .info-box::before {
+            content: 'ℹ️';
+            position: absolute;
+            top: 20px;
+            left: -15px;
+            background: white;
+            border: 2px solid #d1e7ff;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+        
+        .image-container {
+            text-align: center;
+            margin: 35px 0;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            border: 1px solid #eaeaea;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .image-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+        }
+        
+        .image-caption {
+            font-style: italic;
+            color: #555;
+            margin-top: 15px;
+            font-size: 16px;
+            line-height: 1.5;
+            padding: 0 10px;
+        }
+        
+        .image-number {
+            display: inline-block;
+            background: #3498db;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-weight: bold;
+            margin-right: 8px;
+            font-size: 15px;
+        }
+        
+        .highlight {
+            background-color: rgba(52, 152, 219, 0.15);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        ul, ol {
+            padding-left: 30px;
+            margin: 20px 0;
+        }
+        
+        li {
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+        
+        .numbered-list {
+            counter-reset: list-counter;
+            list-style-type: none;
+            padding-left: 0;
+        }
+        
+        .numbered-list li {
+            position: relative;
+            padding-left: 45px;
+            margin-bottom: 20px;
+        }
+        
+        .numbered-list li::before {
+            counter-increment: list-counter;
+            content: counter(list-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: #2e7d32;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 16px;
+            box-shadow: 0 3px 6px rgba(46, 125, 50, 0.3);
+        }
+        
+        .warning-box {
+            background: #fff3e0;
+            border-left: 5px solid #e67e22;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .question-box {
+            background: linear-gradient(to right, #fff8e1, #fffde7);
+            border-left: 5px solid #ffb300;
+            padding: 22px;
+            margin: 30px 0;
+            border-radius: 0 8px 8px 0;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+        
+        .question {
+            font-weight: bold;
+            color: #ff8f00;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+        
+        .answer {
+            color: #333;
+            padding-left: 20px;
+            border-left: 3px solid #ffb300;
+            margin-top: 15px;
+        }
+        
+        .conclusion {
+            background: linear-gradient(to right, #e8f5e9, #f1f8e9);
+            border-left: 5px solid #2e7d32;
+            padding: 30px;
+            margin: 40px 0;
+            border-radius: 0 10px 10px 0;
+            box-shadow: 0 5px 15px rgba(46, 125, 50, 0.1);
+        }
+        
+        .conclusion h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 26px;
+            text-align: center;
+        }
+        
+        .conclusion p {
+            font-size: 18px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .conclusion ul {
+            text-align: left;
+            display: inline-block;
+            margin: 0 auto;
+            font-size: 18px;
+            list-style-type: disc;
+            padding-left: 40px;
+        }
+        
+        .footer {
+            margin-top: 50px;
+            padding-top: 25px;
+            border-top: 1px solid #eee;
+            text-align: center;
+            color: #7f8c8d;
+            font-size: 15px;
+        }
+        
+        .figure-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+        
+        .figure-item {
+            text-align: center;
+        }
+        
+        .figure-item img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+                font-size: 14pt;
+            }
+            
+            .article-container {
+                box-shadow: none;
+                padding: 20px;
+                page-break-inside: avoid;
+            }
+            
+            .image-container, .figure-item {
+                page-break-inside: avoid;
+                break-inside: avoid;
+            }
+            
+            h1, h2, h3 {
+                page-break-after: avoid;
+            }
+            
+            .image-container:hover {
+                transform: none;
+                box-shadow: 0 3px 6px rgba(0,0,0,0.08);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+                font-size: 16px;
+            }
+            
+            .article-container {
+                padding: 25px;
+            }
+            
+            h1 {
+                font-size: 28px;
+            }
+            
+            .section-title {
+                font-size: 22px;
+            }
+            
+            .figure-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .conclusion ul {
+                padding-left: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="article-container">
+        <div class="header">
+            <h1>Почему важна заключительная дезинфекция?</h1>
+            <p class="subtitle">От качества обработки зависит здоровье ваших близких</p>
+            <p class="author">Информационный материал для пациентов. Текст адаптирован для пациентов.</p>
+        </div>
+        
+        <div class="content-section">
+            <p>Заключительная дезинфекция — это не формальность и не «галочка для врача». От того, как именно она будет проведена, напрямую зависит, останется ли инфекция в вашем доме.</p>
+            
+            <div class="info-box">
+                <p>От того, <span class="highlight">как именно</span> будет проведена дезинфекция, напрямую зависит:</p>
+                <ul>
+                    <li>будут ли уничтожены микобактерии туберкулёза;</li>
+                    <li>смогут ли ваши родственники и соседи находиться в квартире без риска;</li>
+                    <li>будет ли ваш дом безопасным после вашего возвращения из стационара.</li>
+                </ul>
+                <p style="margin-top: 15px; font-weight: 600;">Проще говоря: правильная дезинфекция = защищённая семья.</p>
+            </div>
+        </div>
+        
+        <div class="content-section">
+            <h2 class="section-title">Что именно уничтожают при дезинфекции?</h2>
+            
+            <p>Туберкулёз вызывает бактерия — <span class="highlight">микобактерия туберкулёза</span> (её часто называют «палочкой Коха»).</p>
+            
+            <p>Важно понимать:</p>
+            <ul>
+                <li>в каждом очаге — свои микобактерии;</li>
+                <li>они могут сохраняться в пыли и на поверхностях до года.</li>
+            </ul>
+            
+            <div class="highlight-box">
+                <p>👉 уничтожить именно те бактерии, которые выделял больной;</p>
+                <p>👉 обработать все места, где они могли осесть;</p>
+                <p>👉 сделать это так, чтобы после обработки в помещении не осталось источника инфекции.</p>
+            </div>
+        </div>
+        
+        <div class="content-section">
+            <h2 class="section-title">Почему обычная уборка не заменяет дезинфекцию?</h2>
+            
+            <p><span class="highlight">Обычная уборка</span> — это ответ на вопрос: <em>можно ли убрать видимую грязь?</em></p>
+            
+            <p>Если вы моете пол с хлоркой, вы убираете пыль и часть микробов на поверхности.</p>
+            
+            <div class="info-box">
+                <p>Микобактерии же находятся не только на виду. Они в щелях паркета, в ворсе ковра, в обивке мебели, в постельных принадлежностях. Обычные средства туда не проникают.</p>
+            </div>
+        </div>
+        
+        <div class="content-section">
+            <h2 class="section-title">Почему без профессиональной дезинфекции это невозможно?</h2>
+            
+            <p>Чтобы уничтожить микобактерии, нужно:</p>
+            <ul>
+                <li>использовать специальные растворы, approved для медорганизаций;</li>
+                <li>применить метод тонкодисперсного распыления («холодный туман»);</li>
+                <li>обработать вещи в дезинфекционных камерах (подушки, одеяла, матрасы).</li>
+            </ul>
+            
+            <div class="highlight-box">
+                <p>Если дезинфекция проведена недостаточно тщательно или использованы бытовые средства, микобактерии могут сохраниться и стать источником заражения для здоровых людей.</p>
+            </div>
+        </div>
+        
+        <div class="content-section">
+            <h2 class="section-title">Почему дезинфекцию могут назначать повторно?</h2>
+            
+            <p><span class="highlight">Соглашайтесь на дезинфекцию столько раз, сколько назначает врач. Каждый раз — с тем же вниманием.</span></p>
+            
+            <p>Иногда после первой обработки в помещении остаются вещи, которые сложно обработать сразу. Или пациент возвращается домой и снова выделяет бактерии. В таких случаях требуется повторная обработка.</p>
+            
+            <div class="info-box">
+                <p>Каждая правильно проведённая дезинфекция снижает риск заражения окружающих.</p>
+            </div>
+        </div>
+        
+        <div class="content-section">
+            <h2 class="section-title">Правила подготовки к заключительной дезинфекции</h2>
+            
+            <div class="warning-box">
+                <p><strong>Критически важно:</strong> До приезда специалистов соберите постельное бельё, полотенца, вещи, которыми пользовался больной. Они подлежат камерной обработке. Продукты питания, которые могли контактировать с больным, лучше утилизировать.</p>
+            </div>
+            
+            <h3 class="subsection-title">Подготовка помещения</h3>
+            <ul>
+                <li><span class="highlight">Освободите шкафы</span> для доступа к вещам.</li>
+                <li><span class="highlight">Уберите посуду</span> в мойку или пакеты для обработки.</li>
+                <li>Обеспечьте доступ ко всем комнатам, где мог находиться больной.</li>
+            </ul>
+            
+            <h3 class="subsection-title">Что делают специалисты</h3>
+            <p>Для качественной дезинфекции выполняется следующий комплекс:</p>
+            
+            <ol class="numbered-list">
+                <li><strong>Обработка помещения методом орошения</strong> — полов, стен, мебели, подоконников.</li>
+                <li><strong>Сбор вещей для камерной дезинфекции</strong> — подушек, одеял, матрасов, верхней одежды.</li>
+                <li><strong>Замачивание посуды и белья</strong> в дезинфицирующих растворах.</li>
+                <li><strong>Заключительная влажная уборка</strong> после экспозиции растворов.</li>
+                <li><strong>Проветривание помещения</strong> до полного исчезновения запаха.</li>
+            </ol>
+        </div>
+
+        <!-- НОВЫЙ РАЗДЕЛ: Что делать, если родственники отказываются пускать дезинфекторов? -->
+        <div class="content-section">
+            <h2 class="section-title">Что делать, если родственники отказываются пускать дезинфекторов?</h2>
+            
+            <p>Иногда родственники говорят: «Мы сами всё вымоем, зачем нам чужие люди». Частая причина — страх за имущество, непонимание серьёзности инфекции.</p>
+            
+            <p><strong>Как поступает врач?</strong></p>
+            
+            <p><strong>Разъяснительная беседа.</strong> Врач или медсестра объясняют, что обычная уборка не убивает микобактерии. Что подушки, одеяла, матрасы можно обработать только в специальной камере — дома это сделать невозможно.</p>
+            
+            <p><strong>Повторное направление.</strong> Если отказ продолжается, диспансер направляет повторное уведомление. В некоторых регионах вопрос решается через органы Роспотребнадзора, так как речь идёт о безопасности окружающих.</p>
+            
+            <p><strong>Дезинфекция не отменяется.</strong> Пока помещение не обработано, оно остаётся источником инфекции. Рискуют все, кто туда заходит, включая соседей по подъезду (через вентиляцию).</p>
+        </div>
+        
+        <div class="conclusion">
+            <h2>Главное, что нужно запомнить</h2>
+            <p>Своевременная и качественная дезинфекция помогает:</p>
+            <ul>
+                <li>уничтожить микобактерии в помещении;</li>
+                <li>защитить родственников и соседей;</li>
+                <li>обеспечить безопасное возвращение пациента домой после лечения.</li>
+            </ul>
+        </div>
+        
+        <div class="footer">
+            <p>Информационный материал о важности заключительной дезинфекции при туберкулёзе.</p>
+            <p>Текст адаптирован для пациентов</p>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Стили для печати
+            const printStyles = document.createElement('style');
+            printStyles.innerHTML = `
+                @media print {
+                    body {
+                        background-color: white;
+                        padding: 0;
+                        font-size: 12pt !important;
+                        line-height: 1.5 !important;
+                    }
+                    
+                    .article-container {
+                        box-shadow: none;
+                        padding: 20px !important;
+                        margin: 0 !important;
+                        border-radius: 0 !important;
+                        page-break-inside: avoid;
+                    }
+                    
+                    .image-container, .figure-item {
+                        margin: 20px 0 !important;
+                        page-break-inside: avoid !important;
+                        break-inside: avoid !important;
+                    }
+                    
+                    img {
+                        max-width: 100% !important;
+                        height: auto !important;
+                    }
+                    
+                    .highlight-box, .info-box, .question-box, .conclusion, .warning-box {
+                        page-break-inside: avoid !important;
+                    }
+                    
+                    h1, h2, h3 {
+                        page-break-after: avoid !important;
+                    }
+                }
+            `;
+            document.head.appendChild(printStyles);
+        });
+    </script>
+</body>
+</html>
