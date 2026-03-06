@@ -580,7 +580,7 @@
 
     <script>
 // ============================================
-// НАВИГАТОР ПАЦИЕНТА - ПОЛНОСТЬЮ ПЕРЕПИСАННЫЙ СКРИПТ
+// НАВИГАТОР ПАЦИЕНТА - ИСПРАВЛЕННАЯ ВЕРСИЯ
 // ============================================
 
 (function() {
@@ -595,16 +595,26 @@
                         name: 'Почему важно правильно собрать мокроту', 
                         link: 'sbor_mokroti.html', 
                         preview: 'Чтобы определить, какие лекарства смогут уничтожить бактерию туберкулеза именно в вашем случае, необходимо найти в мокроте микобактерию и изучить её. А это возможно только в том случае, если мокрота собрана правильно.' 
+                    },
+                    {
+                        name: 'Лабораторная диагностика туберкулеза',
+                        link: 'lab_diagnostics.html',
+                        preview: 'Современные методы лабораторной диагностики позволяют быстро и точно выявить туберкулез. Микроскопия, посев, ПЦР-диагностика — все эти методы помогают поставить правильный диагноз.'
+                    },
+                    {
+                        name: 'Лучевая диагностика: флюорография, рентген, КТ',
+                        link: 'radiology.html',
+                        preview: 'Лучевые методы исследования помогают увидеть изменения в легких, определить форму и распространенность процесса. Врач-рентгенолог опишет все изменения и поможет в постановке диагноза.'
                     }
                 ]
             },
             treatment: {
                 items: [
-                   { 
-            name: 'Основные принципы противотуберкулезной терапии', 
-            link: 'principi_lechenia.html', 
-            preview: 'Семь принципов, на которых строится лечение туберкулёза. Индивидуальный подход, своевременность, правильная комбинация препаратов, непрерывность, комплексная терапия, контролируемый приём и мониторинг побочного действия лекарств. Коротко и понятно — чтобы вы понимали логику лечения.' 
-        },
+                    { 
+                        name: 'Основные принципы противотуберкулезной терапии', 
+                        link: 'principi_lechenia.html', 
+                        preview: 'Семь принципов, на которых строится лечение туберкулёза. Индивидуальный подход, своевременность, правильная комбинация препаратов, непрерывность, комплексная терапия, контролируемый приём и мониторинг побочного действия лекарств. Коротко и понятно — чтобы вы понимали логику лечения.' 
+                    },
                     { 
                         name: 'Как правильно принимать лекарства', 
                         link: 'Pacientam_o_preparatax.html', 
@@ -618,35 +628,35 @@
                 ]
             },
             prevention: {
-    items: [
-        {
-            name: 'Организация работы в производственном очаге туберкулеза',
-            link: 'informirovanie_v_ochagah_tuberculeza/',
-            preview: 'Туберкулёз редко касается только одного человека. Скорейшее обследование тных лиц это единственный способ своевременно предупредить развитие болезни или найти ее на самой ранней стадии.'
+                items: [
+                    {
+                        name: 'Организация работы в производственном очаге туберкулеза',
+                        link: 'informirovanie_v_ochagah_tuberculeza/',
+                        preview: 'Туберкулёз редко касается только одного человека. Скорейшее обследование контактных лиц это единственный способ своевременно предупредить развитие болезни или найти ее на самой ранней стадии.'
+                    },
+                    {
+                        name: 'О профосмотрах на туберкулез',
+                        link: 'o_profosmotrax_na_tuberkulez/',
+                        preview: 'Профосмотр — это не формальность. Это способ обнаружить туберкулёз тогда, когда он лечится проще и быстрее. Текст сформирует понимание того, как организована работа системы здравоохранения по раннему выявлению туберкулеза.'
+                    },
+                    {
+                        name: 'Заключительная дезинфекция',
+                        link: 'dez_obrabotka.html',
+                        preview: 'Возбудитель туберкулеза живет в квартире очень долго — до нескольких месяцев, в отдельных случаях годы. Обычная уборка его не убивает. Уничтожить инфекцию может только заключительная дезинфекция: ее проводят специалисты, а не вы.'
+                    }
+                ]
+            }
         },
-        {
-            name: 'О профосмотрах на туберкулез',
-            link: 'o_profosmotrax_na_tuberkulez/',
-            preview: 'Профосмотр — это не формальность. Это способ обнаружить туберкулёз тогда, когда он лечится проще и быстрее. Текст сформирует понимание того, как организована работа системы здравоохранения по раннему выявлению туберкулеза.'
-        },
-        {
-            name: 'Заключительная дезинфекция',
-            link: 'dez_obrabotka.html',
-            preview: 'Возбудитель туберкулеза живет в квартире очень долго — до нескольких месяцев, в отдельных случаях годы. Обычная уборка его не убивает. Уничтожить инфекцию может только заключительная дезинфекция: ее проводят специалисты, а не вы.'
-        }
-    ]
-},
         
         directLinks: {
             general_info: {
                 link: 'informacia_iz_KK.html',
                 preview: 'Туберкулёз — излечимое заболевание. Здесь — простые обобщенные объяснения болезни, лечения, побочных эффектов и других рекомендаций во время терапии.'
             },
-            
             surgery: {
-    link: 'o_hirurgicheskom_lechenii/',
-    preview: 'Из этого раздела вы узнаете, что хирургическое лечение туберкулеза — это современный, безопасный и эффективный метод, который помогает добиться стойкого и благоприятного результата.'
-},
+                link: 'o_hirurgicheskom_lechenii/',
+                preview: 'Из этого раздела вы узнаете, что хирургическое лечение туберкулеза — это современный, безопасный и эффективный метод, который помогает добиться стойкого и благоприятного результата.'
+            },
             clinical_guidelines: {
                 link: 'https://rof-tb.ru/structure',
                 preview: '<strong>Для чего эта информация вам?</strong><br><br>• <strong>Право на информацию:</strong> Согласно Федеральному закону № 323-ФЗ «Об основах охраны здоровья граждан в Российской Федерации» (ст. 22), каждый пациент имеет право на получение информации о своих правах и обязанностях, состоянии здоровья, а также о применяемых методах диагностики и лечения.<br><br>• <strong>Прозрачность лечения:</strong> Наличие доступа к документам позволяет пациенту понимать, насколько предлагаемое лечение соответствует актуальным научным данным.'
@@ -677,46 +687,6 @@
         }
     };
 
-    // ========== УПРАВЛЕНИЕ ВЫПАДАЮЩИМИ СПИСКАМИ ==========
-    function initDropdowns() {
-        // Переключение карточек
-        window.toggleCard = function(card) {
-            if (card?.classList.contains('expandable')) {
-                card.classList.toggle('expanded');
-            }
-        };
-
-        // Переключение выпадающих списков
-        window.toggleDropdown = function(id, event) {
-            event?.stopPropagation();
-            
-            const dropdown = document.getElementById('dropdown-' + id);
-            const toggle = event?.currentTarget;
-            
-            if (!dropdown) return;
-            
-            // Закрываем все другие
-            document.querySelectorAll('.dropdown-content.show').forEach(el => {
-                if (el.id !== 'dropdown-' + id) el.classList.remove('show');
-            });
-            document.querySelectorAll('.dropdown-toggle.expanded').forEach(el => {
-                if (el !== toggle) el.classList.remove('expanded');
-            });
-            
-            // Переключаем текущий
-            dropdown.classList.toggle('show');
-            if (toggle) toggle.classList.toggle('expanded');
-        };
-
-        // Закрытие при клике вне
-        document.addEventListener('click', function(e) {
-            if (!e.target.closest('.dropdown-toggle') && !e.target.closest('.dropdown-content')) {
-                document.querySelectorAll('.dropdown-content.show').forEach(d => d.classList.remove('show'));
-                document.querySelectorAll('.dropdown-toggle.expanded').forEach(t => t.classList.remove('expanded'));
-            }
-        });
-    }
-
     // ========== ОТОБРАЖЕНИЕ КОНТЕНТА ==========
     function showSectionList(sectionKey) {
         const section = DATA.sections[sectionKey];
@@ -732,15 +702,17 @@
         modalManager.open(elements.previewModal);
 
         // Добавляем обработчики на элементы
-        document.querySelectorAll('#modalPreviewBody .section-item').forEach(el => {
-            el.addEventListener('click', function(e) {
-                e.stopPropagation();
-                const key = this.dataset.section;
-                const idx = this.dataset.index;
-                const item = DATA.sections[key].items[idx];
-                showItemPreview(item.link, item.preview);
+        setTimeout(() => {
+            document.querySelectorAll('#modalPreviewBody .section-item').forEach(el => {
+                el.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const key = this.dataset.section;
+                    const idx = this.dataset.index;
+                    const item = DATA.sections[key].items[idx];
+                    showItemPreview(item.link, item.preview);
+                });
             });
-        });
+        }, 100);
     }
 
     function showItemPreview(link, previewText) {
@@ -758,24 +730,22 @@
     function initCards() {
         document.querySelectorAll('.card').forEach(card => {
             card.addEventListener('click', function(e) {
-                // Пропускаем клики по выпадающим элементам
-                if (e.target.closest('.dropdown-toggle') || 
-                    e.target.closest('.dropdown-content') || 
-                    e.target.closest('.link-item')) {
-                    return;
+                e.preventDefault();
+                e.stopPropagation();
+
+                // Если это ссылка (тег A), просто переходим
+                if (this.tagName === 'A') {
+                    return; // Пусть браузер обрабатывает как обычно
                 }
 
-                // Обычные ссылки
-                if (this.tagName === 'A') return;
-
-                e.preventDefault();
-
-                // Expandable карточки
+                // Expandable карточки (Диагностика, Консервативное лечение, Профилактика)
                 if (this.classList.contains('expandable') && this.dataset.preview) {
                     const key = this.dataset.preview;
-                    if (DATA.sections[key]) showSectionList(key);
+                    if (DATA.sections[key]) {
+                        showSectionList(key);
+                    }
                 }
-                // Карточки с прямыми ссылками
+                // Карточки с прямыми ссылками (Общая информация, Хирургия, Клинические рекомендации)
                 else if (this.dataset.direct) {
                     const key = this.dataset.direct;
                     if (DATA.directLinks[key]) {
@@ -790,13 +760,22 @@
     // ========== ОБРАБОТЧИКИ МОДАЛЬНЫХ ОКОН ==========
     function initModals() {
         // Закрытие по кнопкам
-        elements.closePreviewBtn?.addEventListener('click', () => modalManager.close(elements.previewModal));
-        elements.closeItemPreviewBtn?.addEventListener('click', () => modalManager.close(elements.itemPreviewModal));
+        elements.closePreviewBtn?.addEventListener('click', (e) => {
+            e.stopPropagation();
+            modalManager.close(elements.previewModal);
+        });
+        
+        elements.closeItemPreviewBtn?.addEventListener('click', (e) => {
+            e.stopPropagation();
+            modalManager.close(elements.itemPreviewModal);
+        });
 
         // Закрытие по клику на фон
         [elements.previewModal, elements.itemPreviewModal].forEach(modal => {
             modal?.addEventListener('click', (e) => {
-                if (e.target === modal) modalManager.close(modal);
+                if (e.target === modal) {
+                    modalManager.close(modal);
+                }
             });
         });
     }
@@ -832,7 +811,6 @@
 
     // ========== ИНИЦИАЛИЗАЦИЯ ==========
     function init() {
-        initDropdowns();
         initCards();
         initModals();
         
@@ -840,6 +818,8 @@
         window.addEventListener('load', () => setTimeout(centerLastCard, 50));
         window.addEventListener('resize', centerLastCard);
         window.addEventListener('pageshow', centerLastCard);
+        
+        console.log('Навигатор инициализирован'); // Для проверки
     }
 
     // Запускаем после полной загрузки DOM
