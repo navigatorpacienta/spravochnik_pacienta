@@ -579,14 +579,18 @@
     </div>
 
     <script>
-// ============================================
-// НАВИГАТОР ПАЦИЕНТА - ИСПРАВЛЕННАЯ ВЕРСИЯ
-// ============================================
-
-(function() {
-    'use strict';
-
-    // ========== ДАННЫЕ ==========
+// ========== ПРОСТОЙ РАБОЧИЙ СКРИПТ ==========
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('Скрипт загружен'); // Для проверки
+    
+    // Получаем все карточки
+    const cards = document.querySelectorAll('.card');
+    const previewModal = document.getElementById('previewModal');
+    const itemPreviewModal = document.getElementById('itemPreviewModal');
+    const modalPreviewBody = document.getElementById('modalPreviewBody');
+    const itemPreviewBody = document.getElementById('itemPreviewBody');
+    
+    // Данные
     const DATA = {
         sections: {
             diagnostics: {
@@ -595,22 +599,12 @@
                         name: 'Почему важно правильно собрать мокроту', 
                         link: 'sbor_mokroti.html', 
                         preview: 'Чтобы определить, какие лекарства смогут уничтожить бактерию туберкулеза именно в вашем случае, необходимо найти в мокроте микобактерию и изучить её. А это возможно только в том случае, если мокрота собрана правильно.' 
-                    },
-                    {
-                        name: 'Лабораторная диагностика туберкулеза',
-                        link: 'lab_diagnostics.html',
-                        preview: 'Современные методы лабораторной диагностики позволяют быстро и точно выявить туберкулез. Микроскопия, посев, ПЦР-диагностика — все эти методы помогают поставить правильный диагноз.'
-                    },
-                    {
-                        name: 'Лучевая диагностика: флюорография, рентген, КТ',
-                        link: 'radiology.html',
-                        preview: 'Лучевые методы исследования помогают увидеть изменения в легких, определить форму и распространенность процесса. Врач-рентгенолог опишет все изменения и поможет в постановке диагноза.'
                     }
                 ]
             },
             treatment: {
                 items: [
-                    { 
+                   { 
                         name: 'Основные принципы противотуберкулезной терапии', 
                         link: 'principi_lechenia.html', 
                         preview: 'Семь принципов, на которых строится лечение туберкулёза. Индивидуальный подход, своевременность, правильная комбинация препаратов, непрерывность, комплексная терапия, контролируемый приём и мониторинг побочного действия лекарств. Коротко и понятно — чтобы вы понимали логику лечения.' 
@@ -647,7 +641,6 @@
                 ]
             }
         },
-        
         directLinks: {
             general_info: {
                 link: 'informacia_iz_KK.html',
@@ -664,30 +657,17 @@
         }
     };
 
-    // ========== ЭЛЕМЕНТЫ DOM ==========
-    const elements = {
-        previewModal: document.getElementById('previewModal'),
-        itemPreviewModal: document.getElementById('itemPreviewModal'),
-        modalPreviewBody: document.getElementById('modalPreviewBody'),
-        itemPreviewBody: document.getElementById('itemPreviewBody'),
-        closePreviewBtn: document.getElementById('closePreviewModal'),
-        closeItemPreviewBtn: document.getElementById('closeItemPreviewModal')
-    };
+    // Функция открытия модального окна
+    function openModal(modal) {
+        if (modal) modal.classList.add('active');
+    }
 
-    // ========== УПРАВЛЕНИЕ МОДАЛЬНЫМИ ОКНАМИ ==========
-    const modalManager = {
-        open: function(modal) {
-            if (modal) modal.classList.add('active');
-        },
-        close: function(modal) {
-            if (modal) modal.classList.remove('active');
-        },
-        closeAll: function() {
-            document.querySelectorAll('.modal-preview.active').forEach(m => m.classList.remove('active'));
-        }
-    };
+    // Функция закрытия модального окна
+    function closeModal(modal) {
+        if (modal) modal.classList.remove('active');
+    }
 
-    // ========== ОТОБРАЖЕНИЕ КОНТЕНТА ==========
+    // Показать список разделов
     function showSectionList(sectionKey) {
         const section = DATA.sections[sectionKey];
         if (!section) return;
@@ -698,23 +678,11 @@
         });
         html += '</div>';
         
-        elements.modalPreviewBody.innerHTML = html;
-        modalManager.open(elements.previewModal);
-
-        // Добавляем обработчики на элементы
-        setTimeout(() => {
-            document.querySelectorAll('#modalPreviewBody .section-item').forEach(el => {
-                el.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    const key = this.dataset.section;
-                    const idx = this.dataset.index;
-                    const item = DATA.sections[key].items[idx];
-                    showItemPreview(item.link, item.preview);
-                });
-            });
-        }, 100);
+        modalPreviewBody.innerHTML = html;
+        openModal(previewModal);
     }
 
+    // Показать превью
     function showItemPreview(link, previewText) {
         const html = `
             <div class="preview-card">
@@ -722,74 +690,81 @@
                 <a href="${link}" class="preview-card__button" target="_blank">Перейти →</a>
             </div>
         `;
-        elements.itemPreviewBody.innerHTML = html;
-        modalManager.open(elements.itemPreviewModal);
+        itemPreviewBody.innerHTML = html;
+        openModal(itemPreviewModal);
     }
 
-    // ========== ОБРАБОТЧИКИ КАРТОЧЕК ==========
-    function initCards() {
-        document.querySelectorAll('.card').forEach(card => {
-            card.addEventListener('click', function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-
-                // Если это ссылка (тег A), просто переходим
-                if (this.tagName === 'A') {
-                    return; // Пусть браузер обрабатывает как обычно
-                }
-
-                // Expandable карточки (Диагностика, Консервативное лечение, Профилактика)
-                if (this.classList.contains('expandable') && this.dataset.preview) {
-                    const key = this.dataset.preview;
-                    if (DATA.sections[key]) {
-                        showSectionList(key);
-                    }
-                }
-                // Карточки с прямыми ссылками (Общая информация, Хирургия, Клинические рекомендации)
-                else if (this.dataset.direct) {
-                    const key = this.dataset.direct;
-                    if (DATA.directLinks[key]) {
-                        const data = DATA.directLinks[key];
-                        showItemPreview(data.link, data.preview);
-                    }
-                }
-            });
-        });
-    }
-
-    // ========== ОБРАБОТЧИКИ МОДАЛЬНЫХ ОКОН ==========
-    function initModals() {
-        // Закрытие по кнопкам
-        elements.closePreviewBtn?.addEventListener('click', (e) => {
+    // Обработчики для карточек
+    cards.forEach(card => {
+        card.addEventListener('click', function(e) {
+            e.preventDefault();
             e.stopPropagation();
-            modalManager.close(elements.previewModal);
-        });
-        
-        elements.closeItemPreviewBtn?.addEventListener('click', (e) => {
-            e.stopPropagation();
-            modalManager.close(elements.itemPreviewModal);
-        });
+            
+            console.log('Клик по карточке', this); // Для отладки
 
-        // Закрытие по клику на фон
-        [elements.previewModal, elements.itemPreviewModal].forEach(modal => {
-            modal?.addEventListener('click', (e) => {
-                if (e.target === modal) {
-                    modalManager.close(modal);
+            // Если это ссылка на faq.html - просто переходим
+            if (this.tagName === 'A') {
+                return; // Пусть браузер обрабатывает как обычно
+            }
+
+            // Карточки с выпадающим списком (Диагностика, Лечение, Профилактика)
+            if (this.classList.contains('expandable')) {
+                const key = this.dataset.preview;
+                if (key && DATA.sections[key]) {
+                    showSectionList(key);
                 }
-            });
+            }
+            // Карточки с прямыми ссылками
+            else if (this.dataset.direct) {
+                const key = this.dataset.direct;
+                if (DATA.directLinks[key]) {
+                    const data = DATA.directLinks[key];
+                    showItemPreview(data.link, data.preview);
+                }
+            }
         });
-    }
+    });
 
-    // ========== ЦЕНТРИРОВАНИЕ ПОСЛЕДНЕЙ КАРТОЧКИ ==========
+    // Обработчики для элементов списка (событийная делегация)
+    modalPreviewBody.addEventListener('click', function(e) {
+        const sectionItem = e.target.closest('.section-item');
+        if (sectionItem) {
+            const key = sectionItem.dataset.section;
+            const index = sectionItem.dataset.index;
+            const item = DATA.sections[key].items[index];
+            showItemPreview(item.link, item.preview);
+        }
+    });
+
+    // Закрытие модальных окон
+    document.getElementById('closePreviewModal').addEventListener('click', function() {
+        closeModal(previewModal);
+    });
+
+    document.getElementById('closeItemPreviewModal').addEventListener('click', function() {
+        closeModal(itemPreviewModal);
+    });
+
+    // Закрытие по клику на фон
+    previewModal.addEventListener('click', function(e) {
+        if (e.target === previewModal) {
+            closeModal(previewModal);
+        }
+    });
+
+    itemPreviewModal.addEventListener('click', function(e) {
+        if (e.target === itemPreviewModal) {
+            closeModal(itemPreviewModal);
+        }
+    });
+
+    // Центрирование последней карточки
     function centerLastCard() {
         const grid = document.getElementById('cardGrid');
         if (!grid) return;
         
         const cards = Array.from(grid.children);
-        cards.forEach(c => {
-            c.classList.remove('centered');
-            c.style.width = c.style.maxWidth = '';
-        });
+        cards.forEach(c => c.classList.remove('centered'));
 
         if (cards.length === 0) return;
 
@@ -805,31 +780,12 @@
         if (cards.length % cardsPerRow === 1) {
             const lastCard = cards[cards.length - 1];
             lastCard.classList.add('centered');
-            lastCard.style.width = lastCard.style.maxWidth = cardWidth + 'px';
         }
     }
 
-    // ========== ИНИЦИАЛИЗАЦИЯ ==========
-    function init() {
-        initCards();
-        initModals();
-        
-        // Центрирование при загрузке и изменении размера
-        window.addEventListener('load', () => setTimeout(centerLastCard, 50));
-        window.addEventListener('resize', centerLastCard);
-        window.addEventListener('pageshow', centerLastCard);
-        
-        console.log('Навигатор инициализирован'); // Для проверки
-    }
-
-    // Запускаем после полной загрузки DOM
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', init);
-    } else {
-        init();
-    }
-
-})();
+    window.addEventListener('load', centerLastCard);
+    window.addEventListener('resize', centerLastCard);
+});
 </script>
 </body>
 </html>
