@@ -356,7 +356,7 @@
         <!-- Убрал остальные 4 изображения, оставил только 2 -->
     </div>
     
-    <div class="section conclusion">
+        <div class="section conclusion">
         <h2>❤️ Что вы должны знать перед направлением в стационар</h2>
         
         <p>Хирургическое лечение — это современный метод, помогающий добиться стойкого благоприятного результата.</p>
@@ -368,13 +368,22 @@
         <p>Этот путь уже помог тысячам людей не просто вылечить болезнь, но и освободиться от страха её возвращения.</p>
         
         <p><strong>В стационаре вам помогут разобраться, подходит ли это именно вам.</strong></p>
-    </div>
-    
-    <!-- Модальное окно для увеличенного изображения -->
-    <div class="modal-overlay" id="imageModal">
-        <div class="modal-content">
-            <button class="close-btn" id="closeModal">&times;</button>
-            <img id="modalImage" src="" alt="Увеличенное изображение">
+        
+        <!-- ДОБАВЛЕНО: ссылка на официальный буклет -->
+        <div style="margin-top: 30px; text-align: center;">
+            <p style="font-size: 1rem; color: #2c3e50; margin-bottom: 15px;">
+                📌 Ознакомьтесь с официальным буклетом<br>Московского областного противотуберкулёзного диспансера
+            </p>
+            <a href="https://mokptd.ru/files/011/681/320/11681320/original/Презентация-хирург.pdf" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               style="display: inline-block; background-color: #27ae60; color: white; 
+                      padding: 16px 35px; border-radius: 50px; text-decoration: none; 
+                      font-weight: 700; font-size: 1.2rem; 
+                      box-shadow: 0 4px 12px rgba(39, 174, 96, 0.4);
+                      border: 2px solid #219653;">
+                📘 Посмотреть / скачать (PDF)
+            </a>
         </div>
     </div>
     
@@ -443,20 +452,5 @@
             });
         });
     </script>
-        <!-- Блок со ссылкой на официальный буклет -->
-    <div style="text-align: center; margin-top: 20px; margin-bottom: 30px;">
-        <a href="https://mokptd.ru/files/011/681/320/11681320/original/Презентация-хирург.pdf" 
-           target="_blank" 
-           rel="noopener noreferrer"
-           style="display: inline-block; background-color: #3498db; color: white; 
-                  padding: 15px 30px; border-radius: 50px; text-decoration: none; 
-                  font-weight: 600; box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
-                  transition: background-color 0.3s, transform 0.2s;">
-            📘 Скачать буклет о хирургическом лечении (PDF)
-        </a>
-        <p style="color: #555; margin-top: 10px; font-size: 0.9em;">
-            Официальная информация от Московского областного противотуберкулёзного диспансера
-        </p>
-    </div>
 </body>
 </html>
