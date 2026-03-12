@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <title>Навигатор пациента | ГБУЗ МО МОКПТД</title>
+  
+    <style>
+    /* ===== ШРИФТЫ ===== */
+    @font-face {
+        font-family: 'Montserrat';
+        src: url('./fonts/montserrat-cyrillic-400.woff2') format('woff2');
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+    }
+    @font-face {
+        font-family: 'Montserrat';
+        src: url('./fonts/montserrat-cyrillic-500.woff2') format('woff2');
+        font-weight: 500;
+        font-style: normal;
+        font-display: swap;
+    }
+    @font-face {
+        font-family: 'Montserrat';
+        src: url('./fonts/montserrat-cyrillic-600.woff2') format('woff2');
+        font-weight: 600;
+        font-style: normal;
+        font-display: swap;
+    }
+    @font-face {
+        font-family: 'Montserrat';
+        src: url('./fonts/montserrat-cyrillic-700.woff2') format('woff2');
+        font-weight: 700;
+        font-style: normal;
+        font-display: swap;
+    }
+    @font-face {
+        font-family: 'Montserrat';
+        src: url('./fonts/montserrat-cyrillic-800.woff2') format('woff2');
+        font-weight: 800;
+        font-style: normal;
+        font-display: swap;
+    }
+
+    @font-face {
+        font-family: 'Roboto';
+        src: url('./fonts/Roboto-Regular.woff2') format('woff2');
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+    }
+    @font-face {
+        font-family: 'Roboto';
+        src: url('./fonts/Roboto-Medium.woff2') format('woff2');
+        font-weight: 500;
+        font-style: normal;
+        font-display: swap;
+    }
+    @font-face {
+        font-family: 'Roboto';
+        src: url('./fonts/Roboto-Bold.woff2') format('woff2');
+        font-weight: 700;
+        font-style: normal;
+        font-display: swap;
+    }
+    
+    /* ===== ЦВЕТА ===== */
+    :root {
+        --primary-red: #F4364C;
+        --dark-gray: #505759;
+        --medium-gray: #919D9D;
+        --dark-blue: #365ABD;
+        --medium-blue: #5F8DDA;
+        --light-blue: #B8C9E1;
+        
+        --text: var(--dark-gray);
+        --text-light: var(--medium-gray);
+        --background: #FFFFFF;
+        --surface: #F5F7FA;
+        --border: #E0E0E0;
+        --shadow-sm: 0 2px 8px rgba(0,0,0,0.05);
+        --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+        --shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
+    }
+    
+    body {
+        font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        background: var(--surface);
+        color: var(--text);
+        line-height: 1.6;
+        padding: 25px 20px;
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+
+    .footer, 
+    .link-item, 
+    .dropdown-item,
+    .contact-position,
+    .section-item {
+        font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+
+    /* ===== ШАПКА ===== */
+    .header {
+        position: relative;
+        text-align: center;
+        padding: 45px 25px;
+        background: linear-gradient(135deg, var(--dark-blue) 0%, var(--medium-blue) 100%);
+        color: white;
+        border-radius: 16px;
+        margin-bottom: 35px;
+        box-shadow: var(--shadow-lg);
+        overflow: hidden;
+    }
+    
+    .header img.romashka {
+        position: absolute;
+        z-index: 0;
+        opacity: 0.5;
+        user-select: none;
+        pointer-events: none;
+        width: auto;
+        height: auto;
+    }
+    
+    .institution-name {
+        font-size: 1.2rem;
+        margin-bottom: 12px;
+        font-weight: 500;
+        opacity: 0.95;
+        position: relative;
+        z-index: 2;
+    }
+    
+    /* ЗАГОЛОВОК — полный размер, центрирован */
+    .header h1 {
+        font-size: 3rem;
+        margin-bottom: 18px;
+        font-weight: 800;
+        line-height: 1.1;
+        position: relative;
+        z-index: 2;
+        text-align: center;
+    }
+    
+    /* ПОДЗАГОЛОВОК — выразительный */
+    .header p {
+        font-size: 1.4rem;
+        font-weight: 600;
+        opacity: 0.95;
+        max-width: 700px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 2;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    /* ===== СЕТКА КАРТОЧЕК ===== */
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 25px;
+        margin: 40px 0;
+    }
+    
+    .card.centered {
+        grid-column: 1 / -1;
+        justify-self: center;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .card {
+        background: var(--background);
+        border-radius: 14px;
+        padding: 25px;
+        box-shadow: var(--shadow-sm);
+        border: 1px solid var(--border);
+        transition: all 0.25s ease;
+        cursor: pointer;
+        text-decoration: none !important;
+        min-height: 120px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .card:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-md);
+        border-color: var(--light-blue);
+    }
+    .card-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+    .card-icon {
+        font-size: 2.4rem;
+        margin-right: 15px;
+        color: var(--primary-red);
+    }
+    .card-title {
+        font-size: 1.5rem;
+        color: var(--dark-blue);
+        font-weight: 700;
+        flex-grow: 1;
+        line-height: 1.3;
+    }
+    .card.expandable .card-header::after {
+        content: '▼';
+        color: var(--medium-gray);
+        font-size: 0.9rem;
+        transition: transform 0.25s ease;
+        margin-left: 10px;
+    }
+    .card.expandable.expanded .card-header::after { transform: rotate(180deg); }
+    
+    .link-list {
+        list-style: none;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+        margin-top: 10px;
+    }
+    .card.expanded .link-list { max-height: 1000px; }
+    
+    .link-item {
+        display: block;
+        padding: 14px 16px;
+        margin-bottom: 10px;
+        background: var(--surface);
+        border-radius: 10px;
+        text-decoration: none;
+        color: var(--text);
+        border-left: 4px solid var(--primary-red);
+        transition: all 0.15s ease;
+        font-size: 1.1rem;
+        font-weight: 500;
+    }
+    .link-item:hover {
+        background: rgba(244, 54, 76, 0.05);
+        padding-left: 20px;
+        color: var(--primary-red);
+    }
+    
+    .dropdown-toggle {
+        cursor: pointer;
+        position: relative;
+        padding-right: 40px;
+    }
+    .dropdown-toggle::after {
+        content: '▼';
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 0.8rem;
+        color: var(--medium-gray);
+        transition: transform 0.25s ease;
+    }
+    .dropdown-toggle.expanded::after { transform: translateY(-50%) rotate(180deg); }
+    .dropdown-content {
+        display: none;
+        background: white;
+        border-radius: 10px;
+        margin: 8px 0 12px 15px;
+        box-shadow: var(--shadow-sm);
+        border: 1px solid var(--border);
+        overflow: hidden;
+    }
+    .dropdown-content.show { display: block; animation: fadeIn 0.2s ease; }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-6px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .dropdown-item {
+        display: block;
+        padding: 12px 16px;
+        text-decoration: none;
+        color: var(--text);
+        border-bottom: 1px solid var(--border);
+        transition: all 0.15s ease;
+        font-size: 1rem;
+    }
+    .dropdown-item:last-child { border-bottom: none; }
+    .dropdown-item:hover {
+        background: rgba(244, 54, 76, 0.05);
+        color: var(--primary-red);
+        padding-left: 20px;
+    }
+    .dropdown-item-icon { margin-right: 10px; font-size: 0.9rem; }
+    
+    /* ===== МОДАЛЬНЫЕ ОКНА ===== */
+    .modal-preview {
+        display: none;
+        position: fixed;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background-color: rgba(0,0,0,0.5);
+        z-index: 2000;
+        align-items: center;
+        justify-content: center;
+        backdrop-filter: blur(3px);
+    }
+    .modal-preview.active { display: flex; }
+    .modal-preview__content {
+        background: white;
+        width: 92%;
+        max-width: 520px;
+        max-height: 80vh;
+        border-radius: 28px;
+        box-shadow: var(--shadow-lg);
+        padding: 28px 24px;
+        position: relative;
+        animation: modalFadeIn 0.2s;
+        overflow-y: auto;
+    }
+    @keyframes modalFadeIn {
+        from { opacity: 0.8; transform: scale(0.97); }
+        to { opacity: 1; transform: scale(1); }
+    }
+    .modal-preview__close {
+        position: absolute;
+        top: 16px; right: 18px;
+        font-size: 32px;
+        line-height: 1;
+        cursor: pointer;
+        color: #aaa;
+        background: none;
+        border: none;
+        width: 44px; height: 44px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10;
+    }
+    .modal-preview__close:hover { color: #333; background: #f0f0f0; }
+    
+    .section-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+    .section-item {
+        background: #f8fafc;
+        border-radius: 18px;
+        padding: 18px 20px;
+        border: 1px solid #e9edf2;
+        cursor: pointer;
+        transition: all 0.15s;
+        font-size: 1.2rem;
+        font-weight: 500;
+        color: var(--dark-blue);
+    }
+    .section-item:hover {
+        background: rgba(53, 90, 189, 0.08);
+        color: var(--dark-blue);
+        border-color: var(--light-blue);
+    }
+    
+    .preview-card {
+        background: #ffffff;
+        border-radius: 24px;
+        padding: 24px 22px;
+        border: 1px solid #e2e8f0;
+        margin-top: 16px;
+    }
+    .preview-card__text {
+        font-size: 1.1rem;
+        color: var(--dark-gray);
+        line-height: 1.7;
+        background: #f8fafc;
+        padding: 20px 22px;
+        border-radius: 20px;
+        border-left: 4px solid var(--dark-blue);
+        margin-bottom: 28px;
+    }
+    .preview-card__button {
+        display: block;
+        width: fit-content;
+        margin: 0 auto;
+        background: transparent;
+        color: var(--dark-blue);
+        font-weight: 600;
+        padding: 12px 32px;
+        border-radius: 40px;
+        text-decoration: none;
+        font-size: 1.1rem;
+        border: 2px solid var(--dark-blue);
+        transition: background 0.15s;
+        text-align: center;
+    }
+    .preview-card__button:hover { 
+        background: rgba(53, 90, 189, 0.05); 
+    }
+    
+    .back-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: none;
+        border: none;
+        color: var(--dark-blue);
+        font-size: 1rem;
+        font-weight: 500;
+        padding: 0 0 16px 0;
+        cursor: pointer;
+    }
+    .back-button:hover { 
+        color: var(--primary-red); 
+    }
+    
+    .footer {
+        text-align: center;
+        padding: 30px;
+        margin-top: 50px;
+        color: var(--text-light);
+        border-top: 1px solid var(--border);
+        font-size: 1rem;
+    }
+    
+    /* ===== МОБИЛЬНАЯ ВЕРСИЯ ===== */
+    @media (max-width: 768px) {
+        .header {
+            padding: 35px 20px;
+        }
+        
+        /* Заголовок — без уменьшения, просто перенос */
+        .header h1 {
+            font-size: 3rem;
+            word-break: break-word;
+        }
+        
+        /* Подзаголовок — чуть меньше, но жирный */
+        .header p {
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+        
+        /* Ромашки — размеры как на десктопе, только позиции скорректированы */
+        .header img.romashka:nth-of-type(1) { /* левая верхняя */
+            top: 5%;
+            left: 2%;
+            width: 60px;
+        }
+        
+        .header img.romashka:nth-of-type(2) { /* правая верхняя */
+            top: 8%;
+            right: 1%;
+            width: 45px;
+        }
+        
+        .header img.romashka:nth-of-type(3) { /* нижняя левая большая */
+            bottom: 10%;
+            left: 1%;
+            width: 90px;
+            opacity: 0.25;
+        }
+        
+        .header img.romashka:nth-of-type(4) { /* маленькая центральная */
+            top: 15%;
+            left: 35%;
+            width: 35px;
+        }
+        
+        .header img.romashka:nth-of-type(5) { /* большая со сдвигом */
+            bottom: 15%;
+            right: 5%;
+            width: 75px;
+            transform: rotate(5deg);
+            opacity: 0.3;
+        }
+    }
+    
+    @media (max-width: 480px) {
+        .header h1 {
+            font-size: 2.6rem; /* чуть меньше только на очень узких */
+        }
+        
+        .header p {
+            font-size: 1.2rem;
+        }
+        
+        .modal-preview__content { padding: 24px 18px; }
+        .section-item { padding: 16px 18px; font-size: 1.1rem; }
+        .preview-card { padding: 20px 18px; }
+    }
+
+    </style>
+    <style>
+        @media (min-width: 1024px) {
+            .contact-buttons a img {
+                width: 80px !important;
+                height: 80px !important;
+            }
+            .contact-buttons {
+                gap: 35px !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <img src="romashka.png" alt="Ромашка" class="romashka" style="top:10%; left:5%; width:60px; transform:rotate(-5deg);">
+
+<img src="romashka.png" alt="Ромашка" class="romashka" style="top:15%; right:2%; width:45px; transform:rotate(10deg);">
+
+<img src="romashka.png" alt="Ромашка" class="romashka" style="bottom:20%; left:2%; width:90px; transform:rotate(-15deg); opacity:0.3;">
+
+<img src="romashka.png" alt="Ромашка" class="romashka" style="top:5%; left:30%; width:35px; transform:rotate(-25deg);">
+
+<img src="romashka.png" alt="Ромашка" class="romashka" style="bottom:22%; right:10%; width:75px; transform:rotate(5deg) translate(-75px, -150px); opacity:0.4;">
+        
+        <div class="institution-name">ГБУЗ МО МОКПТД</div>
+        <h1>Справочник пациента</h1>
+        <p>Помогает понять диагностику и лечение, следить за их этапами и выполнять всё правильно.</p>
+    </header>
+
+    <div class="grid" id="cardGrid">
+        <!-- ========== КАРТОЧКА 1: Общая информация о туберкулезе ========== -->
+        <div class="card card-link" data-direct="general_info">
+            <div class="card-header">
+                <div class="card-icon">📘</div>
+                <div class="card-title">Общая информация для пациентов о туберкулезе</div>
+            </div>
+        </div>
+        
+        <!-- ========== КАРТОЧКА 2: Диагностика ========== -->
+        <div class="card expandable" data-preview="diagnostics">
+            <div class="card-header"><div class="card-icon">🔬</div><div class="card-title">Диагностика</div></div>
+        </div>
+        
+        <!-- ========== КАРТОЧКА 3: Консервативное лечение ========== -->
+        <div class="card expandable" data-preview="treatment">
+            <div class="card-header"><div class="card-icon">💊</div><div class="card-title">Консервативное лечение</div></div>
+        </div>
+        
+        <!-- ========== КАРТОЧКА 4: Хирургическое лечение ========== -->
+        <div class="card card-link" data-direct="surgery" style="cursor:pointer;">
+            <div class="card-header"><div class="card-icon">⚕️</div><div class="card-title">Хирургическое лечение</div></div>
+        </div>
+        
+        <!-- ========== КАРТОЧКА 5: Профилактика ========== -->
+        <div class="card expandable" data-preview="prevention">
+            <div class="card-header"><div class="card-icon">🛡️</div><div class="card-title">Профилактика и раннее выявление туберкулёза</div></div>
+        </div>
+
+        <!-- ========== КАРТОЧКА 6: Клинические рекомендации ========== -->
+        <div class="card card-link" data-direct="clinical_guidelines" style="cursor:pointer;">
+            <div class="card-header">
+                <div class="card-icon">📋</div>
+                <div class="card-title">Клинические рекомендации</div>
+            </div>
+        </div>
+        
+        <!-- ========== КАРТОЧКА 7: Ответы на частые вопросы ========== -->
+        <a href="faq.html" class="card card-link"><div class="card-header"><div class="card-icon">❓</div><div class="card-title">Ответы на частые вопросы</div></div></a>
+    </div>
+
+    <footer class="footer"><p>2026</p><p></p></footer>
+
+    <!-- Первое модальное окно для списка разделов (только для expandable карточек) -->
+    <div class="modal-preview" id="previewModal">
+        <div class="modal-preview__content">
+            <button class="modal-preview__close" id="closePreviewModal">&times;</button>
+            <div id="modalPreviewBody"></div>
+        </div>
+    </div>
+
+    <!-- Второе модальное окно для превью -->
+    <div class="modal-preview" id="itemPreviewModal">
+        <div class="modal-preview__content">
+            <button class="modal-preview__close" id="closeItemPreviewModal">&times;</button>
+            <div id="itemPreviewBody"></div>
+        </div>
+    </div>
+
+    <script>
+// ========== ПРОСТОЙ РАБОЧИЙ СКРИПТ ==========
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('Скрипт загружен'); // Для проверки
+    
+    // Получаем все карточки
+    const cards = document.querySelectorAll('.card');
+    const previewModal = document.getElementById('previewModal');
+    const itemPreviewModal = document.getElementById('itemPreviewModal');
+    const modalPreviewBody = document.getElementById('modalPreviewBody');
+    const itemPreviewBody = document.getElementById('itemPreviewBody');
+    
+    // Данные
+    const DATA = {
+        sections: {
+            diagnostics: {
+                items: [
+                    { 
+                        name: 'Почему важно правильно собрать мокроту', 
+                        link: 'sbor_mokroti.html', 
+                        preview: 'Чтобы определить, какие лекарства смогут уничтожить бактерию туберкулеза именно в вашем случае, необходимо найти в мокроте микобактерию и изучить её. А это возможно только в том случае, если мокрота собрана правильно.' 
+                    }
+                ]
+            },
+            treatment: {
+                items: [
+                   { 
+                        name: 'Основные принципы противотуберкулезной терапии', 
+                        link: 'principi_lechenia.html', 
+                        preview: 'Семь принципов, на которых строится лечение туберкулёза. Индивидуальный подход, своевременность, правильная комбинация препаратов, непрерывность, комплексная терапия, контролируемый приём и мониторинг побочного действия лекарств. Коротко и понятно — чтобы вы понимали логику лечения.' 
+                    },
+                    { 
+                        name: 'Как правильно принимать лекарства', 
+                        link: 'Pacientam_o_preparatax.html', 
+                        preview: 'Ознакомившись с этой информацией, вы станете осознанно подходить к приему лекарств, сможете контролировать процесс и отслеживать возможные побочные эффекты. Вы поймете, почему и когда проводятся необходимые обследования.' 
+                    },
+                    { 
+                        name: 'Почему нельзя пропускать прием лекарств', 
+                        link: 'nelzya_propuskat.html', 
+                        preview: 'Перерывы в лечении приводят к привыканию микробов к таблеткам, и тогда лечение перестает быть эффективным. Чтобы узнать, почему так происходит, нажмите "перейти"' 
+                    }
+                ]
+            },
+            prevention: {
+                items: [
+                    {
+                        name: 'Организация работы в производственном очаге туберкулеза',
+                        link: 'informirovanie_v_ochagah_tuberculeza/',
+                        preview: 'Туберкулёз редко касается только одного человека. Скорейшее обследование контактных лиц это единственный способ своевременно предупредить развитие болезни или найти ее на самой ранней стадии.'
+                    },
+                    {
+                        name: 'О профосмотрах на туберкулез',
+                        link: 'o_profosmotrax_na_tuberkulez/',
+                        preview: 'Профосмотр — это не формальность. Это способ обнаружить туберкулёз тогда, когда он лечится проще и быстрее. Текст сформирует понимание того, как организована работа системы здравоохранения по раннему выявлению туберкулеза.'
+                    },
+                    {
+                        name: 'Заключительная дезинфекция',
+                        link: 'dez_obrabotka.html',
+                        preview: 'Возбудитель туберкулеза живет в квартире очень долго — до нескольких месяцев, в отдельных случаях годы. Обычная уборка его не убивает. Уничтожить инфекцию может только заключительная дезинфекция: ее проводят специалисты, а не вы.'
+                    }
+                ]
+            }
+        },
+        directLinks: {
+            general_info: {
+                link: 'informacia_iz_KK.html',
+                preview: 'Туберкулёз — излечимое заболевание. Здесь — простые обобщенные объяснения болезни, лечения, побочных эффектов и других рекомендаций во время терапии.'
+            },
+            surgery: {
+                link: 'o_hirurgicheskom_lechenii/',
+                preview: 'Из этого раздела вы узнаете, что хирургическое лечение туберкулеза — это современный, безопасный и эффективный метод, который помогает добиться стойкого и благоприятного результата.'
+            },
+            clinical_guidelines: {
+                link: 'https://rof-tb.ru/structure',
+                preview: '<strong>Для чего эта информация вам?</strong><br><br>• <strong>Право на информацию:</strong> Согласно Федеральному закону № 323-ФЗ «Об основах охраны здоровья граждан в Российской Федерации» (ст. 22), каждый пациент имеет право на получение информации о своих правах и обязанностях, состоянии здоровья, а также о применяемых методах диагностики и лечения.<br><br>• <strong>Прозрачность лечения:</strong> Наличие доступа к документам позволяет пациенту понимать, насколько предлагаемое лечение соответствует актуальным научным данным.'
+            }
+        }
+    };
+
+    // Функция открытия модального окна
+    function openModal(modal) {
+        if (modal) modal.classList.add('active');
+    }
+
+    // Функция закрытия модального окна
+    function closeModal(modal) {
+        if (modal) modal.classList.remove('active');
+    }
+
+    // Показать список разделов
+    function showSectionList(sectionKey) {
+        const section = DATA.sections[sectionKey];
+        if (!section) return;
+
+        let html = '<div class="section-list">';
+        section.items.forEach((item, index) => {
+            html += `<div class="section-item" data-section="${sectionKey}" data-index="${index}">${item.name}</div>`;
+        });
+        html += '</div>';
+        
+        modalPreviewBody.innerHTML = html;
+        openModal(previewModal);
+    }
+
+    // Показать превью
+    function showItemPreview(link, previewText) {
+        const html = `
+            <div class="preview-card">
+                <div class="preview-card__text">${previewText}</div>
+                <a href="${link}" class="preview-card__button" target="_blank">Перейти →</a>
+            </div>
+        `;
+        itemPreviewBody.innerHTML = html;
+        openModal(itemPreviewModal);
+    }
+
+    // Обработчики для карточек
+cards.forEach(card => {
+    card.addEventListener('click', function(e) {
+        // ЕСЛИ ЭТО УЖЕ ССЫЛКА — НЕ МЕШАЕМ, ПУСТЬ РАБОТАЕТ
+        if (this.tagName === 'A') {
+            return; // браузер сам сделает переход по href
+        }
+        
+        e.preventDefault();
+        e.stopPropagation();
+        
+        console.log('Клик по карточке', this); // Для отладки
+
+        // Карточки с выпадающим списком (Диагностика, Лечение, Профилактика)
+        if (this.classList.contains('expandable')) {
+            const key = this.dataset.preview;
+            if (key && DATA.sections[key]) {
+                showSectionList(key);
+            }
+        }
+        // Карточки с прямыми ссылками
+        else if (this.dataset.direct) {
+            const key = this.dataset.direct;
+            if (DATA.directLinks[key]) {
+                const data = DATA.directLinks[key];
+                showItemPreview(data.link, data.preview);
+            }
+        }
+    });
+});
+
+    // Обработчики для элементов списка (событийная делегация)
+    modalPreviewBody.addEventListener('click', function(e) {
+        const sectionItem = e.target.closest('.section-item');
+        if (sectionItem) {
+            const key = sectionItem.dataset.section;
+            const index = sectionItem.dataset.index;
+            const item = DATA.sections[key].items[index];
+            showItemPreview(item.link, item.preview);
+        }
+    });
+
+    // Закрытие модальных окон
+    document.getElementById('closePreviewModal').addEventListener('click', function() {
+        closeModal(previewModal);
+    });
+
+    document.getElementById('closeItemPreviewModal').addEventListener('click', function() {
+        closeModal(itemPreviewModal);
+    });
+
+    // Закрытие по клику на фон
+    previewModal.addEventListener('click', function(e) {
+        if (e.target === previewModal) {
+            closeModal(previewModal);
+        }
+    });
+
+    itemPreviewModal.addEventListener('click', function(e) {
+        if (e.target === itemPreviewModal) {
+            closeModal(itemPreviewModal);
+        }
+    });
+
+    // Центрирование последней карточки
+    function centerLastCard() {
+        const grid = document.getElementById('cardGrid');
+        if (!grid) return;
+        
+        const cards = Array.from(grid.children);
+        cards.forEach(c => c.classList.remove('centered'));
+
+        if (cards.length === 0) return;
+
+        const firstCard = cards[0];
+        const cardWidth = firstCard.offsetWidth;
+        const gridWidth = grid.offsetWidth;
+        const cardMinWidth = 320;
+        const gap = 25;
+        
+        let cardsPerRow = Math.floor((gridWidth + gap) / (cardMinWidth + gap));
+        cardsPerRow = Math.max(1, cardsPerRow);
+        
+        if (cards.length % cardsPerRow === 1) {
+            const lastCard = cards[cards.length - 1];
+            lastCard.classList.add('centered');
+        }
+    }
+
+    window.addEventListener('load', centerLastCard);
+    window.addEventListener('resize', centerLastCard);
+});
+</script>
+</body>
+</html>
