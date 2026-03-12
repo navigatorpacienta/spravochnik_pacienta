@@ -695,35 +695,35 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Обработчики для карточек
-    cards.forEach(card => {
-        card.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            console.log('Клик по карточке', this); // Для отладки
+cards.forEach(card => {
+    card.addEventListener('click', function(e) {
+        // ЕСЛИ ЭТО УЖЕ ССЫЛКА — НЕ МЕШАЕМ, ПУСТЬ РАБОТАЕТ
+        if (this.tagName === 'A') {
+            return; // браузер сам сделает переход по href
+        }
+        
+        e.preventDefault();
+        e.stopPropagation();
+        
+        console.log('Клик по карточке', this); // Для отладки
 
-            // Если это ссылка на faq.html - просто переходим
-            if (this.tagName === 'A') {
-                return; // Пусть браузер обрабатывает как обычно
+        // Карточки с выпадающим списком (Диагностика, Лечение, Профилактика)
+        if (this.classList.contains('expandable')) {
+            const key = this.dataset.preview;
+            if (key && DATA.sections[key]) {
+                showSectionList(key);
             }
-
-            // Карточки с выпадающим списком (Диагностика, Лечение, Профилактика)
-            if (this.classList.contains('expandable')) {
-                const key = this.dataset.preview;
-                if (key && DATA.sections[key]) {
-                    showSectionList(key);
-                }
+        }
+        // Карточки с прямыми ссылками
+        else if (this.dataset.direct) {
+            const key = this.dataset.direct;
+            if (DATA.directLinks[key]) {
+                const data = DATA.directLinks[key];
+                showItemPreview(data.link, data.preview);
             }
-            // Карточки с прямыми ссылками
-            else if (this.dataset.direct) {
-                const key = this.dataset.direct;
-                if (DATA.directLinks[key]) {
-                    const data = DATA.directLinks[key];
-                    showItemPreview(data.link, data.preview);
-                }
-            }
-        });
+        }
     });
+});
 
     // Обработчики для элементов списка (событийная делегация)
     modalPreviewBody.addEventListener('click', function(e) {
