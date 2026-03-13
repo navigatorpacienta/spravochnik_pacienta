@@ -71,17 +71,41 @@
 
         /* ===== ХЕДЕР ===== */
         .header {
-            position: relative;
-            text-align: center;
-            padding: 60px 30px;
-            background: linear-gradient(135deg, var(--primary-deep) 0%, var(--primary-soft) 100%);
-            color: white;
-            border-radius: 48px;
-            margin-bottom: 40px;
-            box-shadow: 0 15px 30px -10px rgba(32, 178, 170, 0.3);
-            overflow: hidden;
-            isolation: isolate;
-        }
+    position: relative;
+    text-align: center;
+    padding: 60px 30px;
+    color: white;
+    border-radius: 48px;
+    margin-bottom: 40px;
+    box-shadow: 0 15px 30px -10px rgba(32, 178, 170, 0.3);
+    isolation: isolate;
+    background: transparent; /* убираем фон отсюда */
+}
+
+/* Создаем отдельный слой для фона с ромашками */
+.header::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('romashka.png'), linear-gradient(135deg, var(--primary-deep) 0%, var(--primary-soft) 100%);
+    background-repeat: repeat;
+    background-size: 120px auto;
+    background-position: 0 0;
+    background-blend-mode: soft-light;
+    opacity: 0.7;  /* теперь прозрачность ТОЛЬКО у фона */
+    border-radius: 48px;
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* Все содержимое поверх фона */
+.header > * {
+    position: relative;
+    z-index: 2;
+}
 
         .header::before {
             content: '';
