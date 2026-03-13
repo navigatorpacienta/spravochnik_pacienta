@@ -6,14 +6,14 @@
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <title>Навигатор пациента | ГБУЗ МО МОКПТД</title>
 
-    <!-- Preload критических шрифтов (только используемые веса) -->
+    <!-- Preload шрифтов -->
     <link rel="preload" href="fonts/inter-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin="anonymous">
     <link rel="preload" href="fonts/inter-cyrillic-500-normal.woff2" as="font" type="font/woff2" crossorigin="anonymous">
     <link rel="preload" href="fonts/inter-cyrillic-600-normal.woff2" as="font" type="font/woff2" crossorigin="anonymous">
     <link rel="preload" href="fonts/inter-cyrillic-700-normal.woff2" as="font" type="font/woff2" crossorigin="anonymous">
 
     <style>
-        /* ===== ШРИФТЫ (только нужные веса, пути без "./") ===== */
+        /* ===== ШРИФТЫ ===== */
         @font-face {
             font-family: 'Inter';
             src: url('fonts/inter-cyrillic-400-normal.woff2') format('woff2');
@@ -43,7 +43,6 @@
             font-display: swap;
         }
 
-        /* ===== ОПТИМИЗИРОВАННАЯ ЦВЕТОВАЯ ПАЛИТРА ===== */
         :root {
             --primary-deep: #1E8D8D;
             --primary-soft: #20B2AA;
@@ -53,7 +52,6 @@
             --text-dark: #1A2A33;
             --text-light: #6F878F;
             --border-subtle: rgba(0, 0, 0, 0.06);
-            /* более легкие тени */
             --shadow-light: 0 8px 20px -8px rgba(32, 178, 170, 0.2);
         }
 
@@ -66,11 +64,9 @@
             max-width: 1200px;
             margin: 0 auto;
             min-height: 100vh;
-            /* оптимизация: включаем ускорение для всего body, но аккуратно */
-            will-change: background; /* только если часто меняется фон, но здесь static */
         }
 
-        /* ===== СТЕКЛЯННЫЙ HEADER (оптимизирован без backdrop-filter и сложных градиентов) ===== */
+        /* ===== ХЕДЕР (без ромашек) ===== */
         .header {
             position: relative;
             text-align: center;
@@ -79,12 +75,9 @@
             color: white;
             border-radius: 48px;
             margin-bottom: 40px;
-            /* более простая тень */
             box-shadow: 0 15px 30px -10px rgba(32, 178, 170, 0.3);
             overflow: hidden;
             isolation: isolate;
-            /* подсказка для композитинга */
-            will-change: transform;
         }
 
         .header::before {
@@ -95,16 +88,6 @@
                         radial-gradient(circle at 80% 70%, rgba(212, 161, 94, 0.1) 0%, transparent 50%);
             z-index: 1;
             pointer-events: none;
-        }
-
-        .header img.romashka {
-            position: absolute;
-            z-index: 0;
-            opacity: 0.12; /* чуть снизил для производительности */
-            width: auto;
-            height: auto;
-            pointer-events: none;
-            /* убираем лишние трансформации для неподвижных элементов */
         }
 
         .institution-name {
@@ -126,7 +109,7 @@
             letter-spacing: -0.02em;
             position: relative;
             z-index: 2;
-            text-shadow: 0 2px 8px rgba(0,0,0,0.1); /* более легкая тень */
+            text-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
 
         .header p {
@@ -138,12 +121,10 @@
             position: relative;
             z-index: 2;
             line-height: 1.6;
-            /* заменяем backdrop-filter на полупрозрачный фон */
             background: rgba(255, 255, 255, 0.25);
             padding: 20px 35px;
             border-radius: 60px;
             border: 1px solid rgba(255, 255, 255, 0.3);
-            /* убираем blur, но оставляем легкую полупрозрачность */
         }
 
         /* ===== СЕТКА КАРТОЧЕК ===== */
@@ -158,9 +139,9 @@
             background: var(--surface-white);
             border-radius: 36px;
             padding: 30px;
-            box-shadow: var(--shadow-light); /* более легкая тень */
+            box-shadow: var(--shadow-light);
             border: 1px solid var(--border-subtle);
-            transition: transform 0.2s ease, box-shadow 0.2s ease; /* оптимизация: только transform и box-shadow */
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
             cursor: pointer;
             text-decoration: none !important;
             min-height: 170px;
@@ -169,12 +150,10 @@
             justify-content: center;
             position: relative;
             overflow: hidden;
-            /* ускоряем анимацию transform */
-            will-change: transform;
         }
 
         .card:hover {
-            transform: translateY(-4px); /* чуть меньше подъем */
+            transform: translateY(-4px);
             box-shadow: 0 20px 30px -12px var(--primary-deep);
             border-color: var(--primary-soft);
         }
@@ -197,13 +176,12 @@
             border-radius: 28px;
             transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
             flex-shrink: 0;
-            will-change: transform; /* для scale */
         }
 
         .card:hover .card-icon {
             background: var(--primary-soft);
             color: white;
-            transform: scale(1.03); /* чуть меньше scale */
+            transform: scale(1.03);
         }
 
         .card-title {
@@ -227,106 +205,7 @@
             opacity: 1;
         }
 
-        .card.expandable.expanded .card-header::after {
-            transform: rotate(90deg);
-            opacity: 1;
-        }
-
-        .link-list {
-            list-style: none;
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
-            margin-top: 15px;
-        }
-
-        .card.expanded .link-list {
-            max-height: 1000px;
-        }
-
-        .link-item {
-            display: block;
-            padding: 16px 20px;
-            margin-bottom: 10px;
-            background: #F7FAFC;
-            border-radius: 24px;
-            text-decoration: none;
-            color: var(--text-dark);
-            border-left: 4px solid var(--primary-soft);
-            transition: background 0.2s ease, padding-left 0.2s ease, color 0.2s ease;
-            font-size: 1.1rem;
-            font-weight: 500;
-            cursor: pointer;
-        }
-
-        .link-item:hover {
-            background: white;
-            padding-left: 28px;
-            color: var(--primary-deep);
-            box-shadow: 0 4px 12px -4px rgba(0,0,0,0.1); /* легче тень */
-        }
-
-        .dropdown-toggle {
-            position: relative;
-            padding-right: 40px;
-        }
-
-        .dropdown-toggle::after {
-            content: '▼';
-            position: absolute;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 0.8rem;
-            color: var(--primary-soft);
-            transition: transform 0.2s ease;
-        }
-
-        .dropdown-toggle.expanded::after {
-            transform: translateY(-50%) rotate(180deg);
-        }
-
-        .dropdown-content {
-            display: none;
-            background: white;
-            border-radius: 20px;
-            margin: 8px 0 15px 15px;
-            box-shadow: 0 4px 12px -4px rgba(0,0,0,0.1);
-            border: 1px solid var(--border-subtle);
-            overflow: hidden;
-        }
-
-        .dropdown-content.show {
-            display: block;
-            animation: fadeIn 0.15s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .dropdown-item {
-            display: block;
-            padding: 14px 20px;
-            text-decoration: none;
-            color: var(--text-dark);
-            border-bottom: 1px solid var(--border-subtle);
-            transition: background 0.2s ease, padding-left 0.2s ease, color 0.2s ease;
-            font-size: 1rem;
-        }
-
-        .dropdown-item:last-child {
-            border-bottom: none;
-        }
-
-        .dropdown-item:hover {
-            background: rgba(32, 178, 170, 0.05);
-            color: var(--primary-deep);
-            padding-left: 28px;
-        }
-
-        /* ===== МОДАЛЬНЫЕ ОКНА (упрощены без backdrop-filter) ===== */
+        /* ===== МОДАЛЬНЫЕ ОКНА ===== */
         .modal-preview {
             display: none;
             position: fixed;
@@ -334,11 +213,10 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.25); /* чуть светлее */
+            background-color: rgba(0, 0, 0, 0.25);
             z-index: 2000;
             align-items: center;
             justify-content: center;
-            /* убираем backdrop-filter */
         }
 
         .modal-preview.active {
@@ -346,12 +224,12 @@
         }
 
         .modal-preview__content {
-            background: rgba(255, 255, 255, 0.95); /* полупрозрачный белый без фильтра */
+            background: rgba(255, 255, 255, 0.95);
             width: 92%;
             max-width: 600px;
             max-height: 80vh;
             border-radius: 48px;
-            box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.3); /* легкая тень */
+            box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.3);
             padding: 40px 35px;
             position: relative;
             animation: modalFadeIn 0.2s ease;
@@ -390,23 +268,17 @@
             transform: rotate(90deg);
         }
 
-        .section-list {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
         .section-item {
             background: white;
             border-radius: 32px;
             padding: 22px 25px;
+            margin-bottom: 12px;
             border: 1px solid var(--border-subtle);
             cursor: pointer;
-            transition: background 0.2s ease, transform 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+            transition: background 0.2s ease, transform 0.2s ease, color 0.2s ease;
             font-size: 1.2rem;
             font-weight: 500;
             color: var(--text-dark);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
         }
 
         .section-item:hover {
@@ -414,7 +286,6 @@
             color: white;
             transform: translateX(6px);
             border-color: transparent;
-            box-shadow: 0 8px 20px -10px var(--primary-soft);
         }
 
         .preview-card {
@@ -446,37 +317,16 @@
             text-decoration: none;
             font-size: 1.1rem;
             border: none;
-            transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+            transition: background 0.2s ease, transform 0.2s ease;
             text-align: center;
             box-shadow: 0 8px 18px -8px var(--primary-soft);
-            will-change: transform;
         }
 
         .preview-card__button:hover {
             background: var(--primary-deep);
             transform: translateY(-1px);
-            box-shadow: 0 12px 20px -8px var(--primary-deep);
         }
 
-        .back-button {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: none;
-            border: none;
-            color: var(--primary-deep);
-            font-size: 1rem;
-            font-weight: 500;
-            padding: 0 0 16px 0;
-            cursor: pointer;
-            transition: color 0.2s ease;
-        }
-
-        .back-button:hover { 
-            color: var(--primary-soft); 
-        }
-
-        /* ===== ФУТЕР (легкий) ===== */
         .footer {
             text-align: center;
             padding: 40px;
@@ -484,31 +334,17 @@
             color: var(--text-light);
             border-top: 1px solid rgba(0,0,0,0.05);
             font-size: 1rem;
-            background: rgba(255, 255, 255, 0.5); /* без фильтра */
+            background: rgba(255, 255, 255, 0.5);
             border-radius: 40px;
         }
 
-        /* ===== АДАПТИВНОСТЬ ===== */
         @media (max-width: 768px) {
             body { padding: 20px 15px; }
-            
-            .header {
-                padding: 40px 20px;
-                border-radius: 36px;
-            }
-            
+            .header { padding: 40px 20px; border-radius: 36px; }
             .header h1 { font-size: 2.8rem; }
-            .header p {
-                font-size: 1.2rem;
-                padding: 18px 25px;
-            }
-            
+            .header p { font-size: 1.2rem; padding: 18px 25px; }
             .card { padding: 25px; }
-            .card-icon {
-                width: 60px;
-                height: 60px;
-                font-size: 2.2rem;
-            }
+            .card-icon { width: 60px; height: 60px; font-size: 2.2rem; }
             .card-title { font-size: 1.2rem; }
         }
 
@@ -516,7 +352,6 @@
             .header h1 { font-size: 2.2rem; }
         }
 
-        /* центрирование последней карточки */
         .card.centered {
             grid-column: 1 / -1;
             justify-self: center;
@@ -526,12 +361,8 @@
     </style>
 </head>
 <body>
-    <header class="header">
-        <img src="romashka.png" alt="Ромашка" class="romashka" style="top:10%; left:5%; width:60px; transform:rotate(-5deg);">
-        <img src="romashka.png" alt="Ромашка" class="romashka" style="top:15%; right:2%; width:45px; transform:rotate(10deg);">
-        <img src="romashka.png" alt="Ромашка" class="romashka" style="bottom:20%; left:2%; width:90px; transform:rotate(-15deg); opacity:0.3;">
-        <img src="romashka.png" alt="Ромашка" class="romashka" style="top:5%; left:30%; width:35px; transform:rotate(-25deg);">
-        <img src="romashka.png" alt="Ромашка" class="romashka" style="bottom:22%; right:10%; width:75px; transform:rotate(5deg) translate(-75px, -150px); opacity:0.4;">
+    <header class="header" id="mainHeader">
+        <!-- Ромашки полностью удалены, чтобы не было битых иконок -->
         
         <div class="institution-name">ГБУЗ МО МОКПТД</div>
         <h1>Справочник пациента</h1>
@@ -539,43 +370,35 @@
     </header>
 
     <div class="grid" id="cardGrid">
-        <!-- КАРТОЧКА 1: Общая информация о туберкулезе -->
         <div class="card card-link" data-direct="general_info">
             <div class="card-header"><div class="card-icon">📘</div><div class="card-title">Общая информация для пациентов о туберкулезе</div></div>
         </div>
         
-        <!-- КАРТОЧКА 2: Диагностика (expandable) -->
         <div class="card expandable" data-preview="diagnostics">
             <div class="card-header"><div class="card-icon">🔬</div><div class="card-title">Диагностика</div></div>
         </div>
         
-        <!-- КАРТОЧКА 3: Консервативное лечение (expandable) -->
         <div class="card expandable" data-preview="treatment">
             <div class="card-header"><div class="card-icon">💊</div><div class="card-title">Консервативное лечение</div></div>
         </div>
         
-        <!-- КАРТОЧКА 4: Хирургическое лечение -->
         <div class="card card-link" data-direct="surgery" style="cursor:pointer;">
             <div class="card-header"><div class="card-icon">⚕️</div><div class="card-title">Хирургическое лечение</div></div>
         </div>
         
-        <!-- КАРТОЧКА 5: Профилактика (expandable) -->
         <div class="card expandable" data-preview="prevention">
             <div class="card-header"><div class="card-icon">🛡️</div><div class="card-title">Профилактика и раннее выявление туберкулёза</div></div>
         </div>
 
-        <!-- КАРТОЧКА 6: Клинические рекомендации -->
         <div class="card card-link" data-direct="clinical_guidelines" style="cursor:pointer;">
             <div class="card-header"><div class="card-icon">📋</div><div class="card-title">Клинические рекомендации</div></div>
         </div>
         
-        <!-- КАРТОЧКА 7: Ответы на частые вопросы (прямая ссылка) -->
         <a href="faq.html" class="card card-link"><div class="card-header"><div class="card-icon">❓</div><div class="card-title">Ответы на частые вопросы</div></div></a>
     </div>
 
     <footer class="footer"><p>2026</p><p></p></footer>
 
-    <!-- Модальные окна (без изменений в разметке) -->
     <div class="modal-preview" id="previewModal">
         <div class="modal-preview__content">
             <button class="modal-preview__close" id="closePreviewModal">&times;</button>
@@ -591,7 +414,7 @@
     </div>
 
     <script>
-        // ========== ПОЛНОСТЬЮ ФУНКЦИОНАЛ ИЗ index 943 (НИЧЕГО НЕ МЕНЯЕМ, ТОЛЬКО ДИЗАЙН) ==========
+        // ========== ВЕСЬ JS БЕЗ ИЗМЕНЕНИЙ ==========
         document.addEventListener('DOMContentLoaded', function() {
             console.log('Скрипт загружен');
             
@@ -601,7 +424,6 @@
             const modalPreviewBody = document.getElementById('modalPreviewBody');
             const itemPreviewBody = document.getElementById('itemPreviewBody');
             
-            // Данные (полностью скопированы из 943)
             const DATA = {
                 sections: {
                     diagnostics: {
@@ -694,7 +516,6 @@
                 openModal(itemPreviewModal);
             }
 
-            // Обработчики карточек (как в 943)
             cards.forEach(card => {
                 card.addEventListener('click', function(e) {
                     if (this.tagName === 'A') return;
@@ -730,7 +551,6 @@
             previewModal.addEventListener('click', function(e) { if (e.target === previewModal) closeModal(previewModal); });
             itemPreviewModal.addEventListener('click', function(e) { if (e.target === itemPreviewModal) closeModal(itemPreviewModal); });
 
-            // Центрирование последней карточки
             function centerLastCard() {
                 const grid = document.getElementById('cardGrid');
                 if (!grid) return;
