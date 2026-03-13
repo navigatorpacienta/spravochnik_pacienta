@@ -12,6 +12,9 @@
     <link rel="preload" href="fonts/inter-cyrillic-600-normal.woff2" as="font" type="font/woff2" crossorigin="anonymous">
     <link rel="preload" href="fonts/inter-cyrillic-700-normal.woff2" as="font" type="font/woff2" crossorigin="anonymous">
 
+    <!-- Preload ромашки (ТОЛЬКО ОДИН РАЗ) -->
+    <link rel="preload" href="romashka.png" as="image">
+
     <style>
         /* ===== ШРИФТЫ ===== */
         @font-face {
@@ -90,20 +93,13 @@
             pointer-events: none;
         }
 
-        /* Ромашки скрыты - появятся через 1 секунду */
-        .header img.romashka {
-            position: absolute;
-            z-index: 0;
-            opacity: 0;
-            width: auto;
-            height: auto;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-        }
-        
-        /* Класс для показа ромашек */
-        .header.romashka-visible img.romashka {
-            opacity: 0.12;
+        /* Ромашки - ИСПРАВЛЕНО: теперь все используют один фон вместо множества картинок */
+        .header {
+            background-image: url('romashka.png'), linear-gradient(135deg, var(--primary-deep) 0%, var(--primary-soft) 100%);
+            background-repeat: repeat;
+            background-size: 60px auto;
+            background-position: 0 0;
+            background-blend-mode: overlay;
         }
 
         .institution-name {
@@ -378,12 +374,7 @@
 </head>
 <body>
     <header class="header" id="mainHeader">
-        <!-- Ромашки есть, но alt пустой, чтобы не было надписи -->
-        <img src="romashka.png" alt="" class="romashka" style="top:10%; left:5%; width:60px; transform:rotate(-5deg);">
-        <img src="romashka.png" alt="" class="romashka" style="top:15%; right:2%; width:45px; transform:rotate(10deg);">
-        <img src="romashka.png" alt="" class="romashka" style="bottom:20%; left:2%; width:90px; transform:rotate(-15deg);">
-        <img src="romashka.png" alt="" class="romashka" style="top:5%; left:30%; width:35px; transform:rotate(-25deg);">
-        <img src="romashka.png" alt="" class="romashka" style="bottom:22%; right:10%; width:75px; transform:rotate(5deg) translate(-75px, -150px);">
+        <!-- Ромашки УДАЛЕНЫ - теперь они в background-image -->
         
         <div class="institution-name">ГБУЗ МО МОКПТД</div>
         <h1>Справочник пациента</h1>
@@ -435,19 +426,9 @@
     </div>
 
     <script>
-        // ========== ПОКАЗЫВАЕМ РОМАШКИ ЧЕРЕЗ 1 СЕКУНДУ ==========
+        // ========== БЫСТРАЯ ЗАГРУЗКА БЕЗ РОМАШЕК ==========
         document.addEventListener('DOMContentLoaded', function() {
-            // Таймер на 1 секунду для показа ромашек
-            setTimeout(function() {
-                const header = document.getElementById('mainHeader');
-                if (header) {
-                    header.classList.add('romashka-visible');
-                    console.log('🌸 Ромашки появились!');
-                }
-            }, 1000);
-
-            // ========== ВЕСЬ ОСТАЛЬНОЙ JS ==========
-            console.log('Скрипт загружен');
+            console.log('Справочник пациента загружен');
             
             const cards = document.querySelectorAll('.card');
             const previewModal = document.getElementById('previewModal');
