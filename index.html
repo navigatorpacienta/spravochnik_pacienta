@@ -12,9 +12,9 @@
     <link rel="preload" href="fonts/inter-cyrillic-600-normal.woff2" as="font" type="font/woff2" crossorigin="anonymous">
     <link rel="preload" href="fonts/inter-cyrillic-700-normal.woff2" as="font" type="font/woff2" crossorigin="anonymous">
 
-    <!-- Preload ромашки (ТОЛЬКО ОДИН РАЗ) -->
-    <link rel="preload" href="romashka.png" as="image">
-
+    <!-- Preload ромашки - теперь каждая загружается параллельно -->
+    <link rel="preload" href="romashka.png" as="image" fetchpriority="high">
+    
     <style>
         /* ===== ШРИФТЫ ===== */
         @font-face {
@@ -93,13 +93,19 @@
             pointer-events: none;
         }
 
-        /* Ромашки - ИСПРАВЛЕНО: теперь все используют один фон вместо множества картинок */
-        .header {
-            background-image: url('romashka.png'), linear-gradient(135deg, var(--primary-deep) 0%, var(--primary-soft) 100%);
-            background-repeat: repeat;
-            background-size: 60px auto;
-            background-position: 0 0;
-            background-blend-mode: overlay;
+        /* Ромашки - теперь загружаются сразу, без задержки */
+        .header img.romashka {
+            position: absolute;
+            z-index: 0;
+            opacity: 0.12; /* Сразу видны */
+            width: auto;
+            height: auto;
+            pointer-events: none;
+        }
+        
+        /* Убираем transition и класс, который их прятал */
+        .header img.romashka {
+            opacity: 0.12;
         }
 
         .institution-name {
@@ -374,7 +380,12 @@
 </head>
 <body>
     <header class="header" id="mainHeader">
-        <!-- Ромашки УДАЛЕНЫ - теперь они в background-image -->
+        <!-- Ромашки ВОЗВРАЩЕНЫ и видны сразу -->
+        <img src="romashka.png" alt="" class="romashka" style="top:10%; left:5%; width:60px; transform:rotate(-5deg);" fetchpriority="high" loading="eager">
+        <img src="romashka.png" alt="" class="romashka" style="top:15%; right:2%; width:45px; transform:rotate(10deg);" fetchpriority="high" loading="eager">
+        <img src="romashka.png" alt="" class="romashka" style="bottom:20%; left:2%; width:90px; transform:rotate(-15deg);" fetchpriority="high" loading="eager">
+        <img src="romashka.png" alt="" class="romashka" style="top:5%; left:30%; width:35px; transform:rotate(-25deg);" fetchpriority="high" loading="eager">
+        <img src="romashka.png" alt="" class="romashka" style="bottom:22%; right:10%; width:75px; transform:rotate(5deg) translate(-75px, -150px);" fetchpriority="high" loading="eager">
         
         <div class="institution-name">ГБУЗ МО МОКПТД</div>
         <h1>Справочник пациента</h1>
@@ -426,7 +437,7 @@
     </div>
 
     <script>
-        // ========== БЫСТРАЯ ЗАГРУЗКА БЕЗ РОМАШЕК ==========
+        // ========== УПРОЩЕННЫЙ JS ==========
         document.addEventListener('DOMContentLoaded', function() {
             console.log('Справочник пациента загружен');
             
