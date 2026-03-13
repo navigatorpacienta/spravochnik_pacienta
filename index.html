@@ -66,7 +66,7 @@
             min-height: 100vh;
         }
 
-        /* ===== ХЕДЕР (без ромашек) ===== */
+        /* ===== ХЕДЕР ===== */
         .header {
             position: relative;
             text-align: center;
@@ -88,6 +88,22 @@
                         radial-gradient(circle at 80% 70%, rgba(212, 161, 94, 0.1) 0%, transparent 50%);
             z-index: 1;
             pointer-events: none;
+        }
+
+        /* Ромашки скрыты - появятся через 1 секунду */
+        .header img.romashka {
+            position: absolute;
+            z-index: 0;
+            opacity: 0;
+            width: auto;
+            height: auto;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        
+        /* Класс для показа ромашек */
+        .header.romashka-visible img.romashka {
+            opacity: 0.12;
         }
 
         .institution-name {
@@ -362,7 +378,12 @@
 </head>
 <body>
     <header class="header" id="mainHeader">
-        <!-- Ромашки полностью удалены, чтобы не было битых иконок -->
+        <!-- Ромашки есть, но alt пустой, чтобы не было надписи -->
+        <img src="romashka.png" alt="" class="romashka" style="top:10%; left:5%; width:60px; transform:rotate(-5deg);">
+        <img src="romashka.png" alt="" class="romashka" style="top:15%; right:2%; width:45px; transform:rotate(10deg);">
+        <img src="romashka.png" alt="" class="romashka" style="bottom:20%; left:2%; width:90px; transform:rotate(-15deg);">
+        <img src="romashka.png" alt="" class="romashka" style="top:5%; left:30%; width:35px; transform:rotate(-25deg);">
+        <img src="romashka.png" alt="" class="romashka" style="bottom:22%; right:10%; width:75px; transform:rotate(5deg) translate(-75px, -150px);">
         
         <div class="institution-name">ГБУЗ МО МОКПТД</div>
         <h1>Справочник пациента</h1>
@@ -414,8 +435,18 @@
     </div>
 
     <script>
-        // ========== ВЕСЬ JS БЕЗ ИЗМЕНЕНИЙ ==========
+        // ========== ПОКАЗЫВАЕМ РОМАШКИ ЧЕРЕЗ 1 СЕКУНДУ ==========
         document.addEventListener('DOMContentLoaded', function() {
+            // Таймер на 1 секунду для показа ромашек
+            setTimeout(function() {
+                const header = document.getElementById('mainHeader');
+                if (header) {
+                    header.classList.add('romashka-visible');
+                    console.log('🌸 Ромашки появились!');
+                }
+            }, 1000);
+
+            // ========== ВЕСЬ ОСТАЛЬНОЙ JS ==========
             console.log('Скрипт загружен');
             
             const cards = document.querySelectorAll('.card');
