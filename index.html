@@ -16,7 +16,7 @@
     <link rel="preload" href="romashka.png" as="image">
 
     <style>
-        /* ===== ШРИФТЫ ===== */
+                /* ===== ШРИФТЫ ===== */
         @font-face {
             font-family: 'Inter';
             src: url('./fonts/inter-cyrillic-400-normal.woff2') format('woff2');
@@ -71,71 +71,75 @@
 
         /* ===== ХЕДЕР ===== */
         .header {
-    position: relative;
-    text-align: center;
-    padding: 60px 30px;
-    color: white;
-    border-radius: 48px;
-    margin-bottom: 40px;
-    box-shadow: 0 15px 30px -10px rgba(32, 178, 170, 0.3);
-    isolation: isolate;
-    background: transparent; /* убираем фон отсюда */
-}
+            position: relative;
+            text-align: center;
+            padding: 60px 30px;
+            color: white;
+            border-radius: 48px;
+            margin-bottom: 40px;
+            box-shadow: 0 15px 30px -10px rgba(32, 178, 170, 0.3);
+            isolation: isolate;
+            overflow: hidden;
+        }
 
-/* Создаем отдельный слой для фона с ромашками */
-.header::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: url('romashka.png'), linear-gradient(135deg, var(--primary-deep) 0%, var(--primary-soft) 100%);
-    background-repeat: repeat;
-    background-size: 120px auto;
-    background-position: 0 0;
-    background-blend-mode: soft-light;
-    opacity: 0.7;  /* теперь прозрачность ТОЛЬКО у фона */
-    border-radius: 48px;
-    z-index: 1;
-    pointer-events: none;
-}
-
-/* Все содержимое поверх фона */
-.header > * {
-    position: relative;
-    z-index: 2;
-}
-
+        /* Градиентный фон */
         .header::before {
             content: '';
             position: absolute;
-            inset: 0;
-            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.2) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 70%, rgba(212, 161, 94, 0.1) 0%, transparent 50%);
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #1E8D8D 0%, #20B2AA 100%);
             z-index: 1;
+        }
+
+        /* Ромашки - очень бледные, еле заметные */
+        .header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('romashka.png');
+            background-repeat: repeat;
+            background-size: 120px auto;
+            background-position: 0 0;
+            opacity: 0.1;  /* очень бледно */
+            z-index: 2;
             pointer-events: none;
         }
 
-        /* Ромашки - ИСПРАВЛЕНО: теперь все используют один фон вместо множества картинок */
-        .header {
-    background-image: url('romashka.png'), linear-gradient(135deg, var(--primary-deep) 0%, var(--primary-soft) 100%);
-    background-repeat: repeat;
-    background-size: 120px auto;  /* крупнее = реже */
-    background-position: 0 0;
-    background-blend-mode: soft-light;  /* мягче */
-    opacity: 0.7;  /* бледнее */
-}
+        /* Блики */
+        .header-glow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.2) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 70%, rgba(212, 161, 94, 0.1) 0%, transparent 50%);
+            z-index: 3;
+            pointer-events: none;
+        }
+
+        /* Все содержимое поверх */
+        .header > *:not(.header-glow) {
+            position: relative;
+            z-index: 4;
+        }
 
         .institution-name {
             font-size: 1.2rem;
             margin-bottom: 20px;
-            font-weight: 500;
+            font-weight: 600;
             letter-spacing: 1px;
             text-transform: uppercase;
-            opacity: 0.9;
+            opacity: 1;  /* полностью непрозрачный */
             position: relative;
-            z-index: 2;
+            z-index: 4;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.3); /* тень для читаемости */
         }
 
         .header h1 {
@@ -145,23 +149,26 @@
             line-height: 1.1;
             letter-spacing: -0.02em;
             position: relative;
-            z-index: 2;
-            text-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            z-index: 4;
+            text-shadow: 0 4px 10px rgba(0,0,0,0.3); /* сильная тень */
         }
 
         .header p {
             font-size: 1.4rem;
-            font-weight: 400;
-            opacity: 0.95;
+            font-weight: 500;
+            opacity: 1;  /* полностью непрозрачный */
             max-width: 750px;
             margin: 0 auto;
             position: relative;
-            z-index: 2;
+            z-index: 4;
             line-height: 1.6;
-            background: rgba(255, 255, 255, 0.25);
+            background: rgba(255, 255, 255, 0.3);  /* более плотный фон */
             padding: 20px 35px;
             border-radius: 60px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            color: #FFFFFF;  /* ярко-белый */
+            text-shadow: 0 2px 5px rgba(0,0,0,0.3); /* тень */
+            backdrop-filter: blur(2px);  /* легкое размытие фона */
         }
 
         /* ===== СЕТКА КАРТОЧЕК ===== */
