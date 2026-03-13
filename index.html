@@ -104,12 +104,15 @@
     bottom: 0;
     background-image: url('romashka.png');
     background-repeat: repeat;
-    background-size: 80px auto;  /* чуть мельче для четкости */
+    background-size: 120px auto;
     background-position: 0 0;
-    opacity: 0.2;
+    opacity: 0.25;
     z-index: 2;
     pointer-events: none;
-    filter: drop-shadow(1px 1px 2px rgba(0,0,0,0.15)) drop-shadow(-1px -1px 2px rgba(255,255,255,0.15));
+    /* Эффект тиснения */
+    filter: drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.3)) 
+            drop-shadow(-2px -2px 3px rgba(255, 255, 255, 0.3));
+    mix-blend-mode: overlay;
 }
 
         /* Блики */
