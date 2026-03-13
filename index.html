@@ -5,57 +5,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <title>Навигатор пациента | ГБУЗ МО МОКПТД</title>
-  
+
+    <!-- Preload критических шрифтов (только используемые веса) -->
+    <link rel="preload" href="fonts/inter-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+    <link rel="preload" href="fonts/inter-cyrillic-500-normal.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+    <link rel="preload" href="fonts/inter-cyrillic-600-normal.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+    <link rel="preload" href="fonts/inter-cyrillic-700-normal.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+
     <style>
-        /* ===== ШРИФТЫ (локальные) – взяты из индекс 280 ===== */
+        /* ===== ШРИФТЫ (только нужные веса, пути без "./") ===== */
         @font-face {
             font-family: 'Inter';
-            src: url('./fonts/inter-cyrillic-400-normal.woff2') format('woff2');
+            src: url('fonts/inter-cyrillic-400-normal.woff2') format('woff2');
             font-weight: 400;
             font-style: normal;
             font-display: swap;
         }
         @font-face {
             font-family: 'Inter';
-            src: url('./fonts/inter-cyrillic-500-normal.woff2') format('woff2');
+            src: url('fonts/inter-cyrillic-500-normal.woff2') format('woff2');
             font-weight: 500;
             font-style: normal;
             font-display: swap;
         }
         @font-face {
             font-family: 'Inter';
-            src: url('./fonts/inter-cyrillic-600-normal.woff2') format('woff2');
+            src: url('fonts/inter-cyrillic-600-normal.woff2') format('woff2');
             font-weight: 600;
             font-style: normal;
             font-display: swap;
         }
         @font-face {
             font-family: 'Inter';
-            src: url('./fonts/inter-cyrillic-700-normal.woff2') format('woff2');
+            src: url('fonts/inter-cyrillic-700-normal.woff2') format('woff2');
             font-weight: 700;
             font-style: normal;
             font-display: swap;
         }
 
-        /* ===== НОВАЯ ЦВЕТОВАЯ ПАЛИТРА (бирюзовая, как в 280) ===== */
+        /* ===== ОПТИМИЗИРОВАННАЯ ЦВЕТОВАЯ ПАЛИТРА ===== */
         :root {
-            --primary-deep: #1E8D8D;        /* Глубокий бирюзовый */
-            --primary-soft: #20B2AA;        /* Light Sea Green */
-            --accent-emerald: #2CA8A0;
-            --accent-sage: #A9D4D0;
-            --accent-warm: #D4A15E;          /* тёплый янтарь – оставляем для контраста */
-
+            --primary-deep: #1E8D8D;
+            --primary-soft: #20B2AA;
             --bg-gradient-start: #F5F8FA;
             --bg-gradient-end: #EAF0F5;
-            --surface-frost: rgba(255, 255, 255, 0.9);
             --surface-white: #FFFFFF;
-
             --text-dark: #1A2A33;
-            --text-medium: #425A63;
             --text-light: #6F878F;
-
             --border-subtle: rgba(0, 0, 0, 0.06);
-            --shadow-elegant: 0 20px 40px -15px rgba(32, 178, 170, 0.25);
+            /* более легкие тени */
+            --shadow-light: 0 8px 20px -8px rgba(32, 178, 170, 0.2);
         }
 
         body {
@@ -67,9 +66,11 @@
             max-width: 1200px;
             margin: 0 auto;
             min-height: 100vh;
+            /* оптимизация: включаем ускорение для всего body, но аккуратно */
+            will-change: background; /* только если часто меняется фон, но здесь static */
         }
 
-        /* ===== СТЕКЛЯННЫЙ HEADER (как в 280) ===== */
+        /* ===== СТЕКЛЯННЫЙ HEADER (оптимизирован без backdrop-filter и сложных градиентов) ===== */
         .header {
             position: relative;
             text-align: center;
@@ -78,9 +79,12 @@
             color: white;
             border-radius: 48px;
             margin-bottom: 40px;
-            box-shadow: 0 25px 40px -15px rgba(32, 178, 170, 0.3);
+            /* более простая тень */
+            box-shadow: 0 15px 30px -10px rgba(32, 178, 170, 0.3);
             overflow: hidden;
             isolation: isolate;
+            /* подсказка для композитинга */
+            will-change: transform;
         }
 
         .header::before {
@@ -88,7 +92,7 @@
             position: absolute;
             inset: 0;
             background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.2) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 70%, rgba(212, 161, 94, 0.15) 0%, transparent 50%);
+                        radial-gradient(circle at 80% 70%, rgba(212, 161, 94, 0.1) 0%, transparent 50%);
             z-index: 1;
             pointer-events: none;
         }
@@ -96,10 +100,11 @@
         .header img.romashka {
             position: absolute;
             z-index: 0;
-            opacity: 0.15;
+            opacity: 0.12; /* чуть снизил для производительности */
             width: auto;
             height: auto;
             pointer-events: none;
+            /* убираем лишние трансформации для неподвижных элементов */
         }
 
         .institution-name {
@@ -121,7 +126,7 @@
             letter-spacing: -0.02em;
             position: relative;
             z-index: 2;
-            text-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            text-shadow: 0 2px 8px rgba(0,0,0,0.1); /* более легкая тень */
         }
 
         .header p {
@@ -133,14 +138,15 @@
             position: relative;
             z-index: 2;
             line-height: 1.6;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
+            /* заменяем backdrop-filter на полупрозрачный фон */
+            background: rgba(255, 255, 255, 0.25);
             padding: 20px 35px;
             border-radius: 60px;
-            border: 1px solid rgba(255, 255, 255, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            /* убираем blur, но оставляем легкую полупрозрачность */
         }
 
-        /* ===== СЕТКА КАРТОЧЕК (бирюзовый стиль) ===== */
+        /* ===== СЕТКА КАРТОЧЕК ===== */
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
@@ -152,9 +158,9 @@
             background: var(--surface-white);
             border-radius: 36px;
             padding: 30px;
-            box-shadow: var(--shadow-elegant);
+            box-shadow: var(--shadow-light); /* более легкая тень */
             border: 1px solid var(--border-subtle);
-            transition: all 0.3s ease;
+            transition: transform 0.2s ease, box-shadow 0.2s ease; /* оптимизация: только transform и box-shadow */
             cursor: pointer;
             text-decoration: none !important;
             min-height: 170px;
@@ -163,11 +169,13 @@
             justify-content: center;
             position: relative;
             overflow: hidden;
+            /* ускоряем анимацию transform */
+            will-change: transform;
         }
 
         .card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 30px 50px -20px var(--primary-deep);
+            transform: translateY(-4px); /* чуть меньше подъем */
+            box-shadow: 0 20px 30px -12px var(--primary-deep);
             border-color: var(--primary-soft);
         }
 
@@ -187,14 +195,15 @@
             align-items: center;
             justify-content: center;
             border-radius: 28px;
-            transition: all 0.3s ease;
+            transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
             flex-shrink: 0;
+            will-change: transform; /* для scale */
         }
 
         .card:hover .card-icon {
             background: var(--primary-soft);
             color: white;
-            transform: scale(1.05);
+            transform: scale(1.03); /* чуть меньше scale */
         }
 
         .card-title {
@@ -211,12 +220,11 @@
             font-weight: 600;
             margin-left: auto;
             opacity: 0.6;
-            transition: all 0.3s ease;
+            transition: opacity 0.2s ease;
         }
 
         .card.expandable:hover .card-header::after {
             opacity: 1;
-            transform: translateY(2px);
         }
 
         .card.expandable.expanded .card-header::after {
@@ -228,7 +236,7 @@
             list-style: none;
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.4s ease;
+            transition: max-height 0.3s ease;
             margin-top: 15px;
         }
 
@@ -245,7 +253,7 @@
             text-decoration: none;
             color: var(--text-dark);
             border-left: 4px solid var(--primary-soft);
-            transition: all 0.2s ease;
+            transition: background 0.2s ease, padding-left 0.2s ease, color 0.2s ease;
             font-size: 1.1rem;
             font-weight: 500;
             cursor: pointer;
@@ -255,7 +263,7 @@
             background: white;
             padding-left: 28px;
             color: var(--primary-deep);
-            box-shadow: 0 8px 16px -8px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 12px -4px rgba(0,0,0,0.1); /* легче тень */
         }
 
         .dropdown-toggle {
@@ -271,7 +279,7 @@
             transform: translateY(-50%);
             font-size: 0.8rem;
             color: var(--primary-soft);
-            transition: transform 0.3s ease;
+            transition: transform 0.2s ease;
         }
 
         .dropdown-toggle.expanded::after {
@@ -283,19 +291,19 @@
             background: white;
             border-radius: 20px;
             margin: 8px 0 15px 15px;
-            box-shadow: 0 8px 16px -8px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 12px -4px rgba(0,0,0,0.1);
             border: 1px solid var(--border-subtle);
             overflow: hidden;
         }
 
         .dropdown-content.show {
             display: block;
-            animation: fadeIn 0.2s ease;
+            animation: fadeIn 0.15s ease;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-5px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         .dropdown-item {
@@ -304,7 +312,7 @@
             text-decoration: none;
             color: var(--text-dark);
             border-bottom: 1px solid var(--border-subtle);
-            transition: all 0.2s ease;
+            transition: background 0.2s ease, padding-left 0.2s ease, color 0.2s ease;
             font-size: 1rem;
         }
 
@@ -318,12 +326,7 @@
             padding-left: 28px;
         }
 
-        .dropdown-item-icon {
-            margin-right: 12px;
-            font-size: 1rem;
-        }
-
-        /* ===== МОДАЛЬНЫЕ ОКНА (стиль 280) ===== */
+        /* ===== МОДАЛЬНЫЕ ОКНА (упрощены без backdrop-filter) ===== */
         .modal-preview {
             display: none;
             position: fixed;
@@ -331,11 +334,11 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.3);
+            background-color: rgba(0, 0, 0, 0.25); /* чуть светлее */
             z-index: 2000;
             align-items: center;
             justify-content: center;
-            backdrop-filter: blur(8px);
+            /* убираем backdrop-filter */
         }
 
         .modal-preview.active {
@@ -343,22 +346,21 @@
         }
 
         .modal-preview__content {
-            background: var(--surface-frost);
-            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.95); /* полупрозрачный белый без фильтра */
             width: 92%;
             max-width: 600px;
             max-height: 80vh;
             border-radius: 48px;
-            box-shadow: 0 40px 70px -20px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.3); /* легкая тень */
             padding: 40px 35px;
             position: relative;
             animation: modalFadeIn 0.2s ease;
             overflow-y: auto;
-            border: 1px solid rgba(255, 255, 255, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.8);
         }
 
         @keyframes modalFadeIn {
-            from { opacity: 0; transform: scale(0.95); }
+            from { opacity: 0; transform: scale(0.96); }
             to { opacity: 1; transform: scale(1); }
         }
 
@@ -370,7 +372,7 @@
             line-height: 1;
             cursor: pointer;
             color: var(--text-light);
-            background: rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.7);
             border: none;
             width: 50px;
             height: 50px;
@@ -379,7 +381,7 @@
             align-items: center;
             justify-content: center;
             z-index: 10;
-            transition: all 0.2s ease;
+            transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
         }
 
         .modal-preview__close:hover {
@@ -400,19 +402,19 @@
             padding: 22px 25px;
             border: 1px solid var(--border-subtle);
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: background 0.2s ease, transform 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
             font-size: 1.2rem;
             font-weight: 500;
             color: var(--text-dark);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
         }
 
         .section-item:hover {
             background: var(--primary-soft);
             color: white;
-            transform: translateX(8px);
+            transform: translateX(6px);
             border-color: transparent;
-            box-shadow: 0 15px 30px -12px var(--primary-soft);
+            box-shadow: 0 8px 20px -10px var(--primary-soft);
         }
 
         .preview-card {
@@ -444,15 +446,16 @@
             text-decoration: none;
             font-size: 1.1rem;
             border: none;
-            transition: all 0.2s ease;
+            transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
             text-align: center;
-            box-shadow: 0 15px 25px -10px var(--primary-soft);
+            box-shadow: 0 8px 18px -8px var(--primary-soft);
+            will-change: transform;
         }
 
         .preview-card__button:hover {
             background: var(--primary-deep);
-            transform: translateY(-2px);
-            box-shadow: 0 20px 30px -10px var(--primary-deep);
+            transform: translateY(-1px);
+            box-shadow: 0 12px 20px -8px var(--primary-deep);
         }
 
         .back-button {
@@ -466,26 +469,26 @@
             font-weight: 500;
             padding: 0 0 16px 0;
             cursor: pointer;
+            transition: color 0.2s ease;
         }
 
         .back-button:hover { 
             color: var(--primary-soft); 
         }
 
-        /* ===== ФУТЕР (в стиле 280) ===== */
+        /* ===== ФУТЕР (легкий) ===== */
         .footer {
             text-align: center;
             padding: 40px;
             margin-top: 70px;
-            color: var(--text-medium);
+            color: var(--text-light);
             border-top: 1px solid rgba(0,0,0,0.05);
             font-size: 1rem;
-            background: rgba(255, 255, 255, 0.3);
-            backdrop-filter: blur(5px);
+            background: rgba(255, 255, 255, 0.5); /* без фильтра */
             border-radius: 40px;
         }
 
-        /* ===== АДАПТИВНОСТЬ (как в 280) ===== */
+        /* ===== АДАПТИВНОСТЬ ===== */
         @media (max-width: 768px) {
             body { padding: 20px 15px; }
             
@@ -513,7 +516,7 @@
             .header h1 { font-size: 2.2rem; }
         }
 
-        /* ===== ЦЕНТРИРОВАНИЕ ПОСЛЕДНЕЙ КАРТОЧКИ (как в 943, только стиль) ===== */
+        /* центрирование последней карточки */
         .card.centered {
             grid-column: 1 / -1;
             justify-self: center;
@@ -534,8 +537,6 @@
         <h1>Справочник пациента</h1>
         <p>Помогает понять диагностику и лечение, следить за их этапами и выполнять всё правильно.</p>
     </header>
-
-    <!-- Контактный блок не добавляем (в 943 его не было) — только карточки, как в исходном 943 -->
 
     <div class="grid" id="cardGrid">
         <!-- КАРТОЧКА 1: Общая информация о туберкулезе -->
@@ -574,7 +575,7 @@
 
     <footer class="footer"><p>2026</p><p></p></footer>
 
-    <!-- Модальные окна (идентичны 943 по функционалу, стиль обновлён) -->
+    <!-- Модальные окна (без изменений в разметке) -->
     <div class="modal-preview" id="previewModal">
         <div class="modal-preview__content">
             <button class="modal-preview__close" id="closePreviewModal">&times;</button>
