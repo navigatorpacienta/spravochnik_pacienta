@@ -102,16 +102,15 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-image: url('romashka.png');
-    background-repeat: repeat;
-    background-size: 120px auto;
-    background-position: 0 0;
-    opacity: 0.25;
+    background: repeating-linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0.03) 0px,
+        rgba(255, 255, 255, 0.08) 2px,
+        transparent 2px,
+        transparent 8px
+    );
     z-index: 2;
     pointer-events: none;
-    /* Эффект тиснения */
-    filter: drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.3)) 
-            drop-shadow(-2px -2px 3px rgba(255, 255, 255, 0.3));
     mix-blend-mode: overlay;
 }
 
